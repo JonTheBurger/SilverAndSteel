@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "EditorConfig.EditorConfig",
+        "geequlim.godot-tools",
+        "ms-dotnettools.csdevkit",
+        "neikeq.godot-csharp-vscode"
+    ]
+}

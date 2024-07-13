@@ -1,0 +1,27 @@
+<Project Sdk="Godot.NET.Sdk/4.2.2">
+  <PropertyGroup>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <IsAotCompatible>true</IsAotCompatible>
+    <LangVersion>11.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <PublishAot>true</PublishAot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="addons\**" />
+    <Compile Remove="gdunit4_testadapter\**" />
+    <Compile Remove="tests\**" />
+    <EmbeddedResource Remove="addons\**" />
+    <EmbeddedResource Remove="gdunit4_testadapter\**" />
+    <EmbeddedResource Remove="tests\**" />
+    <TrimmerRootAssembly Include="GodotSharp" />
+    <TrimmerRootAssembly Include="$(TargetName)" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Lint'">
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+</Project>
