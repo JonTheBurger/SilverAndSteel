@@ -1,22 +1,6 @@
 ## Makefile Settings
 .PHONY: help clean format build
 .DEFAULT_GOAL := help
-# Detect build machine's OS
-ifeq ($(shell uname), Linux)
-	MACHINE_OS ?= lnx
-	PYTHON_BINDIR = bin
-	GDUNIT = ./addons/gdUnit4/runtest.sh -a tests
-endif
-ifeq ($(shell uname), Darwin)
-	MACHINE_OS ?= mac
-	PYTHON_BINDIR = bin
-	GDUNIT = ./addons/gdUnit4/runtest.sh -a tests
-endif
-ifndef MACHINE_OS
-	MACHINE_OS ?= win
-	PYTHON_BINDIR = Scripts
-	GDUNIT = .\addons\gdUnit4\runtest.cmd -a tests
-endif
 
 ## Variables
 # Name of Game
@@ -30,6 +14,22 @@ DOTNET ?= dotnet
 PYTHON ?= python
 # Git executable path; uses GIT environment variable, if present
 GIT ?= git
+# .venv/Scripts on Windows, .venv/bin in Unix
+PYTHON_BINDIR = bin
+# Unit test command
+GDUNIT = ./addons/gdUnit4/runtest.sh -a tests
+# Detect build machine's OS
+ifeq ($(shell uname), Linux)
+	MACHINE_OS ?= lnx
+endif
+ifeq ($(shell uname), Darwin)
+	MACHINE_OS ?= mac
+endif
+ifndef MACHINE_OS
+	MACHINE_OS ?= win
+	PYTHON_BINDIR = Scripts
+	GDUNIT = .\addons\gdUnit4\runtest.cmd -a tests
+endif
 
 ##@ Build
 build:  ## Compile code
@@ -39,7 +39,7 @@ export: export.${MACHINE_OS}  ## Export for the current platform
 
 export.win:  ## Export for Windows Desktop
 	mkdir -p build/windows
-	"${GODOT_BIN}" --headless --export-release "Windows Desktop" "build/windows/${GAME}.exe"
+	"${GODOT_BIN}" --headless --export-release "Windows Desktop"
 
 ##@ Quality
 format: ## Formats the sources
