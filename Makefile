@@ -16,8 +16,6 @@ PYTHON ?= python
 GIT ?= git
 # .venv/Scripts on Windows, .venv/bin in Unix
 PYTHON_BINDIR = bin
-# Unit test command
-GDUNIT = ./addons/gdUnit4/runtest.sh -a tests
 # Detect build machine's OS
 ifeq ($(shell uname), Linux)
 	MACHINE_OS ?= lnx
@@ -28,7 +26,6 @@ endif
 ifndef MACHINE_OS
 	MACHINE_OS ?= win
 	PYTHON_BINDIR = Scripts
-	GDUNIT = .\addons\gdUnit4\runtest.cmd -a tests
 endif
 
 ##@ Build
@@ -53,7 +50,7 @@ lint: ## Runs static analysis
 	.venv/${PYTHON_BINDIR}/format --check .
 
 test: ## Runs automated tests
-	${GDUNIT}
+	dotnet test
 
 ##@ Utility
 help:  ## Display this help
