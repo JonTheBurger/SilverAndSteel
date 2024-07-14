@@ -14,9 +14,11 @@
     <Compile Remove="addons\**" />
     <Compile Remove="gdunit4_testadapter\**" />
     <Compile Remove="tests\**" />
+    <Compile Remove="tools\templates\**" />
     <EmbeddedResource Remove="addons\**" />
     <EmbeddedResource Remove="gdunit4_testadapter\**" />
     <EmbeddedResource Remove="tests\**" />
+    <EmbeddedResource Remove="tools\templates\**" />
     <TrimmerRootAssembly Include="GodotSharp" />
     <TrimmerRootAssembly Include="$(TargetName)" />
   </ItemGroup>

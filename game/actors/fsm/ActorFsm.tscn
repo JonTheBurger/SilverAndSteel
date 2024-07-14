@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr6cqfscw4arb"]
+
+[ext_resource type="Script" path="res://game/actors/fsm/ActorFsm.cs" id="1_f8j4f"]
+
+[node name="ActorFsm" type="Node2D"]
+script = ExtResource("1_f8j4f")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 8

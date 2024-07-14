@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dq5klh6qvw3sk"]
 
 [ext_resource type="TileSet" uid="uid://ban2tauadeyj" path="res://game/world/OakHillsTileSet.tres" id="1_2hu42"]
-[ext_resource type="PackedScene" uid="uid://tvtt828ue3a" path="res://game/actors/Player.tscn" id="2_3t6rw"]
+[ext_resource type="PackedScene" uid="uid://tvtt828ue3a" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
 [ext_resource type="Script" path="res://game/ui/PlayerCamera.cs" id="3_yj7oe"]
 
 [node name="LevelTest" type="TileMap"]

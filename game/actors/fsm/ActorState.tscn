@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b82o24bhm0fnw"]
+
+[ext_resource type="Script" path="res://game/actors/fsm/ActorState.cs" id="1_i0uex"]
+
+[node name="ActorState" type="Node"]
+script = ExtResource("1_i0uex")

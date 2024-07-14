@@ -47,7 +47,7 @@ lint: .venv ## Runs static analysis
 	"${DOTNET}" build "${GAME}.csproj" --configuration Lint
 	"${DOTNET}" format "${GAME}.sln" --verify-no-changes
 	"${VENV_PYTHON}" -m gdtoolkit.linter .
-	"${VENV_PYTHON}" -m gdtoolkit.linter --check .
+	"${VENV_PYTHON}" -m gdtoolkit.formatter --check .
 
 test: ## Runs automated tests
 	dotnet test
