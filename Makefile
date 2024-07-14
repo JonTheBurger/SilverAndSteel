@@ -1,5 +1,5 @@
 ## Makefile Settings
-.PHONY: help clean format build
+.PHONY: bootstrap build clean distclean export export.win format lint test help setup
 .DEFAULT_GOAL := help
 
 ## Variables
@@ -15,7 +15,7 @@ PYTHON ?= python
 # Git executable path; uses GIT environment variable, if present
 GIT ?= git
 # .venv/Scripts on Windows, .venv/bin in Unix
-PYTHON_BINDIR = bin
+VENV_PYTHON ?= .venv/bin/python
 # Detect build machine's OS
 ifeq ($(shell uname), Linux)
 	MACHINE_OS ?= lnx
@@ -25,7 +25,7 @@ ifeq ($(shell uname), Darwin)
 endif
 ifndef MACHINE_OS
 	MACHINE_OS ?= win
-	PYTHON_BINDIR = Scripts
+	VENV_PYTHON = .venv/Scripts/python
 endif
 
 ##@ Build
@@ -39,15 +39,15 @@ export.win:  ## Export for Windows Desktop
 	"${GODOT_BIN}" --headless --export-release "Windows Desktop"
 
 ##@ Quality
-format: ## Formats the sources
+format: .venv ## Formats the sources
 	"${DOTNET}" format "${GAME}.sln"
-	.venv/${PYTHON_BINDIR}/gdformat .
+	"${VENV_PYTHON}" -m gdtoolkit.formatter .
 
-lint: ## Runs static analysis
+lint: .venv ## Runs static analysis
 	"${DOTNET}" build "${GAME}.csproj" --configuration Lint
 	"${DOTNET}" format "${GAME}.sln" --verify-no-changes
-	.venv/${PYTHON_BINDIR}/gdlint .
-	.venv/${PYTHON_BINDIR}/format --check .
+	"${VENV_PYTHON}" -m gdtoolkit.linter .
+	"${VENV_PYTHON}" -m gdtoolkit.linter --check .
 
 test: ## Runs automated tests
 	dotnet test
@@ -64,11 +64,13 @@ bootstrap: .bootstrap.${MACHINE_OS}  ## Perform once-per-machine setup (install 
 .bootstrap.mac:
 	bash tools/bootstrapping/install.sh
 
-setup:  ## Perform once-per-repo-clone setup (download per-project dependencies)
+.venv:
+	"${PYTHON}" -m venv .venv
+	"${VENV_PYTHON}" -m pip install "gdtoolkit==4.2.*"
+
+setup: .venv  ## Perform once-per-repo-clone setup (download per-project dependencies)
 	"${GIT}" lfs install
 	"${GIT}" submodule update --init --recursive
-	"${PYTHON}" -m venv .venv
-	.venv/${PYTHON_BINDIR}/python -m pip install "gdtoolkit==4.2.*"
 
 clean:  ## Delete build artifacts
 	"${DOTNET}" clean

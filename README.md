@@ -32,3 +32,14 @@ This will install:
 This project uses a top-level `Makefile` runner for convenience. Use
 `make setup` to setup `git` and install `gdtoolkit` into a `.venv`. Once this
 completes, simply open in the godot editor!
+
+# Asset Credits
+
+https://rvros.itch.io/animated-pixel-hero
+https://brullov.itch.io/oak-woods
+https://ansimuz.itch.io/warped-shooting-fx
+https://astrobob.itch.io/animated-pixel-art-skeleton
+https://luizmelo.itch.io/fire-worm
+https://clembod.itch.io/bringer-of-death-free
+https://shikashipx.itch.io/shikashis-fantasy-icons-pack
+https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
