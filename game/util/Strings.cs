@@ -2,7 +2,8 @@ using Godot;
 
 namespace Game;
 
-public static class Actions {
+public static class Actions
+{
     public static readonly StringName UP = "up";
     public static readonly StringName DOWN = "down";
     public static readonly StringName LEFT = "left";

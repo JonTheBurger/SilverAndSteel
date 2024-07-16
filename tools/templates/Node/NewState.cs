@@ -2,6 +2,7 @@ using Godot;
 
 namespace Game;
 
+[Icon("res://assets/img/icons/state.png")]
 public partial class _CLASS_ : State<Node>
 {
     // Assign this to Next to notify the state machine to transition

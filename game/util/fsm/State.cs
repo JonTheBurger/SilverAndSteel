@@ -3,9 +3,18 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class State<T> : Node
+public partial class State<T> : Node where T : Node
 {
-    public T? Target { get; set; }
+    /// <summary>
+    /// WARNING: Fsm _OnReady fills this in - it will only be null in the constructor
+    /// (i.e. when initializing other properties) or _OnReady().
+    /// </summary>
+    public T Target
+    {
+        get => _target ??= GetParent<Fsm<T>>().Target;
+        set => _target = value;
+    }
+    private T? _target;
 
     public State<T>? Next { get; set; } = null;
 

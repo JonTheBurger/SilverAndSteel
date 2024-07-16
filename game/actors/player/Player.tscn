@@ -279,6 +279,7 @@ libraries = {
 
 [node name="PlayerFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("3_sav00")]
 Current = NodePath("PlayerIdleState")
+LogTransitions = true
 
 [node name="PlayerIdleState" parent="PlayerFsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("4_j0r6w")]
 OnMove = NodePath("../PlayerRunState")
@@ -286,11 +287,17 @@ OnAttack = NodePath("../PlayerAttackState")
 OnJump = NodePath("../PlayerJumpState")
 OnFall = NodePath("../PlayerJumpState")
 
-[node name="PlayerRunState" parent="PlayerFsm" node_paths=PackedStringArray("OnStop") instance=ExtResource("5_yjqty")]
+[node name="PlayerRunState" parent="PlayerFsm" node_paths=PackedStringArray("OnStop", "OnJump", "OnAttack", "OnFall") instance=ExtResource("5_yjqty")]
 OnStop = NodePath("../PlayerIdleState")
+OnJump = NodePath("../PlayerJumpState")
+OnAttack = NodePath("../PlayerAttackState")
+OnFall = NodePath("../PlayerJumpState")
 
-[node name="PlayerAttackState" parent="PlayerFsm" instance=ExtResource("6_8fr4t")]
+[node name="PlayerAttackState" parent="PlayerFsm" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("6_8fr4t")]
+OnAttackComplete = NodePath("../PlayerIdleState")
 
 [node name="PlayerJumpState" parent="PlayerFsm" node_paths=PackedStringArray("OnLand") instance=ExtResource("7_10d35")]
 OnLand = NodePath("../PlayerIdleState")
 Animation = &"jump_air"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="PlayerFsm" method="OnAnimationFinished"]

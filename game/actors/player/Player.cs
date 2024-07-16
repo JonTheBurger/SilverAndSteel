@@ -10,7 +10,6 @@ public partial class Player : CharacterBody2D
     [Export]
     public float JumpVelocity { get; set; } = -150.0f;
 
-    [Export]
     public Sprite2D Sprite2D
     {
         get => _sprite2D ??= GetNode<Sprite2D>("Sprite2D");
@@ -18,7 +17,6 @@ public partial class Player : CharacterBody2D
     }
     private Sprite2D? _sprite2D;
 
-    [Export]
     public AnimationPlayer AnimationPlayer
     {
         get => _animationPlayer ??= GetNode<AnimationPlayer>("AnimationPlayer");
@@ -26,23 +24,40 @@ public partial class Player : CharacterBody2D
     }
     private AnimationPlayer? _animationPlayer;
 
+    public PlayerFsm PlayerFsm
+    {
+        get => _playerFsm ??= GetNode<PlayerFsm>("PlayerFsm");
+        set => _playerFsm = value;
+    }
+    private PlayerFsm? _playerFsm;
+
     [Signal]
     public delegate void TurnedAroundEventHandler(bool isFacingRight);
 
     private bool _isFacingRight = true;
 
+    public override void _Ready()
+    {
+        PlayerFsm.Target = this;
+    }
+
+    public void Move()
+    {
+        var velocity = Velocity;
+        Vector2 direction = Input.GetVector("left", "right", "up", "down");
+        if (direction != Vector2.Zero)
+        {
+            velocity.X = direction.X * Speed;
+        }
+        else
+        {
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+        }
+        Velocity = velocity;
+    }
+
     public override void _PhysicsProcess(double delta)
     {
-        // Vector2 direction = Input.GetVector("left", "right", "up", "down");
-        // if (direction != Vector2.Zero)
-        // {
-        //     velocity.X = direction.X * Speed;
-        // }
-        // else
-        // {
-        //     velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-        // }
-
         if (JustTurnedAround()) { TurnAround(); }
         MoveAndSlide();
     }

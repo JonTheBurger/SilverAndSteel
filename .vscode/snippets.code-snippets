@@ -7,9 +7,8 @@
     // Placeholders with the same ids are connected.
     "Export Node": {
         "scope": "csharp",
-        "prefix": "Lazy",
+        "prefix": "Child",
         "body": [
-            "[Export]",
             "public $1 $1",
             "{",
                 "get => _${1/^(.)(.*)$/${1:/downcase}${2}/} ??= GetNode<$1>(\"$1\");",
@@ -17,6 +16,6 @@
             "}",
             "private $1? _${1/^(.)(.*)$/${1:/downcase}${2}/};"
         ],
-        "description": "Creates an exportable node with auto lookup from the scene graph"
+        "description": "Automatically fetch a child node into a property"
     }
 }

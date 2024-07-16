@@ -33,6 +33,10 @@ This project uses a top-level `Makefile` runner for convenience. Use
 `make setup` to setup `git` and install `gdtoolkit` into a `.venv`. Once this
 completes, simply open in the godot editor!
 
+# TODO
+
+- `Fms.cs` just assumes node `"Label"` exists.
+
 # Asset Credits
 
 - [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono) used in engine UI

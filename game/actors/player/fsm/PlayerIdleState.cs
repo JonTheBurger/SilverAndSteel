@@ -1,9 +1,8 @@
-using System;
-
 using Godot;
 
 namespace Game;
 
+[Icon("res://assets/img/icons/state.png")]
 public partial class PlayerIdleState : State<Player>
 {
     [Export]
@@ -33,6 +32,15 @@ public partial class PlayerIdleState : State<Player>
 
     public override void ProcessPhysics(double delta)
     {
+        if (Input.IsActionPressed(Actions.LEFT))
+        {
+            Next = OnMove;
+        }
+        else if (Input.IsActionPressed(Actions.RIGHT))
+        {
+            Next = OnMove;
+        }
+
         if (!Target.IsOnFloor())
         {
             Next = OnFall;
@@ -51,14 +59,6 @@ public partial class PlayerIdleState : State<Player>
             {
                 Next = OnJump;
             }
-        }
-        else if (Input.IsActionJustPressed(Actions.LEFT))
-        {
-            Next = OnMove;
-        }
-        else if (Input.IsActionJustPressed(Actions.RIGHT))
-        {
-            Next = OnMove;
         }
     }
 }
