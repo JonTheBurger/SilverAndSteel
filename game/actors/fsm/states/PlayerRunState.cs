@@ -1,15 +1,16 @@
-using Godot;
 using System;
+
+using Godot;
 
 namespace Game;
 
-public partial class PlayerMoveState : ActorState
+public partial class PlayerRunState : ActorState
 {
     [Export]
     public ActorState? OnStop { get; set; }
 
     [Export]
-    public string Animation { get; set; } = "run";
+    public StringName Animation { get; set; } = "run";
 
     public override void OnEnter(ActorState previous)
     {
@@ -23,9 +24,9 @@ public partial class PlayerMoveState : ActorState
 
     public override void ProcessPhysics(double delta)
     {
-        if (Math.Abs(CharacterBody2D.Velocity.X) < 0.0001)
+        if (Math.Abs(Actor.Velocity.X) < 0.0001)
         {
-            Machine.Next = OnStop;
+            Next = OnStop;
         }
     }
 }

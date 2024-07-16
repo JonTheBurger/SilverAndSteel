@@ -35,11 +35,14 @@ completes, simply open in the godot editor!
 
 # Asset Credits
 
-https://rvros.itch.io/animated-pixel-hero
-https://brullov.itch.io/oak-woods
-https://ansimuz.itch.io/warped-shooting-fx
-https://astrobob.itch.io/animated-pixel-art-skeleton
-https://luizmelo.itch.io/fire-worm
-https://clembod.itch.io/bringer-of-death-free
-https://shikashipx.itch.io/shikashis-fantasy-icons-pack
-https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
+- [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono) used in engine UI
+  - Fsm, State
+- [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
+- [Oak Woods](https://brullov.itch.io/oak-woods) for tileset
+- https://ansimuz.itch.io/warped-shooting-fx
+- https://astrobob.itch.io/animated-pixel-art-skeleton
+- https://luizmelo.itch.io/fire-worm
+- https://clembod.itch.io/bringer-of-death-free
+- https://shikashipx.itch.io/shikashis-fantasy-icons-pack
+- https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
+

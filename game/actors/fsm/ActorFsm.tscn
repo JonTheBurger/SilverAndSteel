@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://game/actors/fsm/ActorFsm.cs" id="1_f8j4f"]
 
-[node name="ActorFsm" type="Node2D"]
+[node name="ActorFsm" type="Node2D" node_paths=PackedStringArray("Current")]
 script = ExtResource("1_f8j4f")
+Current = NodePath("")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0

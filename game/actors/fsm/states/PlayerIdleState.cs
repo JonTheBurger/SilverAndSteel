@@ -1,3 +1,5 @@
+using System;
+
 using Godot;
 
 namespace Game;
@@ -8,7 +10,16 @@ public partial class PlayerIdleState : ActorState
     public ActorState? OnMove { get; set; }
 
     [Export]
-    public string Animation { get; set; } = "idle";
+    public ActorState? OnAttack { get; set; }
+
+    [Export]
+    public ActorState? OnJump { get; set; }
+
+    [Export]
+    public ActorState? OnFall { get; set; }
+
+    [Export]
+    public StringName Animation { get; set; } = "idle";
 
     public override void OnEnter(ActorState previous)
     {
@@ -20,15 +31,34 @@ public partial class PlayerIdleState : ActorState
         AnimationPlayer?.Stop();
     }
 
+    public override void ProcessPhysics(double delta)
+    {
+        if (!Actor.IsOnFloor())
+        {
+            Next = OnFall;
+        }
+    }
+
     public override void ProcessInput(InputEvent input)
     {
-        if (Input.IsActionJustPressed("left"))
+        if (Input.IsActionJustPressed(Actions.ATTACK))
         {
-            Machine.Next = OnMove;
+            Next = OnAttack;
         }
-        else if (Input.IsActionJustPressed("right"))
+        else if (Input.IsActionJustPressed(Actions.JUMP))
         {
-            Machine.Next = OnMove;
+            if (Actor.IsOnFloor())
+            {
+                Next = OnJump;
+            }
+        }
+        else if (Input.IsActionJustPressed(Actions.LEFT))
+        {
+            Next = OnMove;
+        }
+        else if (Input.IsActionJustPressed(Actions.RIGHT))
+        {
+            Next = OnMove;
         }
     }
 }

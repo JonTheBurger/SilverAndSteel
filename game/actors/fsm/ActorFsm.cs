@@ -1,15 +1,15 @@
-using Godot;
 using System;
-using System.Diagnostics;
 using System.Linq;
+
+using Godot;
 
 namespace Game;
 
-[Icon("res://icon.svg")]
+[Icon("res://assets/img/icons/fsm.png")]
 public partial class ActorFsm : Node2D
 {
     [Export]
-    public CharacterBody2D CharacterBody2D
+    public CharacterBody2D Actor
     {
         get => _characterBody2D ??= GetParent<CharacterBody2D>();
         set => _characterBody2D = value;
@@ -26,11 +26,6 @@ public partial class ActorFsm : Node2D
 
     [Export]
     private ActorState Current { get; set; } = ActorState.NOP;
-
-    /// <summary>
-    /// Set this to transition on next _PhysicsProcess
-    /// </summary>
-    public ActorState? Next { get; set; } = null;
 
     public Label Label
     {
@@ -54,8 +49,8 @@ public partial class ActorFsm : Node2D
     [Export]
     bool LogTransitions { get; set; } = false;
 
-    ActorState _previous = ActorState.NOP;
-    ActorState[] _states = Array.Empty<ActorState>();
+    private ActorState _previous = ActorState.NOP;
+    private ActorState[] _states = Array.Empty<ActorState>();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -63,11 +58,18 @@ public partial class ActorFsm : Node2D
         _states = GetChildren().OfType<ActorState>().ToArray();
         foreach (var state in _states)
         {
-            state.CharacterBody2D = CharacterBody2D;
+            state.Actor = Actor;
             state.AnimationPlayer = AnimationPlayer;
         }
-        Label.Text = $"State: {Current.Name}";
+        if (AnimationPlayer != null) { AnimationPlayer.AnimationFinished += OnAnimationFinished; }
+        Label.Text = Current.Name;
         Label.Visible = ShowDebugLabel;
+    }
+
+    // Called when user input is detected; we only want States to process when they are active
+    public override void _Input(InputEvent @event)
+    {
+        Current.ProcessInput(@event);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -80,31 +82,31 @@ public partial class ActorFsm : Node2D
     public override void _PhysicsProcess(double delta)
     {
         Current.ProcessPhysics(delta);
-        if (Next != null)
+        ProcessTransition();
+    }
+
+    // Checks if a transition is necessary, running the OnExit/OnEnter functions as needed
+    private void ProcessTransition()
+    {
+        ActorState? next = Current.Next;
+        if (next != null)
         {
-            Transition();
+            if (LogTransitions) { GD.Print($"{Name}: {Current.Name} -> {next.Name}"); }
+            if (ShowDebugLabel) { Label.Text = next.Name; }
+
+            Current.OnExit(next);
+            next.Next = null;
+            next.OnEnter(Current);
+
+            _previous = Current;
+            Current.Next = null;
+            Current = next;
         }
     }
 
-    // Called when user input is detected; we only want States to process when they are active
-    public override void _Input(InputEvent @event)
+    // Notifies only the active state that an animation has completed
+    private void OnAnimationFinished(StringName animation)
     {
-        Current.ProcessInput(@event);
-    }
-
-    private void Transition()
-    {
-        Debug.Assert(Next != null);
-        Debug.Assert(ReferenceEquals(Next.Machine, this));
-        if (LogTransitions) { GD.Print($"{Name}: {Current.Name} -> {Next.Name}"); }
-
-        Current.OnExit(Next);
-        Next.OnEnter(Current);
-
-        _previous = Current;
-        Current = Next;
-        Next = null;
-
-        if (ShowDebugLabel) { Label.Text = $"State: {Current.Name}"; }
+        Current.OnAnimationFinished(animation);
     }
 }

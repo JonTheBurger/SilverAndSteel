@@ -2,12 +2,12 @@ using Godot;
 
 namespace Game;
 
-[Icon("res://icon.svg")]
+[Icon("res://assets/img/icons/state.png")]
 public partial class ActorState : Node
 {
-    public CharacterBody2D CharacterBody2D
+    public CharacterBody2D Actor
     {
-        get => _characterBody2D ??= GetParent<ActorFsm>().CharacterBody2D;
+        get => _characterBody2D ??= GetParent<ActorFsm>().Actor;
         set => _characterBody2D = value;
     }
     private CharacterBody2D? _characterBody2D;
@@ -20,10 +20,9 @@ public partial class ActorState : Node
     private AnimationPlayer? _animationPlayer;
 
     /// <summary>
-    /// Parent node, which must always be an instance of <see cref="ActorFsm"/>.
+    /// Set this to transition on next ActorFsm _PhysicsProcess
     /// </summary>
-    public ActorFsm Machine => _machine ??= GetParent<ActorFsm>();
-    private ActorFsm? _machine;
+    public ActorState? Next { get; set; } = null;
 
     /// <summary>
     /// Called when the state is about to become the current state.
@@ -38,6 +37,14 @@ public partial class ActorState : Node
     /// </summary>
     /// <param name="next">Next active state.</param>
     public virtual void OnExit(ActorState next)
+    {
+    }
+
+    /// <summary>
+    /// Called when an animation completes while this state is active.
+    /// </summary>
+    /// <param name="animation">Name of the completed animation.</param>
+    public virtual void OnAnimationFinished(StringName animation)
     {
     }
 
