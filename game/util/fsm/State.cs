@@ -3,32 +3,17 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class ActorState : Node
+public partial class State<T> : Node
 {
-    public CharacterBody2D Actor
-    {
-        get => _characterBody2D ??= GetParent<ActorFsm>().Actor;
-        set => _characterBody2D = value;
-    }
-    private CharacterBody2D? _characterBody2D;
+    public T? Target { get; set; }
 
-    public AnimationPlayer AnimationPlayer
-    {
-        get => _animationPlayer ??= GetParent<ActorFsm>().AnimationPlayer;
-        set => _animationPlayer = value;
-    }
-    private AnimationPlayer? _animationPlayer;
-
-    /// <summary>
-    /// Set this to transition on next ActorFsm _PhysicsProcess
-    /// </summary>
-    public ActorState? Next { get; set; } = null;
+    public State<T>? Next { get; set; } = null;
 
     /// <summary>
     /// Called when the state is about to become the current state.
     /// </summary>
     /// <param name="previous">Last active state.</param>
-    public virtual void OnEnter(ActorState previous)
+    public virtual void OnEnter(State<T> previous)
     {
     }
 
@@ -36,7 +21,7 @@ public partial class ActorState : Node
     /// Called when the state is about to become the pervious state.
     /// </summary>
     /// <param name="next">Next active state.</param>
-    public virtual void OnExit(ActorState next)
+    public virtual void OnExit(State<T> next)
     {
     }
 
@@ -77,6 +62,6 @@ public partial class ActorState : Node
     /// <summary>
     /// A NO-OP state; used for "Null Object Pattern" to avoid null checks.
     /// </summary>
-    public static ActorState NOP => s_null ??= new ActorState();
-    private static ActorState? s_null = null;
+    public static State<T> NOP => s_null ??= new State<T>();
+    private static State<T>? s_null = null;
 }

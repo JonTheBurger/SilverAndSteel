@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
-[ext_resource type="PackedScene" uid="uid://dr6cqfscw4arb" path="res://game/actors/fsm/ActorFsm.tscn" id="3_sav00"]
-[ext_resource type="PackedScene" uid="uid://dk5b1wutwq4vg" path="res://game/actors/fsm/states/PlayerIdleState.tscn" id="4_j0r6w"]
-[ext_resource type="PackedScene" uid="uid://3phl63y1d7rq" path="res://game/actors/fsm/states/PlayerRunState.tscn" id="5_yjqty"]
-[ext_resource type="PackedScene" uid="uid://5y1j3tgv0yw2" path="res://game/actors/fsm/states/PlayerAttackState.tscn" id="6_8fr4t"]
-[ext_resource type="PackedScene" uid="uid://chrmr35kjtvcn" path="res://game/actors/fsm/states/PlayerJumpState.tscn" id="7_10d35"]
+[ext_resource type="PackedScene" uid="uid://v2j0cjj173jv" path="res://game/actors/player/fsm/PlayerFsm.tscn" id="3_sav00"]
+[ext_resource type="PackedScene" uid="uid://dk5b1wutwq4vg" path="res://game/actors/player/fsm/PlayerIdleState.tscn" id="4_j0r6w"]
+[ext_resource type="PackedScene" uid="uid://3phl63y1d7rq" path="res://game/actors/player/fsm/PlayerRunState.tscn" id="5_yjqty"]
+[ext_resource type="PackedScene" uid="uid://5y1j3tgv0yw2" path="res://game/actors/player/fsm/PlayerAttackState.tscn" id="6_8fr4t"]
+[ext_resource type="PackedScene" uid="uid://chrmr35kjtvcn" path="res://game/actors/player/fsm/PlayerJumpState.tscn" id="7_10d35"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7d3va"]
 radius = 6.0
@@ -277,22 +277,20 @@ libraries = {
 "": SubResource("AnimationLibrary_1vsja")
 }
 
-[node name="ActorFsm" parent="." node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("3_sav00")]
-AnimationPlayer = NodePath("../AnimationPlayer")
+[node name="PlayerFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("3_sav00")]
 Current = NodePath("PlayerIdleState")
-ShowDebugLabel = true
 
-[node name="PlayerIdleState" parent="ActorFsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("4_j0r6w")]
+[node name="PlayerIdleState" parent="PlayerFsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("4_j0r6w")]
 OnMove = NodePath("../PlayerRunState")
 OnAttack = NodePath("../PlayerAttackState")
 OnJump = NodePath("../PlayerJumpState")
 OnFall = NodePath("../PlayerJumpState")
 
-[node name="PlayerRunState" parent="ActorFsm" node_paths=PackedStringArray("OnStop") instance=ExtResource("5_yjqty")]
+[node name="PlayerRunState" parent="PlayerFsm" node_paths=PackedStringArray("OnStop") instance=ExtResource("5_yjqty")]
 OnStop = NodePath("../PlayerIdleState")
 
-[node name="PlayerAttackState" parent="ActorFsm" instance=ExtResource("6_8fr4t")]
+[node name="PlayerAttackState" parent="PlayerFsm" instance=ExtResource("6_8fr4t")]
 
-[node name="PlayerJumpState" parent="ActorFsm" node_paths=PackedStringArray("OnLand") instance=ExtResource("7_10d35")]
+[node name="PlayerJumpState" parent="PlayerFsm" node_paths=PackedStringArray("OnLand") instance=ExtResource("7_10d35")]
 OnLand = NodePath("../PlayerIdleState")
 Animation = &"jump_air"

@@ -26,14 +26,6 @@ public partial class Player : CharacterBody2D
     }
     private AnimationPlayer? _animationPlayer;
 
-    [Export]
-    public ActorFsm ActorFsm
-    {
-        get => _actorFsm ??= GetNode<ActorFsm>("ActorFsm");
-        set => _actorFsm = value;
-    }
-    private ActorFsm? _actorFsm;
-
     [Signal]
     public delegate void TurnedAroundEventHandler(bool isFacingRight);
 
@@ -84,7 +76,6 @@ public partial class Player : CharacterBody2D
         {
             if (_sprite2D != null) { _sprite2D.Dispose(); _sprite2D = null; }
             if (_animationPlayer != null) { _animationPlayer.Dispose(); _animationPlayer = null; }
-            if (_actorFsm != null) { _actorFsm.Dispose(); _actorFsm = null; }
         }
     }
 }

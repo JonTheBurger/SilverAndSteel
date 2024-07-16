@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://v2j0cjj173jv"]
+
+[ext_resource type="Script" path="res://game/actors/player/fsm/PlayerFsm.cs" id="1_miv7m"]
+
+[node name="PlayerFsm" type="Node2D" node_paths=PackedStringArray("Current")]
+script = ExtResource("1_miv7m")
+Current = NodePath("")

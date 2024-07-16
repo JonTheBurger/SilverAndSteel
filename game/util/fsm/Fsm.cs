@@ -6,26 +6,17 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/fsm.png")]
-public partial class ActorFsm : Node2D
+public partial class Fsm<T> : Node2D where T : Node
 {
-    [Export]
-    public CharacterBody2D Actor
+    public T Target
     {
-        get => _characterBody2D ??= GetParent<CharacterBody2D>();
-        set => _characterBody2D = value;
+        get => _target ??= GetParent<T>();
+        set => _target = value;
     }
-    private CharacterBody2D? _characterBody2D;
+    private T? _target;
 
     [Export]
-    public AnimationPlayer AnimationPlayer
-    {
-        get => _animationPlayer ??= GetNode<AnimationPlayer>("../AnimationPlayer");
-        set => _animationPlayer = value;
-    }
-    private AnimationPlayer? _animationPlayer;
-
-    [Export]
-    private ActorState Current { get; set; } = ActorState.NOP;
+    private State<T> Current { get; set; } = State<T>.NOP;
 
     public Label Label
     {
@@ -49,19 +40,17 @@ public partial class ActorFsm : Node2D
     [Export]
     bool LogTransitions { get; set; } = false;
 
-    private ActorState _previous = ActorState.NOP;
-    private ActorState[] _states = Array.Empty<ActorState>();
+    private State<T> _previous = State<T>.NOP;
+    private State<T>[] _states = Array.Empty<State<T>>();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _states = GetChildren().OfType<ActorState>().ToArray();
+        _states = GetChildren().OfType<State<T>>().ToArray();
         foreach (var state in _states)
         {
-            state.Actor = Actor;
-            state.AnimationPlayer = AnimationPlayer;
+            state.Target = Target;
         }
-        if (AnimationPlayer != null) { AnimationPlayer.AnimationFinished += OnAnimationFinished; }
         Label.Text = Current.Name;
         Label.Visible = ShowDebugLabel;
     }
@@ -88,7 +77,7 @@ public partial class ActorFsm : Node2D
     // Checks if a transition is necessary, running the OnExit/OnEnter functions as needed
     private void ProcessTransition()
     {
-        ActorState? next = Current.Next;
+        State<T>? next = Current.Next;
         if (next != null)
         {
             if (LogTransitions) { GD.Print($"{Name}: {Current.Name} -> {next.Name}"); }
@@ -105,7 +94,7 @@ public partial class ActorFsm : Node2D
     }
 
     // Notifies only the active state that an animation has completed
-    private void OnAnimationFinished(StringName animation)
+    public void OnAnimationFinished(StringName animation)
     {
         Current.OnAnimationFinished(animation);
     }

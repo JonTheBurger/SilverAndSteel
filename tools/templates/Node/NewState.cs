@@ -2,23 +2,19 @@ using Godot;
 
 namespace Game;
 
-public partial class _CLASS_ : ActorState
+public partial class _CLASS_ : State<Node>
 {
     // Assign this to Next to notify the state machine to transition
     [Export]
     public ActorState? OnSomeEvent { get; set; }
 
-    // Consider using this.AnimationPlayer?.Play(Animation);
-    [Export]
-    public StringName Animation { get; set; } = "";
-
     // Called when the state is about to become the current state.
-    public override void OnEnter(ActorState previous)
+    public override void OnEnter(State<Node> previous)
     {
     }
 
     // Called when the state is about to become the pervious state
-    public override void OnExit(ActorState next)
+    public override void OnExit(State<Node> next)
     {
     }
 

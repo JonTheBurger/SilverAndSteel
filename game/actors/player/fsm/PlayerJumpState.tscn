@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://chrmr35kjtvcn"]
 
-[ext_resource type="Script" path="res://game/actors/fsm/states/PlayerJumpState.cs" id="1_ncd7b"]
+[ext_resource type="Script" path="res://game/actors/player/fsm/PlayerJumpState.cs" id="1_ncd7b"]
 
 [node name="PlayerJumpState" type="Node"]
 script = ExtResource("1_ncd7b")

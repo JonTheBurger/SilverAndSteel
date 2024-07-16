@@ -4,36 +4,36 @@ using Godot;
 
 namespace Game;
 
-public partial class PlayerIdleState : ActorState
+public partial class PlayerIdleState : State<Player>
 {
     [Export]
-    public ActorState? OnMove { get; set; }
+    public State<Player>? OnMove { get; set; }
 
     [Export]
-    public ActorState? OnAttack { get; set; }
+    public State<Player>? OnAttack { get; set; }
 
     [Export]
-    public ActorState? OnJump { get; set; }
+    public State<Player>? OnJump { get; set; }
 
     [Export]
-    public ActorState? OnFall { get; set; }
+    public State<Player>? OnFall { get; set; }
 
     [Export]
     public StringName Animation { get; set; } = "idle";
 
-    public override void OnEnter(ActorState previous)
+    public override void OnEnter(State<Player> previous)
     {
-        AnimationPlayer?.Play(Animation);
+        Target.AnimationPlayer?.Play(Animation);
     }
 
-    public override void OnExit(ActorState next)
+    public override void OnExit(State<Player> next)
     {
-        AnimationPlayer?.Stop();
+        Target.AnimationPlayer?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
     {
-        if (!Actor.IsOnFloor())
+        if (!Target.IsOnFloor())
         {
             Next = OnFall;
         }
@@ -47,7 +47,7 @@ public partial class PlayerIdleState : ActorState
         }
         else if (Input.IsActionJustPressed(Actions.JUMP))
         {
-            if (Actor.IsOnFloor())
+            if (Target.IsOnFloor())
             {
                 Next = OnJump;
             }

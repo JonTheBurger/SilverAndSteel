@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://5y1j3tgv0yw2"]
 
-[ext_resource type="Script" path="res://game/actors/fsm/states/PlayerAttackState.cs" id="1_eyj6g"]
+[ext_resource type="Script" path="res://game/actors/player/fsm/PlayerAttackState.cs" id="1_eyj6g"]
 
 [node name="PlayerAttackState" type="Node"]
 script = ExtResource("1_eyj6g")
