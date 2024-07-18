@@ -39,14 +39,13 @@ completes, simply open in the godot editor!
 
 # Asset Credits
 
-- [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono) used in engine UI
-  - Fsm, State
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
 - [Oak Woods](https://brullov.itch.io/oak-woods) for tileset
-- https://ansimuz.itch.io/warped-shooting-fx
-- https://astrobob.itch.io/animated-pixel-art-skeleton
+- [Skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton) enemy
+- [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono) used in engine UI
+  - Fsm, State
 - https://luizmelo.itch.io/fire-worm
 - https://clembod.itch.io/bringer-of-death-free
-- https://shikashipx.itch.io/shikashis-fantasy-icons-pack
 - https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack
-
+- https://ansimuz.itch.io/warped-shooting-fx
+- https://shikashipx.itch.io/shikashis-fantasy-icons-pack
