@@ -42,8 +42,11 @@ completes, simply open in the godot editor!
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
 - [Oak Woods](https://brullov.itch.io/oak-woods) for tileset
 - [Skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton) enemy
-- [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono) used in engine UI
-  - Fsm, State
+- Engine:
+    - [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono)
+      - Fsm, State
+    - [Bar Chart Icon by Andrean Prabowo](https://www.flaticon.com/free-icons/bar-chart) (flaticon.com)
+      - Stats
 - https://luizmelo.itch.io/fire-worm
 - https://clembod.itch.io/bringer-of-death-free
 - https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack

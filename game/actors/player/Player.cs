@@ -2,7 +2,7 @@ using Godot;
 
 namespace Game;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IActor
 {
     [Export]
     public float Speed { get; set; } = 200.0f;
@@ -37,6 +37,12 @@ public partial class Player : CharacterBody2D
         set => _sword = value;
     }
     private Area2D? _sword;
+
+    public Stats Stats
+    {
+        get => _stats ??= GetNode<Stats>("Stats");
+    }
+    private Stats? _stats;
 
     [Signal]
     public delegate void TurnedAroundEventHandler(bool isFacingRight);
@@ -73,7 +79,10 @@ public partial class Player : CharacterBody2D
     private void OnSwordHit(Node2D node)
     {
         if (node == this) { return; }
-        GD.Print(node.Name);
+        if (node is IActor actor)
+        {
+            actor.Stats.CalculateDamage(Stats);
+        }
     }
 
     private bool JustTurnedAround()

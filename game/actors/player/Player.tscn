@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://tvtt828ue3a"]
+[gd_scene load_steps=26 format=3 uid="uid://tvtt828ue3a"]
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
+[ext_resource type="PackedScene" uid="uid://ca6nlr8lll6xr" path="res://game/actors/Stats.tscn" id="2_c70ck"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
 [ext_resource type="PackedScene" uid="uid://v2j0cjj173jv" path="res://game/actors/player/fsm/PlayerFsm.tscn" id="3_sav00"]
 [ext_resource type="PackedScene" uid="uid://dk5b1wutwq4vg" path="res://game/actors/player/fsm/PlayerIdleState.tscn" id="4_j0r6w"]
@@ -289,6 +290,8 @@ size = Vector2(13, 33)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_qyb0e")
+
+[node name="Stats" parent="." instance=ExtResource("2_c70ck")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
