@@ -31,6 +31,13 @@ public partial class Player : CharacterBody2D
     }
     private PlayerFsm? _playerFsm;
 
+    public Area2D Sword
+    {
+        get => _sword ??= GetNode<Area2D>("Sword");
+        set => _sword = value;
+    }
+    private Area2D? _sword;
+
     [Signal]
     public delegate void TurnedAroundEventHandler(bool isFacingRight);
 
@@ -38,6 +45,7 @@ public partial class Player : CharacterBody2D
 
     public override void _Ready()
     {
+        Sword.BodyEntered += OnSwordHit;
         PlayerFsm.Target = this;
     }
 
@@ -60,6 +68,12 @@ public partial class Player : CharacterBody2D
     {
         if (JustTurnedAround()) { TurnAround(); }
         MoveAndSlide();
+    }
+
+    private void OnSwordHit(Node2D node)
+    {
+        if (node == this) { return; }
+        GD.Print(node.Name);
     }
 
     private bool JustTurnedAround()

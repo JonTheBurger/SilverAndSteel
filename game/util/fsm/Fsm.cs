@@ -51,8 +51,8 @@ public partial class Fsm<T> : Node2D where T : Node
         {
             state.Target = Target;
         }
-        Label.Text = Current.Name;
-        Label.Visible = ShowDebugLabel;
+        // Label.Text = Current.Name;
+        // Label.Visible = ShowDebugLabel;
     }
 
     // Called when user input is detected; we only want States to process when they are active

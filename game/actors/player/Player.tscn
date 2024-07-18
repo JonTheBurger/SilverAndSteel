@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://tvtt828ue3a"]
+[gd_scene load_steps=25 format=3 uid="uid://tvtt828ue3a"]
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
@@ -25,6 +25,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_cvf07"]
@@ -57,6 +69,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [42, 43, 44, 45, 46, 47]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sword/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_fuvbk"]
@@ -260,6 +284,9 @@ _data = {
 "win": SubResource("Animation_4g1xa")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6yvs"]
+size = Vector2(13, 33)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_qyb0e")
 
@@ -279,7 +306,6 @@ libraries = {
 
 [node name="PlayerFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("3_sav00")]
 Current = NodePath("PlayerIdleState")
-LogTransitions = true
 
 [node name="PlayerIdleState" parent="PlayerFsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("4_j0r6w")]
 OnMove = NodePath("../PlayerRunState")
@@ -299,5 +325,12 @@ OnAttackComplete = NodePath("../PlayerIdleState")
 [node name="PlayerJumpState" parent="PlayerFsm" node_paths=PackedStringArray("OnLand") instance=ExtResource("7_10d35")]
 OnLand = NodePath("../PlayerIdleState")
 Animation = &"jump_air"
+
+[node name="Sword" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(17.5, -2.5)
+shape = SubResource("RectangleShape2D_i6yvs")
+disabled = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayerFsm" method="OnAnimationFinished"]

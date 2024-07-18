@@ -26,6 +26,4 @@ drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
 [node name="Skeleton" parent="." instance=ExtResource("4_qg3qt")]
-position = Vector2(-128, 16)
-
-[connection signal="TurnedAround" from="Player" to="PlayerCamera" method="OnTurnAround"]
+position = Vector2(158, 15)
