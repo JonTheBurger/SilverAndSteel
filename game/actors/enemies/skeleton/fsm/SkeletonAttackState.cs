@@ -3,19 +3,19 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class _CLASS_ : State<Node>
+public partial class SkeletonAttackState : State<Skeleton>
 {
     // Assign this to Next to notify the state machine to transition
     [Export]
-    public State<Node>? OnSomeEvent { get; set; }
+    public State<Skeleton>? OnSomeEvent { get; set; }
 
     // Called when the state is about to become the current state.
-    public override void OnEnter(State<Node> previous)
+    public override void OnEnter(State<Skeleton> previous)
     {
     }
 
     // Called when the state is about to become the pervious state
-    public override void OnExit(State<Node> next)
+    public override void OnExit(State<Skeleton> next)
     {
     }
 
@@ -34,3 +34,4 @@ public partial class _CLASS_ : State<Node>
     {
     }
 }
+

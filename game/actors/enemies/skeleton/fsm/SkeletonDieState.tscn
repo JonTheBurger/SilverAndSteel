@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1q81n1nehe88"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/fsm/SkeletonDieState.cs" id="1_5h6vh"]
+
+[node name="SkeletonDieState" type="Node"]
+script = ExtResource("1_5h6vh")

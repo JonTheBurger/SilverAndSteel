@@ -49,6 +49,11 @@ folder_colors={
 settings/test/test_lookup_folder="tests"
 settings/test/test_discovery=true
 
+[global_group]
+
+enemies=""
+players=""
+
 [input]
 
 up={

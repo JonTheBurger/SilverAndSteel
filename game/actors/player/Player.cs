@@ -38,6 +38,13 @@ public partial class Player : CharacterBody2D, IActor
     }
     private Area2D? _sword;
 
+    public CollisionShape2D Hitbox
+    {
+        get => _hitbox ??= GetNode<CollisionShape2D>("Sword/Hitbox");
+        set => _hitbox = value;
+    }
+    private CollisionShape2D? _hitbox;
+
     public Stats Stats
     {
         get => _stats ??= GetNode<Stats>("Stats");
@@ -104,6 +111,7 @@ public partial class Player : CharacterBody2D, IActor
     {
         _isFacingRight = !_isFacingRight;
         Sprite2D.FlipH = !Sprite2D.FlipH;
+        Hitbox.Position = Hitbox.Position.FlippedX();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
     }
 

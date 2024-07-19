@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjeimbi08neqy"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/fsm/SkeletonFsm.cs" id="1_l1hb5"]
+
+[node name="SkeletonFsm" type="Node2D"]
+script = ExtResource("1_l1hb5")

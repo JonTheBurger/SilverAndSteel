@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${env:GODOT}",
+            "program": "${env:GODOT_BIN}",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

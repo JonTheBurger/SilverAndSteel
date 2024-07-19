@@ -53,6 +53,8 @@ public partial class Fsm<T> : Node2D where T : Node
         }
         // Label.Text = Current.Name;
         // Label.Visible = ShowDebugLabel;
+
+        ProcessTransition(Current);
     }
 
     // Called when user input is detected; we only want States to process when they are active
@@ -71,13 +73,12 @@ public partial class Fsm<T> : Node2D where T : Node
     public override void _PhysicsProcess(double delta)
     {
         Current.ProcessPhysics(delta);
-        ProcessTransition();
+        ProcessTransition(Current.Next);
     }
 
     // Checks if a transition is necessary, running the OnExit/OnEnter functions as needed
-    private void ProcessTransition()
+    private void ProcessTransition(State<T>? next)
     {
-        State<T>? next = Current.Next;
         if (next != null)
         {
             if (LogTransitions) { GD.Print($"{Name}: {Current.Name} -> {next.Name}"); }

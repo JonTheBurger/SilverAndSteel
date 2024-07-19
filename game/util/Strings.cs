@@ -11,3 +11,9 @@ public static class Actions
     public static readonly StringName ATTACK = "attack";
     public static readonly StringName JUMP = "jump";
 }
+
+public static class Groups
+{
+    public static readonly StringName PLAYERS = "players";
+    public static readonly StringName ENEMIES = "enemies";
+}

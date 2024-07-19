@@ -1,8 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://kv4hh4i42p7s"]
+[gd_scene load_steps=17 format=3 uid="uid://kv4hh4i42p7s"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
 [ext_resource type="Script" path="res://game/actors/Stats.cs" id="2_8vwdu"]
+[ext_resource type="PackedScene" uid="uid://cjeimbi08neqy" path="res://game/actors/enemies/skeleton/fsm/SkeletonFsm.tscn" id="4_g21o6"]
+[ext_resource type="PackedScene" uid="uid://bbeqm4anwb2dt" path="res://game/actors/enemies/skeleton/fsm/SkeletonIdleState.tscn" id="5_tj0tb"]
+[ext_resource type="PackedScene" uid="uid://hrwhwc33jabp" path="res://game/actors/enemies/skeleton/fsm/SkeletonAttackState.tscn" id="6_dm7sm"]
+[ext_resource type="PackedScene" uid="uid://c1q81n1nehe88" path="res://game/actors/enemies/skeleton/fsm/SkeletonDieState.tscn" id="7_tb7a8"]
+[ext_resource type="PackedScene" uid="uid://b700ax424tnex" path="res://game/actors/enemies/skeleton/fsm/SkeletonWalkState.tscn" id="8_a2a72"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkpb7"]
 radius = 7.0
@@ -119,7 +124,7 @@ _data = {
 "walk": SubResource("Animation_gtugf")
 }
 
-[node name="Skeleton" type="CharacterBody2D"]
+[node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_qixor")
 
 [node name="Stats" type="Node" parent="."]
@@ -141,3 +146,15 @@ frame = 39
 libraries = {
 "": SubResource("AnimationLibrary_dmnat")
 }
+
+[node name="SkeletonFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("4_g21o6")]
+Current = NodePath("SkeletonIdleState")
+LogTransitions = true
+
+[node name="SkeletonIdleState" parent="SkeletonFsm" instance=ExtResource("5_tj0tb")]
+
+[node name="SkeletonAttackState" parent="SkeletonFsm" instance=ExtResource("6_dm7sm")]
+
+[node name="SkeletonDieState" parent="SkeletonFsm" instance=ExtResource("7_tb7a8")]
+
+[node name="SkeletonWalkState" parent="SkeletonFsm" instance=ExtResource("8_a2a72")]
