@@ -14,9 +14,7 @@ public partial class PlayerAttackState : State<Player>
     public override void OnEnter(State<Player> previous)
     {
         Target.AnimationPlayer?.Play(Animation);
-        var velocity = Target.Velocity;
-        velocity.X = 0;
-        Target.Velocity = velocity;
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     public override void OnAnimationFinished(StringName animation)

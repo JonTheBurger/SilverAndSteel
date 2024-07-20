@@ -108,7 +108,7 @@ public partial class Player : CharacterBody2D, IActor
     {
         _isFacingRight = !_isFacingRight;
         Sprite2D.FlipH = !Sprite2D.FlipH;
-        Hitbox.Position = Hitbox.Position.FlippedX();
+        Hitbox.Position = Hitbox.Position.WithXFlipped();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
     }
 

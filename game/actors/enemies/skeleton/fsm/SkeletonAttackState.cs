@@ -14,9 +14,13 @@ public partial class SkeletonAttackState : State<Skeleton>
     [Export]
     public StringName Animation { get; set; } = "attack";
 
+    public Timer AttackDelayTimer => _attackDelayTimer ??= this.GetNodeOrCreate<Timer>("AttackDelayTimer");
+    private Timer? _attackDelayTimer;
+
     public override void OnEnter(State<Skeleton> previous)
     {
         Target.AnimationPlayer?.Play(Animation);
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     public override void OnExit(State<Skeleton> next)

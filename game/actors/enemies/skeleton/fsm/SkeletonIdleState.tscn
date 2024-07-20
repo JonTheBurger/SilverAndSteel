@@ -4,3 +4,7 @@
 
 [node name="SkeletonIdleState" type="Node"]
 script = ExtResource("1_prnbw")
+
+[node name="AttackDelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

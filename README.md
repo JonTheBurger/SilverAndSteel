@@ -33,6 +33,10 @@ This project uses a top-level `Makefile` runner for convenience. Use
 `make setup` to setup `git` and install `gdtoolkit` into a `.venv`. Once this
 completes, simply open in the godot editor!
 
+# Check List
+
+- [] 
+
 # Asset Credits
 
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist

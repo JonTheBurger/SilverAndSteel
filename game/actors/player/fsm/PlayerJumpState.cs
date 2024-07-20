@@ -16,9 +16,7 @@ public partial class PlayerJumpState : State<Player>
     public override void OnEnter(State<Player> previous)
     {
         Target.AnimationPlayer?.Play(Animation);
-        var velocity = Target.Velocity;
-        velocity.Y = -150.0f;
-        Target.Velocity = velocity;
+        Target.Velocity = Target.Velocity.WithY(-150.0f);
     }
 
     public override void OnExit(State<Player> next)

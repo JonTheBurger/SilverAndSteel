@@ -54,20 +54,21 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public override void _Ready()
     {
-        Stats.HpChanged += OnHpChanged;
+        // Stats.HpChanged += OnHpChanged;
         Fsm.Target = this;
         Player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
     }
 
     public override void _PhysicsProcess(double delta)
     {
+        MoveAndSlide();
         if (Player != null)
         {
-            if ((Player.Position.X < Position.X) && (_isFacingRight))
+            if ((Player.GlobalPosition.X < GlobalPosition.X) && (_isFacingRight))
             {
                 TurnAround();
             }
-            else if ((Player.Position.X > Position.X) && (!_isFacingRight))
+            else if ((Player.GlobalPosition.X > GlobalPosition.X) && (!_isFacingRight))
             {
                 TurnAround();
             }
@@ -76,19 +77,19 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public bool IsPlayerInRange()
     {
-        return (Player != null) && (Abs(Player.Position.X) - Abs(Position.X)) <= 50;
+        return (Player != null) && (Abs(Player.GlobalPosition.X - GlobalPosition.X) <= 25);
     }
 
     public bool IsPlayerOutOfRange()
     {
-        return (Player != null) && (Abs(Player.Position.X) - Abs(Position.X)) > 50;
+        return (Player != null) && (Abs(Player.GlobalPosition.X - GlobalPosition.X) > 25);
     }
 
     public void MoveTowardsPlayer()
     {
         if (Player == null) { return; }
 
-        var direction = new Vector2 { X = Position.X - Player.Position.X, Y = 0 };
+        var direction = (Player.GlobalPosition - GlobalPosition).Normalized();
         var velocity = Velocity;
         if (direction != Vector2.Zero)
         {
@@ -106,7 +107,7 @@ public partial class Skeleton : CharacterBody2D, IActor
     {
         _isFacingRight = !_isFacingRight;
         Sprite2D.FlipH = !Sprite2D.FlipH;
-        Hitbox.Position = Hitbox.Position.FlippedX();
+        Hitbox.GlobalPosition = Hitbox.GlobalPosition.WithXFlipped();
     }
 
     private void OnHpChanged(int hp)

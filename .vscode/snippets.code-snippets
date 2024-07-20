@@ -7,14 +7,10 @@
     // Placeholders with the same ids are connected.
     "Export Node": {
         "scope": "csharp",
-        "prefix": "Child",
+        "prefix": "GetCreateNode",
         "body": [
-            "public $1 $1",
-            "{",
-                "get => _${1/^(.)(.*)$/${1:/downcase}${2}/} ??= GetNode<$1>(\"$1\");",
-                "set => _${1/^(.)(.*)$/${1:/downcase}${2}/} = value;",
-            "}",
-            "private $1? _${1/^(.)(.*)$/${1:/downcase}${2}/};"
+            "public $1 $1 => _$1 ??= this.GetNodeOrCreate<Timer>(\"$1\");",
+            "private $1? _$1;"
         ],
         "description": "Automatically fetch a child node into a property"
     }
