@@ -1,8 +1,11 @@
 using Godot;
 
+using System;
+
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
+[Tool]
 public partial class SkeletonAttackState : State<Skeleton>
 {
     [Export]
@@ -12,24 +15,41 @@ public partial class SkeletonAttackState : State<Skeleton>
     public State<Skeleton>? OnHpZero { get; set; }
 
     [Export]
-    public StringName Animation { get; set; } = "attack";
+    public StringName AttackAnimation { get; set; } = "attack";
+
+    [Export]
+    public StringName WindupAnimation { get; set; } = "idle";
 
     public Timer AttackDelayTimer => _attackDelayTimer ??= this.GetNodeOrCreate<Timer>("AttackDelayTimer");
     private Timer? _attackDelayTimer;
+    bool _timerStarted;
+
+    public override void _Ready()
+    {
+        AttackDelayTimer.OneShot = true;
+        AttackDelayTimer.Timeout += () =>
+        {
+            Target.AnimationPlayer?.Play(AttackAnimation);
+        };
+    }
 
     public override void OnEnter(State<Skeleton> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        if (Target == null) { return; }
+        Target.AnimationPlayer?.Play(WindupAnimation);
+        AttackDelayTimer.Start(10 / Target.Stats.Speed);
         Target.Velocity = Target.Velocity.WithX(0);
     }
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target.AnimationPlayer?.Stop();
+        AttackDelayTimer.Stop();
+        Target?.AnimationPlayer?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
     {
+        if (Target == null) { return; }
         if (Target.Stats.Hp <= 0)
         {
             Next = OnHpZero;
@@ -38,6 +58,18 @@ public partial class SkeletonAttackState : State<Skeleton>
 
     public override void OnAnimationFinished(StringName animation)
     {
-        Next = OnAttackFinished;
+        if (animation == AttackAnimation)
+        {
+            Next = OnAttackFinished;
+        }
+    }
+
+    public override string[] _GetConfigurationWarnings()
+    {
+        if (AttackAnimation == WindupAnimation)
+        {
+            return new string[] { "Attack Animation and Windup Animation must be different!" };
+        }
+        return Array.Empty<string>();
     }
 }

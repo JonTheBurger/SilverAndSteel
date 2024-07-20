@@ -3,6 +3,7 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
+[Tool]
 public partial class SkeletonWalkState : State<Skeleton>
 {
     [Export]
@@ -16,16 +17,18 @@ public partial class SkeletonWalkState : State<Skeleton>
 
     public override void OnEnter(State<Skeleton> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        Target?.AnimationPlayer?.Play(Animation);
     }
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target.AnimationPlayer?.Stop();
+        Target?.AnimationPlayer?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
     {
+        if (Target == null) { return; }
+
         // TODO: Check that the floor is still there before moving
         Target.MoveTowardsPlayer();
 

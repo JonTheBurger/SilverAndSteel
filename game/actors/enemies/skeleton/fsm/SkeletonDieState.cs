@@ -3,6 +3,7 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
+[Tool]
 public partial class SkeletonDieState : State<Skeleton>
 {
     [Export]
@@ -16,11 +17,11 @@ public partial class SkeletonDieState : State<Skeleton>
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target.AnimationPlayer?.Stop();
+        Target?.AnimationPlayer?.Stop();
     }
 
     public override void OnAnimationFinished(StringName animation)
     {
-        Target.QueueFree();
+        Target?.QueueFree();
     }
 }

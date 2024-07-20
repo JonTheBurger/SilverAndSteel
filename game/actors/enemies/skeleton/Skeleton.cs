@@ -52,9 +52,18 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     private Vector2 _direction = Vector2.Right;
 
+    public override void _EnterTree()
+    {
+        GetNode<SkeletonFsm>("SkeletonFsm").Target = this;
+    }
+
     public override void _Ready()
     {
-        // Stats.HpChanged += OnHpChanged;
+        Logger.Global.Debug("Debug");
+        Logger.Global.Info("Info");
+        Logger.Global.Trace("Trace");
+        Logger.Global.Warning("Warning");
+        Stats.HpChanged += OnHpChanged;
         Fsm.Target = this;
         Player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
     }

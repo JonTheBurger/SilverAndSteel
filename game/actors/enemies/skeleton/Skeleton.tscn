@@ -196,9 +196,9 @@ libraries = {
 "": SubResource("AnimationLibrary_dmnat")
 }
 
-[node name="SkeletonFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("4_g21o6")]
+[node name="SkeletonFsm" parent="." node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
+AnimationPlayer = NodePath("../AnimationPlayer")
 Current = NodePath("SkeletonIdleState")
-LogTransitions = true
 
 [node name="SkeletonIdleState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
 OnPlayerInRange = NodePath("../SkeletonAttackState")
