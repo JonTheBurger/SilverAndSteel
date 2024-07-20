@@ -26,4 +26,4 @@ drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
 [node name="Skeleton" parent="." instance=ExtResource("4_qg3qt")]
-position = Vector2(158, 15)
+position = Vector2(-80, 17)

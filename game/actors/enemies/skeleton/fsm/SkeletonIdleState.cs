@@ -6,7 +6,13 @@ namespace Game;
 public partial class SkeletonIdleState : State<Skeleton>
 {
     [Export]
-    public State<Skeleton>? OnMove { get; set; }
+    public State<Skeleton>? OnPlayerInRange { get; set; }
+
+    [Export]
+    public State<Skeleton>? OnPlayerOutOfRange { get; set; }
+
+    [Export]
+    public State<Skeleton>? OnHpZero { get; set; }
 
     [Export]
     public StringName Animation { get; set; } = "idle";
@@ -19,5 +25,22 @@ public partial class SkeletonIdleState : State<Skeleton>
     public override void OnExit(State<Skeleton> next)
     {
         Target.AnimationPlayer?.Stop();
+    }
+
+    public override void ProcessPhysics(double delta)
+    {
+        if (Target.Stats.Hp <= 0)
+        {
+            Next = OnHpZero;
+        }
+        else if (Target.IsPlayerInRange())
+        {
+            // TODO: Start timer before attacking
+            Next = OnPlayerInRange;
+        }
+        else if (Target.IsPlayerOutOfRange())
+        {
+            Next = OnPlayerOutOfRange;
+        }
     }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kv4hh4i42p7s"]
+[gd_scene load_steps=18 format=3 uid="uid://kv4hh4i42p7s"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
@@ -27,6 +27,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [39]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mace/Hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mace/Hitbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(21, -8)]
+}
 
 [sub_resource type="Animation" id="Animation_1cq7q"]
 resource_name = "attack"
@@ -43,6 +67,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 3, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mace/Hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mace/Hitbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(21, -8), Vector2(21, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_2nvth"]
@@ -124,6 +172,9 @@ _data = {
 "walk": SubResource("Animation_gtugf")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
+size = Vector2(22, 24)
+
 [node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_qixor")
 
@@ -151,10 +202,27 @@ libraries = {
 Current = NodePath("SkeletonIdleState")
 LogTransitions = true
 
-[node name="SkeletonIdleState" parent="SkeletonFsm" instance=ExtResource("5_tj0tb")]
+[node name="SkeletonIdleState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
+OnPlayerInRange = NodePath("../SkeletonAttackState")
+OnPlayerOutOfRange = NodePath("../SkeletonWalkState")
+OnHpZero = NodePath("../SkeletonDieState")
 
-[node name="SkeletonAttackState" parent="SkeletonFsm" instance=ExtResource("6_dm7sm")]
+[node name="SkeletonAttackState" parent="SkeletonFsm" node_paths=PackedStringArray("OnAttackFinished", "OnHpZero") instance=ExtResource("6_dm7sm")]
+OnAttackFinished = NodePath("../SkeletonIdleState")
+OnHpZero = NodePath("../SkeletonDieState")
 
 [node name="SkeletonDieState" parent="SkeletonFsm" instance=ExtResource("7_tb7a8")]
 
-[node name="SkeletonWalkState" parent="SkeletonFsm" instance=ExtResource("8_a2a72")]
+[node name="SkeletonWalkState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnHpZero") instance=ExtResource("8_a2a72")]
+OnPlayerInRange = NodePath("../SkeletonAttackState")
+OnHpZero = NodePath("../SkeletonDieState")
+
+[node name="Mace" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Mace"]
+position = Vector2(21, -8)
+shape = SubResource("RectangleShape2D_dvott")
+disabled = true
+debug_color = Color(1, 0, 0, 0.392157)
+
+[node name="DetectionRadius" type="Area2D" parent="."]

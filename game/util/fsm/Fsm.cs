@@ -51,6 +51,8 @@ public partial class Fsm<T> : Node2D where T : Node
         {
             state.Target = Target;
         }
+
+        // TODO: We just assume node `"Label"` exists.
         // Label.Text = Current.Name;
         // Label.Visible = ShowDebugLabel;
 

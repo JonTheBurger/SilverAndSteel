@@ -5,9 +5,6 @@ namespace Game;
 public partial class Player : CharacterBody2D, IActor
 {
     [Export]
-    public float Speed { get; set; } = 200.0f;
-
-    [Export]
     public float JumpVelocity { get; set; } = -150.0f;
 
     public Sprite2D Sprite2D
@@ -68,11 +65,11 @@ public partial class Player : CharacterBody2D, IActor
         Vector2 direction = Input.GetVector("left", "right", "up", "down");
         if (direction != Vector2.Zero)
         {
-            velocity.X = direction.X * Speed;
+            velocity.X = direction.X * Stats.Speed;
         }
         else
         {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+            velocity.X = Mathf.MoveToward(Velocity.X, 0, Stats.Speed);
         }
         Velocity = velocity;
     }

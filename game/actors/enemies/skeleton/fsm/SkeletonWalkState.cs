@@ -5,33 +5,37 @@ namespace Game;
 [Icon("res://assets/img/icons/state.png")]
 public partial class SkeletonWalkState : State<Skeleton>
 {
-    // Assign this to Next to notify the state machine to transition
     [Export]
-    public State<Skeleton>? OnSomeEvent { get; set; }
+    public State<Skeleton>? OnPlayerInRange { get; set; }
 
-    // Called when the state is about to become the current state.
+    [Export]
+    public State<Skeleton>? OnHpZero { get; set; }
+
+    [Export]
+    public StringName Animation { get; set; } = "walk";
+
     public override void OnEnter(State<Skeleton> previous)
     {
+        Target.AnimationPlayer?.Play(Animation);
     }
 
-    // Called when the state is about to become the pervious state
     public override void OnExit(State<Skeleton> next)
     {
+        Target.AnimationPlayer?.Stop();
     }
 
-    // Called every graphics frame while this state is active. 'delta' is in seconds.
-    public override void Process(double delta)
-    {
-    }
-
-    // Called every physics frame while this state is active. 'delta' is in seconds.
     public override void ProcessPhysics(double delta)
     {
-    }
+        // TODO: Check that the floor is still there before moving
+        Target.MoveTowardsPlayer();
 
-    // Called when user input is detected and this state is active.
-    public override void ProcessInput(InputEvent input)
-    {
+        if (Target.Stats.Hp <= 0)
+        {
+            Next = OnHpZero;
+        }
+        else if (Target.IsPlayerInRange())
+        {
+            Next = OnPlayerInRange;
+        }
     }
 }
-

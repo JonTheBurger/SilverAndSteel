@@ -18,6 +18,9 @@ public partial class Stats : Node
     [Export]
     public int Str { get; set; } = 50;
 
+    [Export]
+    public float Speed { get; set; } = 200.0f;
+
     [Signal]
     public delegate void HpChangedEventHandler(int hp);
 

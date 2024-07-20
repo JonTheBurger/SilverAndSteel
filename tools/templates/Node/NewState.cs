@@ -5,17 +5,28 @@ namespace Game;
 [Icon("res://assets/img/icons/state.png")]
 public partial class _CLASS_ : State<Node>
 {
-    // Assign this to Next to notify the state machine to transition
+    // Assign this to Next to notify the state machine to transition.
     [Export]
     public State<Node>? OnSomeEvent { get; set; }
+
+    // States often play animations OnEnter and stop them OnExit.
+    [Export]
+    public StringName Animation { get; set; } = "idle";
 
     // Called when the state is about to become the current state.
     public override void OnEnter(State<Node> previous)
     {
+        // Target.AnimationPlayer?.Play(Animation);
     }
 
-    // Called when the state is about to become the pervious state
+    // Called when the state is about to become the pervious state.
     public override void OnExit(State<Node> next)
+    {
+        // Target.AnimationPlayer?.Stop();
+    }
+
+    // Called when an animation completes while this state is active.
+    public override void OnAnimationFinished(StringName animation)
     {
     }
 
