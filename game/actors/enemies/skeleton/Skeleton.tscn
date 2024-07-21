@@ -30,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Mace/Hitbox:disabled")
+tracks/1/path = NodePath("Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Mace/Hitbox:position")
+tracks/2/path = NodePath("Weapon/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -70,7 +70,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Mace/Hitbox:disabled")
+tracks/1/path = NodePath("Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -82,7 +82,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Mace/Hitbox:position")
+tracks/2/path = NodePath("Weapon/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -215,9 +215,9 @@ OnHpZero = NodePath("../SkeletonDieState")
 OnPlayerInRange = NodePath("../SkeletonAttackState")
 OnHpZero = NodePath("../SkeletonDieState")
 
-[node name="Mace" type="Area2D" parent="."]
+[node name="Weapon" type="Area2D" parent="."]
 
-[node name="Hitbox" type="CollisionShape2D" parent="Mace"]
+[node name="Hitbox" type="CollisionShape2D" parent="Weapon"]
 position = Vector2(21, -8)
 shape = SubResource("RectangleShape2D_dvott")
 disabled = true

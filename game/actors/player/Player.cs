@@ -28,16 +28,16 @@ public partial class Player : CharacterBody2D, IActor
     }
     private PlayerFsm? _playerFsm;
 
-    public Area2D Sword
+    public Area2D Weapon
     {
-        get => _sword ??= GetNode<Area2D>("Sword");
-        set => _sword = value;
+        get => _weapon ??= GetNode<Area2D>("Weapon");
+        set => _weapon = value;
     }
-    private Area2D? _sword;
+    private Area2D? _weapon;
 
     public CollisionShape2D Hitbox
     {
-        get => _hitbox ??= GetNode<CollisionShape2D>("Sword/Hitbox");
+        get => _hitbox ??= GetNode<CollisionShape2D>("Weapon/Hitbox");
         set => _hitbox = value;
     }
     private CollisionShape2D? _hitbox;
@@ -55,7 +55,7 @@ public partial class Player : CharacterBody2D, IActor
 
     public override void _Ready()
     {
-        Sword.BodyEntered += OnSwordHit;
+        Weapon.BodyEntered += OnWeaponHit;
         PlayerFsm.Target = this;
     }
 
@@ -80,7 +80,7 @@ public partial class Player : CharacterBody2D, IActor
         MoveAndSlide();
     }
 
-    private void OnSwordHit(Node2D node)
+    private void OnWeaponHit(Node2D node)
     {
         if (node == this) { return; }
         if (node is IActor actor)
@@ -107,8 +107,9 @@ public partial class Player : CharacterBody2D, IActor
     private void TurnAround()
     {
         _isFacingRight = !_isFacingRight;
-        Sprite2D.FlipH = !Sprite2D.FlipH;
-        Hitbox.Position = Hitbox.Position.WithXFlipped();
+        Scale = Scale.WithXFlipped();
+        // Sprite2D.FlipH = !Sprite2D.FlipH;
+        // Weapon.Scale = Weapon.Scale.WithXFlipped();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
     }
 

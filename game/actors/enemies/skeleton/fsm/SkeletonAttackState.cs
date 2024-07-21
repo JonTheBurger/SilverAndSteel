@@ -27,10 +27,7 @@ public partial class SkeletonAttackState : State<Skeleton>
     public override void _Ready()
     {
         AttackDelayTimer.OneShot = true;
-        AttackDelayTimer.Timeout += () =>
-        {
-            Target.AnimationPlayer?.Play(AttackAnimation);
-        };
+        AttackDelayTimer.Timeout += () => Target?.AnimationPlayer?.Play(AttackAnimation);
     }
 
     public override void OnEnter(State<Skeleton> previous)

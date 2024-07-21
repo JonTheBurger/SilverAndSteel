@@ -5,12 +5,13 @@ public static class Extensions
     #region Node
     public static T GetNodeOrCreate<T>(this Node self, NodePath path) where T : Node, new()
     {
-        if (self.GetNode(path) is not T node)
+        T? child = self.GetNodeOrNull<T>(path);
+        if (child == null)
         {
-            node = new T();
-            self.AddChild(node);
+            child = new T();
+            self.AddChild(child);
         }
-        return node;
+        return child;
     }
     #endregion
 

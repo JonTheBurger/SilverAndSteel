@@ -30,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Hitbox:disabled")
+tracks/1/path = NodePath("Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -74,7 +74,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sword/Hitbox:disabled")
+tracks/1/path = NodePath("Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -329,11 +329,12 @@ OnAttackComplete = NodePath("../PlayerIdleState")
 OnLand = NodePath("../PlayerIdleState")
 Animation = &"jump_air"
 
-[node name="Sword" type="Area2D" parent="."]
+[node name="Weapon" type="Area2D" parent="."]
 
-[node name="Hitbox" type="CollisionShape2D" parent="Sword"]
+[node name="Hitbox" type="CollisionShape2D" parent="Weapon"]
 position = Vector2(17.5, -2.5)
 shape = SubResource("RectangleShape2D_i6yvs")
 disabled = true
+debug_color = Color(1, 0, 0, 0.392157)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="PlayerFsm" method="OnAnimationFinished"]

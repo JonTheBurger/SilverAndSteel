@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 using Godot;
@@ -36,16 +37,16 @@ public partial class Skeleton : CharacterBody2D, IActor
     }
     private SkeletonFsm? _fsm;
 
-    public Area2D Mace
+    public Area2D Weapon
     {
-        get => _mace ??= GetNode<Area2D>("Mace");
-        set => _mace = value;
+        get => _weapon ??= GetNode<Area2D>("Weapon");
+        set => _weapon = value;
     }
-    private Area2D? _mace;
+    private Area2D? _weapon;
 
     public CollisionShape2D Hitbox
     {
-        get => _hitbox ??= GetNode<CollisionShape2D>("Mace/Hitbox");
+        get => _hitbox ??= GetNode<CollisionShape2D>("Weapon/Hitbox");
         set => _hitbox = value;
     }
     private CollisionShape2D? _hitbox;
@@ -59,13 +60,19 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public override void _Ready()
     {
-        Logger.Global.Debug("Debug");
-        Logger.Global.Info("Info");
-        Logger.Global.Trace("Trace");
-        Logger.Global.Warning("Warning");
         Stats.HpChanged += OnHpChanged;
+        Weapon.BodyEntered += OnWeaponHit;
         Fsm.Target = this;
         Player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
+    }
+
+    private void OnWeaponHit(Node2D node)
+    {
+        if (node == this) { return; }
+        if (node is Player player)
+        {
+            Logger.Global.Debug($"{Name} hit Player!");
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -115,8 +122,9 @@ public partial class Skeleton : CharacterBody2D, IActor
     private void TurnAround()
     {
         _isFacingRight = !_isFacingRight;
-        Sprite2D.FlipH = !Sprite2D.FlipH;
-        Hitbox.GlobalPosition = Hitbox.GlobalPosition.WithXFlipped();
+        Scale = Scale.WithXFlipped();
+        // Sprite2D.FlipH = !Sprite2D.FlipH;
+        // Weapon.Scale = Weapon.Scale.WithXFlipped();
     }
 
     private void OnHpChanged(int hp)
