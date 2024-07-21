@@ -108,8 +108,6 @@ public partial class Player : CharacterBody2D, IActor
     {
         _isFacingRight = !_isFacingRight;
         Scale = Scale.WithXFlipped();
-        // Sprite2D.FlipH = !Sprite2D.FlipH;
-        // Weapon.Scale = Weapon.Scale.WithXFlipped();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
     }
 

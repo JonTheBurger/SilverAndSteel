@@ -37,12 +37,15 @@ enabled=PackedStringArray()
 [file_customization]
 
 folder_colors={
-"res://addons/": "green",
-"res://assets/": "green",
+"res://addons/": "purple",
+"res://assets/": "orange",
 "res://build/": "gray",
-"res://game/": "red",
+"res://game/": "pink",
+"res://game/actors/": "blue",
+"res://game/ui/": "green",
 "res://game/util/": "purple",
-"res://tools/": "green"
+"res://game/world/": "yellow",
+"res://tools/": "purple"
 }
 
 [gdunit4]

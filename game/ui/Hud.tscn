@@ -1,10 +1,182 @@
-[gd_scene load_steps=2 format=3 uid="uid://55br13uffhuv"]
+[gd_scene load_steps=25 format=3 uid="uid://55br13uffhuv"]
 
 [ext_resource type="Texture2D" uid="uid://cmeg3ltcmr80l" path="res://assets/img/icons/pearl_01c.png" id="1_504kr"]
+[ext_resource type="Script" path="res://game/ui/Hud.cs" id="1_v21g1"]
+[ext_resource type="Shader" path="res://assets/shaders/shine.gdshader" id="2_4f6bb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3845m"]
+shader = ExtResource("2_4f6bb")
+shader_parameter/shine_color = Color(1, 1, 1, 0.25)
+shader_parameter/line_width = 0.1
+shader_parameter/angle = 0.785398
+shader_parameter/speed = 1.0
+shader_parameter/wait_cycles = 1.0
+
+[sub_resource type="Shader" id="Shader_kweih"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_emgii"]
+shader = SubResource("Shader_kweih")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_oksgj"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ycsww"]
+shader = SubResource("Shader_oksgj")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_4ep18"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a1fji"]
+shader = SubResource("Shader_4ep18")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_fyxys"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f77em"]
+shader = SubResource("Shader_fyxys")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_r6h8i"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yt6sb"]
+shader = SubResource("Shader_r6h8i")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_rr88v"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lht61"]
+shader = SubResource("Shader_rr88v")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_lqj4g"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5258y"]
+shader = SubResource("Shader_lqj4g")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_0aham"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eywd2"]
+shader = SubResource("Shader_0aham")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_6ip42"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmj0w"]
+shader = SubResource("Shader_6ip42")
+shader_parameter/saturation = 2.0
+
+[sub_resource type="Shader" id="Shader_gq1kk"]
+code = "shader_type canvas_item;
+
+uniform float saturation = 2.0;
+
+void fragment() {
+	vec4 orig_color = texture(TEXTURE, UV);
+	float grey = (orig_color.r + orig_color.g + orig_color.b) / 3.0;
+	vec4 grey_color = vec4(grey, grey, grey, orig_color.a);
+	COLOR = mix(grey_color, orig_color, saturation);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uwk3"]
+shader = SubResource("Shader_gq1kk")
+shader_parameter/saturation = 2.0
 
 [node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_v21g1")
 
 [node name="HpBoxContainer" type="HBoxContainer" parent="."]
+material = SubResource("ShaderMaterial_3845m")
 anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 0.258
@@ -12,6 +184,7 @@ offset_bottom = -113.184
 grow_horizontal = 2
 
 [node name="Hp0" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_emgii")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -19,6 +192,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp1" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_ycsww")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -26,6 +200,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp2" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_a1fji")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -33,6 +208,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp3" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_f77em")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -40,6 +216,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp4" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_yt6sb")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -47,6 +224,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp5" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_lht61")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -54,6 +232,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp6" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_5258y")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -61,6 +240,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp7" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_eywd2")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -68,6 +248,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp8" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_dmj0w")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
@@ -75,6 +256,7 @@ expand_mode = 4
 stretch_mode = 4
 
 [node name="Hp9" type="TextureRect" parent="HpBoxContainer"]
+material = SubResource("ShaderMaterial_1uwk3")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")

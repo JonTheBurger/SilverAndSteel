@@ -9,7 +9,7 @@
         "scope": "csharp",
         "prefix": "GetCreateNode",
         "body": [
-            "public $1 $1 => _$1 ??= this.GetNodeOrCreate<Timer>(\"$1\");",
+            "public $1 $1 => _$1 ??= this.GetNodeOrCreate<$1>(\"$1\");",
             "private $1? _$1;"
         ],
         "description": "Automatically fetch a child node into a property"

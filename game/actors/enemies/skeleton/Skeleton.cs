@@ -123,8 +123,6 @@ public partial class Skeleton : CharacterBody2D, IActor
     {
         _isFacingRight = !_isFacingRight;
         Scale = Scale.WithXFlipped();
-        // Sprite2D.FlipH = !Sprite2D.FlipH;
-        // Weapon.Scale = Weapon.Scale.WithXFlipped();
     }
 
     private void OnHpChanged(int hp)

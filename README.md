@@ -42,6 +42,11 @@ completes, simply open in the godot editor!
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
 - [Oak Woods](https://brullov.itch.io/oak-woods) for tileset
 - [Skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton) enemy
+- Shaders:
+  - [Shine by Jacob Vanluven](https://godotshaders.com/author/kingtoot/)
+- Sound Effects:
+  - [Game Over, Sword Effects by Pixbay](https://pixabay.com/sound-effects/game-over-arcade-6435/)
+  - [Menu Click by Not_Amasingrock](https://pixabay.com/sound-effects/video-game-menu-click-sounds-148373/)
 - Engine:
     - [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono)
       - Fsm, State
