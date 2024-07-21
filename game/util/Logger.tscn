@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqhew8t6dc8li"]
+
+[ext_resource type="Script" path="res://game/util/Logger.cs" id="1_yst7u"]
+
+[node name="Logger" type="Node"]
+script = ExtResource("1_yst7u")

@@ -31,6 +31,12 @@ public partial class Hud : CanvasLayer
     {
         _hearts.AddRange(HpBoxContainer.GetChildren().OfType<TextureRect>());
         _shaderParamMax = ((_hearts[0].Material as ShaderMaterial)?.GetShaderParameter(ShaderParameter).As<float>()) ?? _shaderParamMax;
+        this.Global().EventBus.HealthChanged += (actor, diff) => {
+            if (actor is Player player)
+            {
+                SetHealth(player.Stats.Hp, player.Stats.MaxHp);
+            }
+        };
     }
 
     public void SetHealth(int current, int max)
@@ -50,7 +56,11 @@ public partial class Hud : CanvasLayer
         // NOTE: This *should* be scaled by _shaderParamMax, but we're using an
         // RGB desaturate shader. Our eyes don't perceive color linearly in RGB
         // space, so we fudge it to make partly filled hearts look a bit better.
-        SetHeartShaderParameter(idx, heartPercent);
+        if (heartPercent > 0.99f)
+        {
+            heartPercent = _shaderParamMax;  // Hack to set to max when full
+        }
+        SetHeartShaderParameter(idx, Mathf.Max(heartPercent, 0.0f));
 
         // All hearts above the current heart are at 0%
         for (int i = idx + 1; i < _hearts.Count; ++i)

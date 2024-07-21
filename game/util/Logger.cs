@@ -50,36 +50,31 @@ public enum TimeSource
     EngineTicks = 2,
 };
 
-public partial class Logger
+public partial class Logger : Node
 {
-    public static Logger Global => s_global.Value;
-    private static readonly Lazy<Logger> s_global = new(() => new Logger
-    {
-        Name = " GAME LOG ",
-        Level = Severity.Debug,
-        TimeSource = TimeSource.WallClock,
-        Locked = true,
-    });
+    [Export]
+    public string Module { get; set; } = " GAME LOG ";
 
-    public string Name { get; init; } = " GAME LOG ";
+    [Export]
+    public Severity Level { get; set; } = Severity.Info;
 
-    public Severity Level { get; init; } = Severity.Info;
+    [Export]
+    public TimeSource TimeSource { get; set; } = TimeSource.WallClock;
 
-    public TimeSource TimeSource { get; init; } = TimeSource.WallClock;
-
-    public bool Locked
-    {
-        get => _lock != null;
-        init => _lock = value ? new object() : null;
-    }
-    private readonly object? _lock = null;
-
+    [Export]
     public int Indent
     {
         get => _indent;
         set => _indent = Math.Max(0, value);
     }
     private int _indent = 0;
+
+    public bool Locked
+    {
+        get => _lock != null;
+        set => _lock = value ? new object() : null;
+    }
+    private object? _lock = null;
 
     public void Log(Severity severity, string message)
     {
@@ -263,7 +258,7 @@ public partial class Logger
     private Logger WithName()
     {
         _msg.Append('[');
-        _msg.Append(Name);
+        _msg.Append(Module);
         _msg.Append("]: ");
         return this;
     }

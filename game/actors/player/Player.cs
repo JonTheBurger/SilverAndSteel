@@ -85,7 +85,8 @@ public partial class Player : CharacterBody2D, IActor
         if (node == this) { return; }
         if (node is IActor actor)
         {
-            actor.Stats.CalculateDamage(Stats);
+            int change = actor.Stats.ApplyDamage(Stats);
+            this.Global().EventBus.OnHpChanged((CharacterBody2D)actor, change);
         }
     }
 

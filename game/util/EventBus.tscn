@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxo2k7056asge"]
+[gd_scene load_steps=3 format=3 uid="uid://cxo2k7056asge"]
 
 [ext_resource type="Script" path="res://game/util/EventBus.cs" id="1_7ooqj"]
+[ext_resource type="PackedScene" uid="uid://dqhew8t6dc8li" path="res://game/util/Logger.tscn" id="2_hqfop"]
 
 [node name="EventBus" type="Node"]
 script = ExtResource("1_7ooqj")
+
+[node name="Logger" parent="." instance=ExtResource("2_hqfop")]
+Module = " EventBus "
+Level = 6

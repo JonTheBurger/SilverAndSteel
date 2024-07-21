@@ -179,6 +179,7 @@ script = ExtResource("1_qixor")
 script = ExtResource("2_8vwdu")
 Hp = 50
 MaxHp = 50
+Str = 15
 Speed = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

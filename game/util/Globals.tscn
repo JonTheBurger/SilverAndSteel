@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ivhifg6v6isu"]
+
+[ext_resource type="Script" path="res://game/util/Globals.cs" id="1_l7dbf"]
+[ext_resource type="PackedScene" uid="uid://dqhew8t6dc8li" path="res://game/util/Logger.tscn" id="2_3fkr8"]
+[ext_resource type="PackedScene" uid="uid://cxo2k7056asge" path="res://game/util/EventBus.tscn" id="3_u60n2"]
+
+[node name="Globals" type="Node"]
+script = ExtResource("1_l7dbf")
+
+[node name="Logger" parent="." instance=ExtResource("2_3fkr8")]
+Level = 1
+
+[node name="EventBus" parent="." instance=ExtResource("3_u60n2")]
+Log = 1

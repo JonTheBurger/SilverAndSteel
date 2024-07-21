@@ -1,3 +1,5 @@
+using Game;
+
 namespace Godot;
 
 public static class Extensions
@@ -12,6 +14,12 @@ public static class Extensions
             self.AddChild(child);
         }
         return child;
+    }
+
+    public static Globals Global(this Node self)
+    {
+        // return self.GetTree().Root.GetNode<Globals>("Globals");
+        return self.GetNode<Globals>("/root/Globals");
     }
     #endregion
 

@@ -1,4 +1,5 @@
 using Godot;
+using static Game.Globals;
 
 namespace Game;
 
@@ -21,13 +22,10 @@ public partial class Stats : Node
     [Export]
     public float Speed { get; set; } = 200.0f;
 
-    [Signal]
-    public delegate void HpChangedEventHandler(int hp);
-
-    public void CalculateDamage(Stats other)
+    public int ApplyDamage(Stats other)
     {
-        int hp = (other.Str - this.Def);
-        EmitSignal(SignalName.HpChanged, -hp);
-        Hp -= hp;
+        int change = other.Str - Def;
+        Hp -= change;
+        return -change;
     }
 }

@@ -1,8 +1,7 @@
-using System;
 using System.Linq;
-
 using Godot;
 using static Godot.Mathf;
+using static Game.Globals;
 
 namespace Game;
 
@@ -60,7 +59,6 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public override void _Ready()
     {
-        Stats.HpChanged += OnHpChanged;
         Weapon.BodyEntered += OnWeaponHit;
         Fsm.Target = this;
         Player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
@@ -71,7 +69,8 @@ public partial class Skeleton : CharacterBody2D, IActor
         if (node == this) { return; }
         if (node is Player player)
         {
-            Logger.Global.Debug($"{Name} hit Player!");
+            int change = player.Stats.ApplyDamage(Stats);
+            this.Global().EventBus.OnHpChanged(player, change);
         }
     }
 
@@ -125,7 +124,7 @@ public partial class Skeleton : CharacterBody2D, IActor
         Scale = Scale.WithXFlipped();
     }
 
-    private void OnHpChanged(int hp)
+    public void OnHpChanged(int hp)
     {
         if (Stats.Hp <= 0)
         {
