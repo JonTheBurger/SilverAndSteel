@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=3 uid="uid://55br13uffhuv"]
+
+[ext_resource type="Texture2D" uid="uid://cmeg3ltcmr80l" path="res://assets/img/icons/pearl_01c.png" id="1_504kr"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="HpBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.258
+offset_bottom = -113.184
+grow_horizontal = 2
+
+[node name="Hp0" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp1" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp2" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp3" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp4" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp5" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp6" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp7" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp8" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="Hp9" type="TextureRect" parent="HpBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_504kr")
+expand_mode = 4
+stretch_mode = 4
