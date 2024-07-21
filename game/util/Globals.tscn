@@ -11,4 +11,3 @@ script = ExtResource("1_l7dbf")
 Level = 1
 
 [node name="EventBus" parent="." instance=ExtResource("3_u60n2")]
-Log = 1

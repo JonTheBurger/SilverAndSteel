@@ -70,7 +70,7 @@ public partial class Skeleton : CharacterBody2D, IActor
         if (node is Player player)
         {
             int change = player.Stats.ApplyDamage(Stats);
-            this.Global().EventBus.OnHpChanged(player, change);
+            Global.EventBus.OnHpChanged(player, change);
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Godot;
+using static Game.Globals;
 
 namespace Game;
 
@@ -31,7 +32,7 @@ public partial class Hud : CanvasLayer
     {
         _hearts.AddRange(HpBoxContainer.GetChildren().OfType<TextureRect>());
         _shaderParamMax = ((_hearts[0].Material as ShaderMaterial)?.GetShaderParameter(ShaderParameter).As<float>()) ?? _shaderParamMax;
-        this.Global().EventBus.HealthChanged += (actor, diff) => {
+        Global.EventBus.HealthChanged += (actor, diff) => {
             if (actor is Player player)
             {
                 SetHealth(player.Stats.Hp, player.Stats.MaxHp);

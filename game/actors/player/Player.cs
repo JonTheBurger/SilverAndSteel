@@ -1,4 +1,5 @@
 using Godot;
+using static Game.Globals;
 
 namespace Game;
 
@@ -86,7 +87,7 @@ public partial class Player : CharacterBody2D, IActor
         if (node is IActor actor)
         {
             int change = actor.Stats.ApplyDamage(Stats);
-            this.Global().EventBus.OnHpChanged((CharacterBody2D)actor, change);
+            Global.EventBus.OnHpChanged((CharacterBody2D)actor, change);
         }
     }
 

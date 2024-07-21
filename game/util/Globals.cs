@@ -4,6 +4,14 @@ namespace Game;
 
 public partial class Globals : Node
 {
+    public override void _Ready()
+    {
+        s_globals = this;
+    }
+
+    public static Globals Global => s_globals;
+    private static Globals? s_globals;
+
     public Logger Logger => _logger ??= GetNode<Logger>("Logger");
     private Logger? _logger;
 
