@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b48s3uj8llyug"]
+
+[ext_resource type="Script" path="res://game/util/AudioLibrary.cs" id="1_bj2x4"]
+
+[node name="AudioLibrary" type="Node"]
+script = ExtResource("1_bj2x4")

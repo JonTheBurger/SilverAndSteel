@@ -13,6 +13,6 @@
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
-          }
+        }
     ]
 }

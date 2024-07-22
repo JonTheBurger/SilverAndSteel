@@ -43,6 +43,12 @@ public partial class Player : CharacterBody2D, IActor
     }
     private CollisionShape2D? _hitbox;
 
+    public AudioStreamPlayer2D AudioStreamPlayer2D => _audioStreamPlayer2D ??= this.GetNodeOrCreate<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+    private AudioStreamPlayer2D? _audioStreamPlayer2D;
+
+    public AudioLibrary AudioLibrary => _audioLibrary ??= this.GetNodeOrCreate<AudioLibrary>("AudioLibrary");
+    private AudioLibrary? _audioLibrary;
+
     public Stats Stats
     {
         get => _stats ??= GetNode<Stats>("Stats");
@@ -111,6 +117,8 @@ public partial class Player : CharacterBody2D, IActor
         _isFacingRight = !_isFacingRight;
         Scale = Scale.WithXFlipped();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
+        AudioStreamPlayer2D.Stream = AudioLibrary.GetStream(AudioLibrary.Id.SwordHit01);
+        AudioStreamPlayer2D.Play();
     }
 
     protected override void Dispose(bool disposing)

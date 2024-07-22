@@ -7,16 +7,22 @@
             "label": "build",
             "command": "dotnet",
             "type": "process",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "args": [
                 "build"
             ],
+            "isBuildCommand": true,
+            "icon": { "id": "tools", "color": "terminal.ansiBlue" },
             "problemMatcher": "$msCompile",
             "presentation": {
                 "echo": true,
-                "reveal": "silent",
+                "reveal": "always",
                 "focus": false,
                 "panel": "shared",
-                "showReuseMessage": true,
+                "showReuseMessage": false,
                 "clear": false
             }
         }
