@@ -117,8 +117,6 @@ public partial class Player : CharacterBody2D, IActor
         _isFacingRight = !_isFacingRight;
         Scale = Scale.WithXFlipped();
         EmitSignal(SignalName.TurnedAround, _isFacingRight);
-        AudioStreamPlayer2D.Stream = AudioLibrary.GetStream(AudioLibrary.Id.SwordHit01);
-        AudioStreamPlayer2D.Play();
     }
 
     protected override void Dispose(bool disposing)
