@@ -15,7 +15,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -27,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -43,7 +43,7 @@ length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -59,7 +59,7 @@ length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -71,7 +71,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -102,7 +102,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -118,7 +118,7 @@ length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -134,7 +134,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -151,7 +151,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -168,7 +168,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -185,7 +185,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -202,7 +202,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -218,7 +218,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -235,7 +235,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -252,7 +252,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -269,7 +269,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -297,41 +297,44 @@ _data = {
 "win": SubResource("Animation_4g1xa")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6yvs"]
+size = Vector2(13, 33)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7d3va"]
 radius = 6.0
 height = 28.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i6yvs"]
-size = Vector2(13, 33)
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 script = ExtResource("1_qyb0e")
 
 [node name="Stats" parent="." instance=ExtResource("2_c70ck")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Directional" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Directional"]
 texture = ExtResource("2_i2au6")
 hframes = 7
 vframes = 16
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Directional"]
+root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_1vsja")
 }
+
+[node name="Weapon" type="Area2D" parent="Directional"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Directional/Weapon"]
+position = Vector2(17.5, -2.5)
+shape = SubResource("RectangleShape2D_i6yvs")
+disabled = true
+debug_color = Color(1, 0, 0, 0.392157)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_7d3va")
-
-[node name="Weapon" type="Area2D" parent="."]
-
-[node name="Hitbox" type="CollisionShape2D" parent="Weapon"]
-position = Vector2(17.5, -2.5)
-shape = SubResource("RectangleShape2D_i6yvs")
-disabled = true
-debug_color = Color(1, 0, 0, 0.392157)
 
 [node name="PlayerFsm" parent="." node_paths=PackedStringArray("Current") instance=ExtResource("3_sav00")]
 Current = NodePath("PlayerIdleState")
@@ -355,4 +358,4 @@ OnAttackComplete = NodePath("../PlayerIdleState")
 OnLand = NodePath("../PlayerIdleState")
 Animation = &"jump_air"
 
-[connection signal="animation_finished" from="AnimationPlayer" to="PlayerFsm" method="OnAnimationFinished"]
+[connection signal="animation_finished" from="Directional/AnimationPlayer" to="PlayerFsm" method="OnAnimationFinished"]

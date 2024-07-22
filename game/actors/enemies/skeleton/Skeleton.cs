@@ -7,6 +7,8 @@ namespace Game;
 
 public partial class Skeleton : CharacterBody2D, IActor
 {
+    public Node2D Direction => GetNode<Node2D>("Directional");
+
     public Stats Stats
     {
         get => _stats ??= GetNode<Stats>("Stats");
@@ -15,14 +17,14 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public Sprite2D Sprite2D
     {
-        get => _sprite2D ??= GetNode<Sprite2D>("Sprite2D");
+        get => _sprite2D ??= GetNode<Sprite2D>("Directional/Sprite2D");
         set => _sprite2D = value;
     }
     private Sprite2D? _sprite2D;
 
     public AnimationPlayer AnimationPlayer
     {
-        get => _animationPlayer ??= GetNode<AnimationPlayer>("AnimationPlayer");
+        get => _animationPlayer ??= GetNode<AnimationPlayer>("Directional/AnimationPlayer");
         set => _animationPlayer = value;
     }
     private AnimationPlayer? _animationPlayer;
@@ -38,14 +40,14 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public Area2D Weapon
     {
-        get => _weapon ??= GetNode<Area2D>("Weapon");
+        get => _weapon ??= GetNode<Area2D>("Directional/Weapon");
         set => _weapon = value;
     }
     private Area2D? _weapon;
 
     public CollisionShape2D Hitbox
     {
-        get => _hitbox ??= GetNode<CollisionShape2D>("Weapon/Hitbox");
+        get => _hitbox ??= GetNode<CollisionShape2D>("Directional/Weapon/Hitbox");
         set => _hitbox = value;
     }
     private CollisionShape2D? _hitbox;
@@ -121,7 +123,8 @@ public partial class Skeleton : CharacterBody2D, IActor
     private void TurnAround()
     {
         _isFacingRight = !_isFacingRight;
-        Scale = Scale.WithXFlipped();
+        Direction.Scale = Direction.Scale.WithXFlipped();
+        // Scale = Scale.WithXFlipped();
     }
 
     public void OnHpChanged(int hp)

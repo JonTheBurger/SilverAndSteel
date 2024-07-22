@@ -13,12 +13,15 @@
 radius = 7.0
 height = 32.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
+size = Vector2(22, 24)
+
 [sub_resource type="Animation" id="Animation_nxryg"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -30,7 +33,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -42,7 +45,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Weapon/Hitbox:position")
+tracks/2/path = NodePath("Directional/Weapon/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -58,7 +61,7 @@ length = 1.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -70,7 +73,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Weapon/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -82,7 +85,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Weapon/Hitbox:position")
+tracks/2/path = NodePath("Directional/Weapon/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -98,7 +101,7 @@ length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -115,7 +118,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -132,7 +135,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -149,7 +152,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -169,9 +172,6 @@ _data = {
 "walk": SubResource("Animation_gtugf")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
-size = Vector2(22, 24)
-
 [node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_qixor")
 
@@ -186,19 +186,8 @@ Speed = 20.0
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xkpb7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_il2jw")
-hframes = 13
-vframes = 5
-frame = 39
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_dmnat")
-}
-
 [node name="SkeletonFsm" parent="." node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
-AnimationPlayer = NodePath("../AnimationPlayer")
+AnimationPlayer = NodePath("../Directional/AnimationPlayer")
 Current = NodePath("SkeletonIdleState")
 
 [node name="SkeletonIdleState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
@@ -216,12 +205,26 @@ OnHpZero = NodePath("../SkeletonDieState")
 OnPlayerInRange = NodePath("../SkeletonAttackState")
 OnHpZero = NodePath("../SkeletonDieState")
 
-[node name="Weapon" type="Area2D" parent="."]
+[node name="Directional" type="Node2D" parent="."]
 
-[node name="Hitbox" type="CollisionShape2D" parent="Weapon"]
+[node name="Weapon" type="Area2D" parent="Directional"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Directional/Weapon"]
 position = Vector2(21, -8)
 shape = SubResource("RectangleShape2D_dvott")
 disabled = true
 debug_color = Color(1, 0, 0, 0.392157)
 
-[connection signal="animation_finished" from="AnimationPlayer" to="SkeletonFsm" method="OnAnimationFinished"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Directional"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_dmnat")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Directional"]
+texture = ExtResource("1_il2jw")
+hframes = 13
+vframes = 5
+frame = 39
+
+[connection signal="animation_finished" from="Directional/AnimationPlayer" to="SkeletonFsm" method="OnAnimationFinished"]
