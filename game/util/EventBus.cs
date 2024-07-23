@@ -4,6 +4,7 @@ using Godot;
 
 namespace Game;
 
+[Icon("res://assets/img/icons/connection.png")]
 public partial class EventBus : Node
 {
     [Flags]

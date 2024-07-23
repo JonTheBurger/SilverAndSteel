@@ -24,7 +24,7 @@ public partial class Skeleton : CharacterBody2D, IActor
 
     public AnimationPlayer AnimationPlayer
     {
-        get => _animationPlayer ??= GetNode<AnimationPlayer>("Directional/AnimationPlayer");
+        get => _animationPlayer ??= GetNode<AnimationPlayer>("AnimationPlayer");
         set => _animationPlayer = value;
     }
     private AnimationPlayer? _animationPlayer;

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu4irbswh77cy"]
+[gd_scene load_steps=4 format=3 uid="uid://bu4irbswh77cy"]
 
 [ext_resource type="Script" path="res://game/actors/Actor.cs" id="1_7itvb"]
 [ext_resource type="Script" path="res://game/actors/Stats.cs" id="1_yjf3s"]
+[ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/actors/Directional.tscn" id="3_6e34t"]
 
 [node name="Actor" type="CharacterBody2D"]
 script = ExtResource("1_7itvb")
@@ -9,14 +10,16 @@ script = ExtResource("1_7itvb")
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("1_yjf3s")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-
 [node name="Animation" type="AnimationPlayer" parent="."]
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
+[node name="Directional" parent="." instance=ExtResource("3_6e34t")]
+
+[node name="Sprite" type="Sprite2D" parent="Directional"]
+
+[node name="AttackArea" type="Area2D" parent="Directional"]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Directional/AttackArea"]
+
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
-
-[node name="AttackArea" type="Area2D" parent="."]
-
-[node name="Hitbox" type="CollisionShape2D" parent="AttackArea"]

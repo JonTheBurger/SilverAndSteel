@@ -2,6 +2,7 @@ using Godot;
 
 namespace Game;
 
+[Icon("res://assets/img/icons/globe.png")]
 public partial class Globals : Node
 {
     public override void _Ready()

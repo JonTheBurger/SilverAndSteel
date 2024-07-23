@@ -13,9 +13,6 @@
 radius = 7.0
 height = 32.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
-size = Vector2(22, 24)
-
 [sub_resource type="Animation" id="Animation_nxryg"]
 length = 0.001
 tracks/0/type = "value"
@@ -172,6 +169,9 @@ _data = {
 "walk": SubResource("Animation_gtugf")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
+size = Vector2(22, 24)
+
 [node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_qixor")
 
@@ -187,7 +187,7 @@ position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xkpb7")
 
 [node name="SkeletonFsm" parent="." node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
-AnimationPlayer = NodePath("../Directional/AnimationPlayer")
+AnimationPlayer = NodePath("../AnimationPlayer")
 Current = NodePath("SkeletonIdleState")
 
 [node name="SkeletonIdleState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
@@ -205,6 +205,11 @@ OnHpZero = NodePath("../SkeletonDieState")
 OnPlayerInRange = NodePath("../SkeletonAttackState")
 OnHpZero = NodePath("../SkeletonDieState")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dmnat")
+}
+
 [node name="Directional" type="Node2D" parent="."]
 
 [node name="Weapon" type="Area2D" parent="Directional"]
@@ -215,16 +220,10 @@ shape = SubResource("RectangleShape2D_dvott")
 disabled = true
 debug_color = Color(1, 0, 0, 0.392157)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Directional"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_dmnat")
-}
-
 [node name="Sprite2D" type="Sprite2D" parent="Directional"]
 texture = ExtResource("1_il2jw")
 hframes = 13
 vframes = 5
 frame = 39
 
-[connection signal="animation_finished" from="Directional/AnimationPlayer" to="SkeletonFsm" method="OnAnimationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="SkeletonFsm" method="OnAnimationFinished"]

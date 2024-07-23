@@ -51,10 +51,20 @@ completes, simply open in the godot editor!
   - [Game Over, Sword Effects by Pixbay](https://pixabay.com/sound-effects/game-over-arcade-6435/)
   - [Menu Click by Not_Amasingrock](https://pixabay.com/sound-effects/video-game-menu-click-sounds-148373/)
 - Engine:
-    - [Chrono Icons by Grafixpoint](https://www.flaticon.com/free-icons/chrono)
-      - Fsm, State
-    - [Bar Chart Icon by Andrean Prabowo](https://www.flaticon.com/free-icons/bar-chart) (flaticon.com)
-      - Stats
+    - [actor](https://freeicons.io/video-production-4/actor-talent-performer-celebrity-man-icon-705372#)
+    - [armor](https://freeicons.io/icon/rpg-and-fantasy/armor-fantasy-item-knight-medieval-rpg-icon-455155#)
+    - [enemy](https://freeicons.io/icon/rpg-and-fantasy/creature-fantasy-monster-ogre-orc-troll-icon-455175#)
+    - [fire](https://freeicons.io/icon/rpg-and-fantasy/destruction-destructive-magic-fantasy-fire-rpg-sorcerer-icon-455165#)
+    - [flip](https://freeicons.io/photo-editor-7/edit-flip-image-mirror-icon-93598#)
+    - [fsm/state by Grafixpoint](https://www.flaticon.com/free-icons/chrono)
+    - [globe](https://freeicons.io/office-and-workstation-icons-5/globe-icon-18889#)
+    - [log](https://freeicons.io/rpg-and-fantasy/fantasy-game-magic-magician-parchment-spell-scroll-icon-455178)
+    - [map](https://freeicons.io/icon/rpg-and-fantasy/adventure-adventure-map-fantasy-map-quest-icon-455176#)
+    - [network](https://freeicons.io/team-management-icon-set-17/natwoarkingbusiness-communication-global-networking-world-icon-icon-790132)
+    - [potion](https://freeicons.io/icon/rpg-and-fantasy/bottle-chemistry-elixir-fantasy-game-liquid-icon-455170#)
+    - [protagonist](https://freeicons.io/icon/rpg-and-fantasy/armor-fantasy-helmet-knight-medieval-paladin-icon-455169#)
+    - [sack](https://freeicons.io/icon/rpg-and-fantasy/bag-coin-game-gold-item-bag-pouch-icon-455166#)
+    - [stats by Andrean Prabowo](https://www.flaticon.com/free-icons/bar-chart) (flaticon.com)
 - https://luizmelo.itch.io/fire-worm
 - https://clembod.itch.io/bringer-of-death-free
 - https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack

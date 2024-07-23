@@ -5,29 +5,29 @@ using static Game.Globals;
 namespace Game;
 
 [GlobalClass]
+[Icon("res://assets/img/icons/actor.png")]
 public partial class Actor : CharacterBody2D
 {
     public Stats Stats => _stats!;
-    public Sprite2D Sprite => _sprite!;
     public AnimationPlayer Animation => _animation!;
     public AudioStreamPlayer2D Audio => _audio!;
-    public CollisionShape2D Hurtbox => _hurtbox!;
+    public Directional Directional => _directional!;
+    public Sprite2D Sprite => _sprite!;
     public Area2D AttackArea => _attackArea!;
     public CollisionShape2D Hitbox => _hitbox!;
-
-    [Signal]
-    public delegate void TurnedAroundEventHandler(bool isFacingRight);
+    public CollisionShape2D Hurtbox => _hurtbox!;
 
     public override void _Ready()
     {
         base._Ready();
         _stats = GetNode<Stats>("Stats");
-        _sprite = GetNode<Sprite2D>("Sprite");
         _animation = GetNode<AnimationPlayer>("Animation");
         _audio = GetNode<AudioStreamPlayer2D>("Audio");
+        _directional = GetNode<Directional>("Directional");
+        _sprite = GetNode<Sprite2D>("Directional/Sprite");
+        _attackArea = GetNode<Area2D>("Directional/AttackArea");
+        _hitbox = GetNode<CollisionShape2D>("Directional/AttackArea/Hitbox");
         _hurtbox = GetNode<CollisionShape2D>("Hurtbox");
-        _attackArea = GetNode<Area2D>("AttackArea");
-        _hitbox = GetNode<CollisionShape2D>("AttackArea/Hitbox");
 
         AttackArea.BodyEntered += OnAttackHit;
     }
@@ -48,7 +48,7 @@ public partial class Actor : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (JustTurnedAround()) { TurnAround(); }
+        if (JustTurnedAround()) { Directional.Flip(); }
         MoveAndSlide();
     }
 
@@ -62,22 +62,15 @@ public partial class Actor : CharacterBody2D
         }
     }
 
-    private void TurnAround()
-    {
-        _isFacingRight = !_isFacingRight;
-        Scale = Scale.WithXFlipped();
-        EmitSignal(SignalName.TurnedAround, _isFacingRight);
-    }
-
     private bool JustTurnedAround()
     {
         bool turnedAround = false;
 
-        if ((Velocity.X > 0) && !_isFacingRight)
+        if ((Velocity.X > 0) && (Directional.Facing == Direction.Left))
         {
             turnedAround = true;
         }
-        else if ((Velocity.X < 0) && _isFacingRight)
+        else if ((Velocity.X < 0) && (Directional.Facing == Direction.Right))
         {
             turnedAround = true;
         }
@@ -91,21 +84,22 @@ public partial class Actor : CharacterBody2D
         if (disposing)
         {
             if (_stats != null) { _stats.Dispose(); _stats = null; }
-            if (_sprite != null) { _sprite.Dispose(); _sprite = null; }
             if (_animation != null) { _animation.Dispose(); _animation = null; }
             if (_audio != null) { _audio.Dispose(); _audio = null; }
-            if (_hurtbox != null) { _hurtbox.Dispose(); _hurtbox = null; }
+            if (_directional != null) { _directional.Dispose(); _directional = null; }
+            if (_sprite != null) { _sprite.Dispose(); _sprite = null; }
             if (_attackArea != null) { _attackArea.Dispose(); _attackArea = null; }
+            if (_hurtbox != null) { _hurtbox.Dispose(); _hurtbox = null; }
             if (_hitbox != null) { _hitbox.Dispose(); _hitbox = null; }
         }
     }
 
-    private bool _isFacingRight = true;
     private Stats? _stats;
-    private Sprite2D? _sprite;
     private AnimationPlayer? _animation;
     private AudioStreamPlayer2D? _audio;
-    private CollisionShape2D? _hurtbox;
+    private Directional? _directional;
+    private Sprite2D? _sprite;
     private Area2D? _attackArea;
+    private CollisionShape2D? _hurtbox;
     private CollisionShape2D? _hitbox;
 }

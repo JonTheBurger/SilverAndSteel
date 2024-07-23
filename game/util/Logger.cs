@@ -50,6 +50,7 @@ public enum TimeSource
     EngineTicks = 2,
 };
 
+[Icon("res://assets/img/icons/log.png")]
 public partial class Logger : Node
 {
     [Export]
