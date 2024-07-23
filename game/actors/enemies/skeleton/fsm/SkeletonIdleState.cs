@@ -35,13 +35,13 @@ public partial class SkeletonIdleState : State<Skeleton>
         {
             Next = OnHpZero;
         }
-        else if (Target.IsPlayerOutOfRange())
-        {
-            Next = OnPlayerOutOfRange;
-        }
-        else if (Target.IsPlayerInRange())
+        else if (Target.IsPlayerInRange)
         {
             Next = OnPlayerInRange;
+        }
+        else
+        {
+            Next = OnPlayerOutOfRange;
         }
     }
 }

@@ -44,7 +44,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackArea/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -89,7 +89,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackArea/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,8 +140,8 @@ _data = {
 "run": SubResource("Animation_gmcm8")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qk6kf"]
-size = Vector2(13, 33)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxhp4"]
+size = Vector2(14, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_muoh4"]
 radius = 6.0
@@ -161,9 +161,9 @@ texture = ExtResource("2_i2au6")
 hframes = 7
 vframes = 16
 
-[node name="Hitbox" parent="Directional/AttackArea" index="0"]
-position = Vector2(17.5, -2.5)
-shape = SubResource("RectangleShape2D_qk6kf")
+[node name="Hitbox" parent="Directional/AttackRange" index="0"]
+position = Vector2(17, -1.5)
+shape = SubResource("RectangleShape2D_yxhp4")
 
 [node name="Hurtbox" parent="." index="4"]
 position = Vector2(0, 4)

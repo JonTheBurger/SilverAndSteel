@@ -2,13 +2,23 @@ using Godot;
 using static Godot.Mathf;
 
 using System.Linq;
+using System;
 
 namespace Game;
 
 public partial class Skeleton : Actor
 {
+    public Area2D AggressionRange => _aggressionRange!;
+    public Area2D DetectionRadius => _detectionRadius!;
+    public bool IsPlayerInRange => _isPlayerInRange;
+    public bool IsPlayerDetected => _isPlayerDetected;
+
     private Player? _player;
     private SkeletonFsm? _fsm;
+    private Area2D? _aggressionRange;
+    private Area2D? _detectionRadius;
+    private bool _isPlayerInRange = false;
+    private bool _isPlayerDetected = false;
 
     public override void _Ready()
     {
@@ -19,6 +29,12 @@ public partial class Skeleton : Actor
         Animation.AnimationFinished += _fsm.OnAnimationFinished;
 
         _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
+        _aggressionRange = GetNode<Area2D>("Directional/AggressionRange");
+        _detectionRadius = GetNode<Area2D>("Directional/DetectionRadius");
+        AggressionRange.BodyEntered += OnAggressionRangeEnter;
+        AggressionRange.BodyExited += OnAggressionRangeExit;
+        DetectionRadius.BodyEntered += OnDetectionRadiusEnter;
+        DetectionRadius.BodyExited += OnDetectionRadiusExit;
     }
 
     public override void _PhysicsProcess(double delta)
@@ -38,19 +54,10 @@ public partial class Skeleton : Actor
         }
     }
 
-    public bool IsPlayerInRange()
-    {
-        return (_player != null) && (Abs(_player.GlobalPosition.X - GlobalPosition.X) <= 25);
-    }
-
-    public bool IsPlayerOutOfRange()
-    {
-        return (_player != null) && (Abs(_player.GlobalPosition.X - GlobalPosition.X) > 25);
-    }
-
     public void MoveTowardsPlayer()
     {
         if (_player == null) { return; }
+        if (!_isPlayerDetected) { return;}
 
         var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
         var velocity = Velocity;
@@ -71,5 +78,31 @@ public partial class Skeleton : Actor
         {
             QueueFree();
         }
+    }
+
+    private void OnDetectionRadiusEnter(Node2D body)
+    {
+        if (body == _player)
+        {
+            _isPlayerDetected = true;
+        }
+    }
+
+    private void OnDetectionRadiusExit(Node2D body)
+    {
+        if (body == _player)
+        {
+            _isPlayerDetected = false;
+        }
+    }
+
+    private void OnAggressionRangeEnter(Node2D body)
+    {
+        if (body == _player) { _isPlayerInRange = true; }
+    }
+
+    private void OnAggressionRangeExit(Node2D body)
+    {
+        if (body == _player) { _isPlayerInRange = false; }
     }
 }

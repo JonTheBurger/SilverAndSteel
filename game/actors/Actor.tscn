@@ -18,9 +18,9 @@ script = ExtResource("1_yjf3s")
 
 [node name="Sprite" type="Sprite2D" parent="Directional"]
 
-[node name="AttackArea" type="Area2D" parent="Directional"]
+[node name="AttackRange" type="Area2D" parent="Directional"]
 
-[node name="Hitbox" type="CollisionShape2D" parent="Directional/AttackArea"]
+[node name="Hitbox" type="CollisionShape2D" parent="Directional/AttackRange"]
 disabled = true
 debug_color = Color(1, 0, 0, 0.392157)
 

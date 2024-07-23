@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=20 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
@@ -14,38 +14,26 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox:shape:height")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [32.0]
+"update": 1,
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox:position")
+tracks/1/path = NodePath("Hurtbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/Sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_8oghc"]
@@ -66,7 +54,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackArea/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -78,14 +66,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/AttackArea/Hitbox:position")
+tracks/2/path = NodePath("Directional/AttackRange/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [Vector2(21, -8), Vector2(21, -4)]
+"values": [Vector2(22, -8), Vector2(22, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_87dud"]
@@ -105,32 +93,20 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/path = NodePath("Hurtbox:shape:height")
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("Hurtbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2(0, 16)]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_8cqr7"]
 resource_name = "hit"
-length = 0.65
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -188,8 +164,13 @@ _data = {
 "walk": SubResource("Animation_qlbne")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx5i2"]
-size = Vector2(22, 24)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vw3b6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_swjmh"]
+size = Vector2(22, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3l4c5"]
+size = Vector2(100, 49)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kq3gj"]
 radius = 7.0
@@ -214,9 +195,23 @@ texture = ExtResource("1_il2jw")
 hframes = 13
 vframes = 5
 
-[node name="Hitbox" parent="Directional/AttackArea" index="0"]
-position = Vector2(21, -4)
-shape = SubResource("RectangleShape2D_bx5i2")
+[node name="Hitbox" parent="Directional/AttackRange" index="0"]
+position = Vector2(22, -8)
+shape = SubResource("RectangleShape2D_vw3b6")
+
+[node name="AggressionRange" type="Area2D" parent="Directional" index="2"]
+
+[node name="AggressionZone" type="CollisionShape2D" parent="Directional/AggressionRange" index="0"]
+position = Vector2(18, -8)
+shape = SubResource("RectangleShape2D_swjmh")
+debug_color = Color(0.784314, 0.392157, 0, 0.196078)
+
+[node name="DetectionRadius" type="Area2D" parent="Directional" index="3"]
+
+[node name="DetectionZone" type="CollisionShape2D" parent="Directional/DetectionRadius" index="0"]
+position = Vector2(26, -8)
+shape = SubResource("RectangleShape2D_3l4c5")
+debug_color = Color(1, 1, 0, 0.117647)
 
 [node name="Hurtbox" parent="." index="4"]
 shape = SubResource("CapsuleShape2D_kq3gj")

@@ -35,8 +35,6 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- [] MoveAndSlideWithSnap so the player doesn't go shooting off skeletons' heads?
-- [] Actor
 - [] HSM
 - [] Set collision monitoring & physics layers
 

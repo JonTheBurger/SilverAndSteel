@@ -36,7 +36,7 @@ public partial class SkeletonWalkState : State<Skeleton>
         {
             Next = OnHpZero;
         }
-        else if (Target.IsPlayerInRange())
+        else if (Target.IsPlayerInRange)
         {
             Next = OnPlayerInRange;
         }
