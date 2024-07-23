@@ -49,6 +49,7 @@ public partial class Actor : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        // TODO: Gravity?
         if (JustTurnedAround()) { Directional.Flip(); }
         MoveAndSlide();
     }

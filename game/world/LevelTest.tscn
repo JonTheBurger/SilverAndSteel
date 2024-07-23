@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dq5klh6qvw3sk"]
 
 [ext_resource type="TileSet" uid="uid://ban2tauadeyj" path="res://game/world/OakHillsTileSet.tres" id="1_2hu42"]
-[ext_resource type="PackedScene" uid="uid://tvtt828ue3a" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
+[ext_resource type="PackedScene" uid="uid://u4cpkxuelsvi" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
 [ext_resource type="AudioStream" uid="uid://1evlps4eb5ri" path="res://assets/music/TaigaDash.ogg" id="2_na1n6"]
 [ext_resource type="Script" path="res://game/ui/PlayerCamera.cs" id="3_yj7oe"]
 [ext_resource type="PackedScene" uid="uid://55br13uffhuv" path="res://game/ui/Hud.tscn" id="4_xhsig"]
@@ -18,14 +18,21 @@ stream = ExtResource("2_na1n6")
 
 [node name="TextFloater" parent="." instance=ExtResource("6_6cby0")]
 
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+position = Vector2(0, -4)
+remote_path = NodePath("../Player/PlayerCamera")
+
+[node name="Skeleton" parent="." instance=ExtResource("7_qaf6g")]
+position = Vector2(-113, 17)
+
+[node name="Skeleton2" parent="." instance=ExtResource("7_qaf6g")]
+position = Vector2(113, 18)
+
 [node name="Player" parent="." instance=ExtResource("2_3t6rw")]
-position = Vector2(0, -4)
+position = Vector2(2, -14)
 
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-remote_path = NodePath("../../PlayerCamera")
-
-[node name="PlayerCamera" type="Camera2D" parent="."]
-position = Vector2(0, -4)
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
+position = Vector2(-2, 10)
 zoom = Vector2(4, 4)
 process_callback = 0
 position_smoothing_enabled = true
@@ -33,10 +40,4 @@ position_smoothing_speed = 10.0
 drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
-[node name="Hud" parent="PlayerCamera" instance=ExtResource("4_xhsig")]
-
-[node name="Skeleton" parent="." instance=ExtResource("7_qaf6g")]
-position = Vector2(-140, 0)
-
-[node name="Skeleton2" parent="." instance=ExtResource("7_qaf6g")]
-position = Vector2(181, 0)
+[node name="Hud" parent="Player/PlayerCamera" instance=ExtResource("4_xhsig")]

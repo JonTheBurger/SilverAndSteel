@@ -13,7 +13,7 @@ public partial class PlayerAttackState : State<Player>
 
     public override void OnEnter(State<Player> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        Target.Animation?.Play(Animation);
         Target.Velocity = Target.Velocity.WithX(0);
     }
 

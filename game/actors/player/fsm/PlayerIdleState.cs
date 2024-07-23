@@ -22,21 +22,21 @@ public partial class PlayerIdleState : State<Player>
 
     public override void OnEnter(State<Player> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        Target.Animation?.Play(Animation);
     }
 
     public override void OnExit(State<Player> next)
     {
-        Target.AnimationPlayer?.Stop();
+        Target.Animation?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
     {
-        if (Input.IsActionPressed(Actions.LEFT))
+        if (Input.IsActionPressed(Actions.LEFT) && !Input.IsActionPressed(Actions.RIGHT))
         {
             Next = OnMove;
         }
-        else if (Input.IsActionPressed(Actions.RIGHT))
+        else if (Input.IsActionPressed(Actions.RIGHT) && !Input.IsActionPressed(Actions.LEFT))
         {
             Next = OnMove;
         }

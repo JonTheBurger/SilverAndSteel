@@ -14,10 +14,11 @@ public partial class Skeleton : Actor
     {
         base._Ready();
 
-        _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
         _fsm = GetNode<SkeletonFsm>("Fsm");
         _fsm.Target = this;
         Animation.AnimationFinished += _fsm.OnAnimationFinished;
+
+        _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
     }
 
     public override void _PhysicsProcess(double delta)

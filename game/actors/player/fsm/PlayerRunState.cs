@@ -24,12 +24,12 @@ public partial class PlayerRunState : State<Player>
 
     public override void OnEnter(State<Player> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        Target.Animation?.Play(Animation);
     }
 
     public override void OnExit(State<Player> next)
     {
-        Target.AnimationPlayer?.Stop();
+        Target.Animation?.Stop();
     }
 
     public override void ProcessPhysics(double delta)

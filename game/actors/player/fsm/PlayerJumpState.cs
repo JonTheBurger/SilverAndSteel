@@ -15,13 +15,13 @@ public partial class PlayerJumpState : State<Player>
 
     public override void OnEnter(State<Player> previous)
     {
-        Target.AnimationPlayer?.Play(Animation);
+        Target.Animation?.Play(Animation);
         Target.Velocity = Target.Velocity.WithY(-150.0f);
     }
 
     public override void OnExit(State<Player> next)
     {
-        Target.AnimationPlayer?.Stop();
+        Target.Animation?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
