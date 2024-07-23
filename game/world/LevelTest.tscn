@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://tvtt828ue3a" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
 [ext_resource type="AudioStream" uid="uid://1evlps4eb5ri" path="res://assets/music/TaigaDash.ogg" id="2_na1n6"]
 [ext_resource type="Script" path="res://game/ui/PlayerCamera.cs" id="3_yj7oe"]
-[ext_resource type="PackedScene" uid="uid://kv4hh4i42p7s" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="4_qg3qt"]
 [ext_resource type="PackedScene" uid="uid://55br13uffhuv" path="res://game/ui/Hud.tscn" id="4_xhsig"]
 [ext_resource type="PackedScene" uid="uid://nb4ol8yhthry" path="res://game/ui/TextFloater.tscn" id="6_6cby0"]
+[ext_resource type="PackedScene" uid="uid://cibfii2mexhaf" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="7_qaf6g"]
 
 [node name="LevelTest" type="TileMap"]
 tile_set = ExtResource("1_2hu42")
@@ -35,8 +35,8 @@ script = ExtResource("3_yj7oe")
 
 [node name="Hud" parent="PlayerCamera" instance=ExtResource("4_xhsig")]
 
-[node name="Skeleton" parent="." instance=ExtResource("4_qg3qt")]
-position = Vector2(-80, 17)
+[node name="Skeleton" parent="." instance=ExtResource("7_qaf6g")]
+position = Vector2(-140, 0)
 
-[node name="Skeleton2" parent="." instance=ExtResource("4_qg3qt")]
-position = Vector2(147, 17)
+[node name="Skeleton2" parent="." instance=ExtResource("7_qaf6g")]
+position = Vector2(181, 0)

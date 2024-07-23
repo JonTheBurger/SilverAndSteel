@@ -11,17 +11,14 @@ public enum Direction
 [Icon("res://assets/img/icons/flip.png")]
 public partial class Directional : Node2D
 {
+    // All good nodes face right by default
     [Export]
     public Direction Facing
     {
         get => (Scale.X < 0) ? Direction.Left : Direction.Right;
         set
         {
-            if (value == Direction.Left && Facing == Direction.Right)
-            {
-                Flip();
-            }
-            else if (value == Direction.Right && Facing == Direction.Left)
+            if (value != Facing)
             {
                 Flip();
             }

@@ -1,112 +1,57 @@
-using System.Linq;
 using Godot;
 using static Godot.Mathf;
-using static Game.Globals;
+
+using System.Linq;
 
 namespace Game;
 
-public partial class Skeleton : CharacterBody2D, IActor
+public partial class Skeleton : Actor
 {
-    public Node2D Direction => GetNode<Node2D>("Directional");
-
-    public Stats Stats
-    {
-        get => _stats ??= GetNode<Stats>("Stats");
-    }
-    private Stats? _stats;
-
-    public Sprite2D Sprite2D
-    {
-        get => _sprite2D ??= GetNode<Sprite2D>("Directional/Sprite2D");
-        set => _sprite2D = value;
-    }
-    private Sprite2D? _sprite2D;
-
-    public AnimationPlayer AnimationPlayer
-    {
-        get => _animationPlayer ??= GetNode<AnimationPlayer>("AnimationPlayer");
-        set => _animationPlayer = value;
-    }
-    private AnimationPlayer? _animationPlayer;
-
-    private Player? Player;
-
-    public SkeletonFsm Fsm
-    {
-        get => _fsm ??= GetNode<SkeletonFsm>("SkeletonFsm");
-        set => _fsm = value;
-    }
+    private Player? _player;
     private SkeletonFsm? _fsm;
-
-    public Area2D Weapon
-    {
-        get => _weapon ??= GetNode<Area2D>("Directional/Weapon");
-        set => _weapon = value;
-    }
-    private Area2D? _weapon;
-
-    public CollisionShape2D Hitbox
-    {
-        get => _hitbox ??= GetNode<CollisionShape2D>("Directional/Weapon/Hitbox");
-        set => _hitbox = value;
-    }
-    private CollisionShape2D? _hitbox;
-
-    private Vector2 _direction = Vector2.Right;
-
-    public override void _EnterTree()
-    {
-        GetNode<SkeletonFsm>("SkeletonFsm").Target = this;
-    }
 
     public override void _Ready()
     {
-        Weapon.BodyEntered += OnWeaponHit;
-        Fsm.Target = this;
-        Player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
-    }
+        base._Ready();
 
-    private void OnWeaponHit(Node2D node)
-    {
-        if (node == this) { return; }
-        if (node is Player player)
-        {
-            int change = player.Stats.ApplyDamage(Stats);
-            Global.EventBus.OnHpChanged(player, change);
-        }
+        _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
+        _fsm = GetNode<SkeletonFsm>("Fsm");
+        _fsm.Target = this;
+        Animation.AnimationFinished += _fsm.OnAnimationFinished;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        MoveAndSlide();
-        if (Player != null)
+        base._PhysicsProcess(delta);
+
+        if (_player != null)
         {
-            if ((Player.GlobalPosition.X < GlobalPosition.X) && (_isFacingRight))
+            if ((_player.GlobalPosition.X < GlobalPosition.X) && (Directional.Facing == Direction.Right))
             {
-                TurnAround();
+                Directional.Flip();
             }
-            else if ((Player.GlobalPosition.X > GlobalPosition.X) && (!_isFacingRight))
+            else if ((_player.GlobalPosition.X > GlobalPosition.X) && (Directional.Facing == Direction.Left))
             {
-                TurnAround();
+                Directional.Flip();
             }
         }
     }
 
     public bool IsPlayerInRange()
     {
-        return (Player != null) && (Abs(Player.GlobalPosition.X - GlobalPosition.X) <= 25);
+        return (_player != null) && (Abs(_player.GlobalPosition.X - GlobalPosition.X) <= 25);
     }
 
     public bool IsPlayerOutOfRange()
     {
-        return (Player != null) && (Abs(Player.GlobalPosition.X - GlobalPosition.X) > 25);
+        return (_player != null) && (Abs(_player.GlobalPosition.X - GlobalPosition.X) > 25);
     }
 
     public void MoveTowardsPlayer()
     {
-        if (Player == null) { return; }
+        if (_player == null) { return; }
 
-        var direction = (Player.GlobalPosition - GlobalPosition).Normalized();
+        var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
         var velocity = Velocity;
         if (direction != Vector2.Zero)
         {
@@ -117,14 +62,6 @@ public partial class Skeleton : CharacterBody2D, IActor
             velocity.X = MoveToward(Velocity.X, 0, Stats.Speed);
         }
         Velocity = velocity;
-    }
-
-    private bool _isFacingRight = true;
-    private void TurnAround()
-    {
-        _isFacingRight = !_isFacingRight;
-        Direction.Scale = Direction.Scale.WithXFlipped();
-        // Scale = Scale.WithXFlipped();
     }
 
     public void OnHpChanged(int hp)

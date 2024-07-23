@@ -20,6 +20,7 @@ public partial class Actor : CharacterBody2D
     public override void _Ready()
     {
         base._Ready();
+
         _stats = GetNode<Stats>("Stats");
         _animation = GetNode<AnimationPlayer>("Animation");
         _audio = GetNode<AudioStreamPlayer2D>("Audio");

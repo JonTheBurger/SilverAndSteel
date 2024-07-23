@@ -1,64 +1,21 @@
-[gd_scene load_steps=18 format=3 uid="uid://kv4hh4i42p7s"]
+[gd_scene load_steps=18 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
-[ext_resource type="Script" path="res://game/actors/Stats.cs" id="2_8vwdu"]
+[ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tqvf1"]
 [ext_resource type="PackedScene" uid="uid://cjeimbi08neqy" path="res://game/actors/enemies/skeleton/fsm/SkeletonFsm.tscn" id="4_g21o6"]
 [ext_resource type="PackedScene" uid="uid://bbeqm4anwb2dt" path="res://game/actors/enemies/skeleton/fsm/SkeletonIdleState.tscn" id="5_tj0tb"]
 [ext_resource type="PackedScene" uid="uid://hrwhwc33jabp" path="res://game/actors/enemies/skeleton/fsm/SkeletonAttackState.tscn" id="6_dm7sm"]
 [ext_resource type="PackedScene" uid="uid://c1q81n1nehe88" path="res://game/actors/enemies/skeleton/fsm/SkeletonDieState.tscn" id="7_tb7a8"]
 [ext_resource type="PackedScene" uid="uid://b700ax424tnex" path="res://game/actors/enemies/skeleton/fsm/SkeletonWalkState.tscn" id="8_a2a72"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xkpb7"]
-radius = 7.0
-height = 32.0
-
-[sub_resource type="Animation" id="Animation_nxryg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [39]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/Weapon/Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(21, -8)]
-}
-
-[sub_resource type="Animation" id="Animation_1cq7q"]
+[sub_resource type="Animation" id="Animation_8oghc"]
 resource_name = "attack"
 length = 1.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -70,7 +27,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/Weapon/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/AttackArea/Hitbox:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -82,7 +39,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/Weapon/Hitbox:position")
+tracks/2/path = NodePath("Directional/AttackArea/Hitbox:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -92,13 +49,13 @@ tracks/2/keys = {
 "values": [Vector2(21, -8), Vector2(21, -4)]
 }
 
-[sub_resource type="Animation" id="Animation_2nvth"]
+[sub_resource type="Animation" id="Animation_87dud"]
 resource_name = "die"
 length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -107,15 +64,38 @@ tracks/0/keys = {
 "update": 1,
 "values": [13, 14, 15, 16, 17, 18, 19, 20, 21, 24, 25]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Hurtbox:shape:height")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("Hurtbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 16)]
+}
 
-[sub_resource type="Animation" id="Animation_hqrkj"]
+[sub_resource type="Animation" id="Animation_8cqr7"]
 resource_name = "hit"
-length = 0.6
-step = 0.05
+length = 0.65
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -125,14 +105,14 @@ tracks/0/keys = {
 "values": [54, 53, 52, 53, 54]
 }
 
-[sub_resource type="Animation" id="Animation_01o3x"]
+[sub_resource type="Animation" id="Animation_7w188"]
 resource_name = "idle"
 length = 0.4
 loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -142,14 +122,14 @@ tracks/0/keys = {
 "values": [39, 39, 40, 41]
 }
 
-[sub_resource type="Animation" id="Animation_gtugf"]
+[sub_resource type="Animation" id="Animation_qlbne"]
 resource_name = "walk"
 length = 1.1
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite2D:frame")
+tracks/0/path = NodePath("Directional/Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -159,71 +139,103 @@ tracks/0/keys = {
 "values": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dmnat"]
-_data = {
-"RESET": SubResource("Animation_nxryg"),
-"attack": SubResource("Animation_1cq7q"),
-"die": SubResource("Animation_2nvth"),
-"hit": SubResource("Animation_hqrkj"),
-"idle": SubResource("Animation_01o3x"),
-"walk": SubResource("Animation_gtugf")
+[sub_resource type="Animation" id="Animation_stk5r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [32.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Directional/Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvott"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tkyrk"]
+_data = {
+"RESET": SubResource("Animation_stk5r"),
+"attack": SubResource("Animation_8oghc"),
+"die": SubResource("Animation_87dud"),
+"hit": SubResource("Animation_8cqr7"),
+"idle": SubResource("Animation_7w188"),
+"walk": SubResource("Animation_qlbne")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx5i2"]
 size = Vector2(22, 24)
 
-[node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kq3gj"]
+radius = 7.0
+height = 32.0
+
+[node name="Skeleton" instance=ExtResource("1_tqvf1")]
 script = ExtResource("1_qixor")
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("2_8vwdu")
+[node name="Stats" parent="." index="0"]
 Hp = 50
 MaxHp = 50
 Str = 15
 Speed = 20.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
-shape = SubResource("CapsuleShape2D_xkpb7")
-
-[node name="SkeletonFsm" parent="." node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
-AnimationPlayer = NodePath("../AnimationPlayer")
-Current = NodePath("SkeletonIdleState")
-
-[node name="SkeletonIdleState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
-OnPlayerInRange = NodePath("../SkeletonAttackState")
-OnPlayerOutOfRange = NodePath("../SkeletonWalkState")
-OnHpZero = NodePath("../SkeletonDieState")
-
-[node name="SkeletonAttackState" parent="SkeletonFsm" node_paths=PackedStringArray("OnAttackFinished", "OnHpZero") instance=ExtResource("6_dm7sm")]
-OnAttackFinished = NodePath("../SkeletonIdleState")
-OnHpZero = NodePath("../SkeletonDieState")
-
-[node name="SkeletonDieState" parent="SkeletonFsm" instance=ExtResource("7_tb7a8")]
-
-[node name="SkeletonWalkState" parent="SkeletonFsm" node_paths=PackedStringArray("OnPlayerInRange", "OnHpZero") instance=ExtResource("8_a2a72")]
-OnPlayerInRange = NodePath("../SkeletonAttackState")
-OnHpZero = NodePath("../SkeletonDieState")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Animation" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_dmnat")
+"": SubResource("AnimationLibrary_tkyrk")
 }
 
-[node name="Directional" type="Node2D" parent="."]
-
-[node name="Weapon" type="Area2D" parent="Directional"]
-
-[node name="Hitbox" type="CollisionShape2D" parent="Directional/Weapon"]
-position = Vector2(21, -8)
-shape = SubResource("RectangleShape2D_dvott")
-disabled = true
-debug_color = Color(1, 0, 0, 0.392157)
-
-[node name="Sprite2D" type="Sprite2D" parent="Directional"]
+[node name="Sprite" parent="Directional" index="0"]
 texture = ExtResource("1_il2jw")
 hframes = 13
 vframes = 5
-frame = 39
 
-[connection signal="animation_finished" from="AnimationPlayer" to="SkeletonFsm" method="OnAnimationFinished"]
+[node name="Hitbox" parent="Directional/AttackArea" index="0"]
+position = Vector2(21, -4)
+shape = SubResource("RectangleShape2D_bx5i2")
+
+[node name="Hurtbox" parent="." index="4"]
+shape = SubResource("CapsuleShape2D_kq3gj")
+
+[node name="Fsm" parent="." index="5" node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
+AnimationPlayer = NodePath("../Animation")
+Current = NodePath("IdleState")
+
+[node name="IdleState" parent="Fsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
+OnPlayerInRange = NodePath("../AttackState")
+OnPlayerOutOfRange = NodePath("../WalkState")
+OnHpZero = NodePath("../DieState")
+
+[node name="AttackState" parent="Fsm" index="1" node_paths=PackedStringArray("OnAttackFinished", "OnHpZero") instance=ExtResource("6_dm7sm")]
+OnAttackFinished = NodePath("../IdleState")
+OnHpZero = NodePath("../DieState")
+
+[node name="DieState" parent="Fsm" index="2" instance=ExtResource("7_tb7a8")]
+
+[node name="WalkState" parent="Fsm" index="3" node_paths=PackedStringArray("OnPlayerInRange", "OnHpZero") instance=ExtResource("8_a2a72")]
+OnPlayerInRange = NodePath("../AttackState")
+OnHpZero = NodePath("../DieState")

@@ -27,13 +27,13 @@ public partial class SkeletonAttackState : State<Skeleton>
     public override void _Ready()
     {
         AttackDelayTimer.OneShot = true;
-        AttackDelayTimer.Timeout += () => Target?.AnimationPlayer?.Play(AttackAnimation);
+        AttackDelayTimer.Timeout += () => Target?.Animation?.Play(AttackAnimation);
     }
 
     public override void OnEnter(State<Skeleton> previous)
     {
         if (Target == null) { return; }
-        Target.AnimationPlayer?.Play(WindupAnimation);
+        Target.Animation?.Play(WindupAnimation);
         AttackDelayTimer.Start(10 / Target.Stats.Speed);
         Target.Velocity = Target.Velocity.WithX(0);
     }
@@ -41,7 +41,7 @@ public partial class SkeletonAttackState : State<Skeleton>
     public override void OnExit(State<Skeleton> next)
     {
         AttackDelayTimer.Stop();
-        Target?.AnimationPlayer?.Stop();
+        Target?.Animation?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
