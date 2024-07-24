@@ -11,7 +11,7 @@ public partial class Fsm<T> : Node2D where T : Node
     public T? Target { get; set; }
 
     [Export]
-    private AnimationPlayer? AnimationPlayer { get; set; }
+    public AnimationPlayer? AnimationPlayer { get; set; }
 
     [Export]
     private State<T> Current { get; set; } = State<T>.NOP;
@@ -56,6 +56,7 @@ public partial class Fsm<T> : Node2D where T : Node
             foreach (var state in GetChildren().OfType<State<T>>())
             {
                 state.Target = Target;
+                state.AnimationPlayer = AnimationPlayer;
             }
         }
         else if (!Engine.IsEditorHint())

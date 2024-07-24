@@ -219,10 +219,11 @@ shape = SubResource("CapsuleShape2D_kq3gj")
 [node name="Fsm" parent="." index="5" node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
 AnimationPlayer = NodePath("../Animation")
 Current = NodePath("IdleState")
+LogTransitions = true
 
-[node name="IdleState" parent="Fsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerOutOfRange", "OnHpZero") instance=ExtResource("5_tj0tb")]
+[node name="IdleState" parent="Fsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerDetected", "OnHpZero") instance=ExtResource("5_tj0tb")]
 OnPlayerInRange = NodePath("../AttackState")
-OnPlayerOutOfRange = NodePath("../WalkState")
+OnPlayerDetected = NodePath("../WalkState")
 OnHpZero = NodePath("../DieState")
 
 [node name="AttackState" parent="Fsm" index="1" node_paths=PackedStringArray("OnAttackFinished", "OnHpZero") instance=ExtResource("6_dm7sm")]
@@ -231,6 +232,7 @@ OnHpZero = NodePath("../DieState")
 
 [node name="DieState" parent="Fsm" index="2" instance=ExtResource("7_tb7a8")]
 
-[node name="WalkState" parent="Fsm" index="3" node_paths=PackedStringArray("OnPlayerInRange", "OnHpZero") instance=ExtResource("8_a2a72")]
-OnPlayerInRange = NodePath("../AttackState")
+[node name="WalkState" parent="Fsm" index="3" node_paths=PackedStringArray("OnHpZero", "OnPlayerInRange", "OnPlayerUndetected") instance=ExtResource("8_a2a72")]
 OnHpZero = NodePath("../DieState")
+OnPlayerInRange = NodePath("../AttackState")
+OnPlayerUndetected = NodePath("../IdleState")

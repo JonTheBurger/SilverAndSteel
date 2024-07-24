@@ -7,22 +7,26 @@ namespace Game;
 public partial class SkeletonWalkState : State<Skeleton>
 {
     [Export]
+    public State<Skeleton>? OnHpZero { get; set; }
+
+    [Export]
     public State<Skeleton>? OnPlayerInRange { get; set; }
 
     [Export]
-    public State<Skeleton>? OnHpZero { get; set; }
+    public State<Skeleton>? OnPlayerUndetected { get; set; }
 
     [Export]
     public StringName Animation { get; set; } = "walk";
 
     public override void OnEnter(State<Skeleton> previous)
     {
-        Target?.Animation?.Play(Animation);
+        AnimationPlayer?.Play(Animation);
     }
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target?.Animation?.Stop();
+        Target.Velocity = Target.Velocity.WithX(0);
+        AnimationPlayer?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
@@ -39,6 +43,10 @@ public partial class SkeletonWalkState : State<Skeleton>
         else if (Target.IsPlayerInRange)
         {
             Next = OnPlayerInRange;
+        }
+        else if (!Target.IsPlayerDetected)
+        {
+            Next = OnPlayerUndetected;
         }
     }
 }

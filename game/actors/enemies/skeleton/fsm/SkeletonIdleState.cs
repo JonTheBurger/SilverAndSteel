@@ -10,7 +10,7 @@ public partial class SkeletonIdleState : State<Skeleton>
     public State<Skeleton>? OnPlayerInRange { get; set; }
 
     [Export]
-    public State<Skeleton>? OnPlayerOutOfRange { get; set; }
+    public State<Skeleton>? OnPlayerDetected { get; set; }
 
     [Export]
     public State<Skeleton>? OnHpZero { get; set; }
@@ -20,17 +20,18 @@ public partial class SkeletonIdleState : State<Skeleton>
 
     public override void OnEnter(State<Skeleton> previous)
     {
-        Target?.Animation?.Play(Animation);
+        AnimationPlayer?.Play(Animation);
     }
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target?.Animation?.Stop();
+        AnimationPlayer?.Stop();
     }
 
     public override void ProcessPhysics(double delta)
     {
         if (Target == null) { return; }
+
         if (Target.Stats.Hp <= 0)
         {
             Next = OnHpZero;
@@ -39,9 +40,9 @@ public partial class SkeletonIdleState : State<Skeleton>
         {
             Next = OnPlayerInRange;
         }
-        else
+        else if (Target.IsPlayerDetected)
         {
-            Next = OnPlayerOutOfRange;
+            Next = OnPlayerDetected;
         }
     }
 }

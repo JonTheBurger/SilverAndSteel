@@ -9,12 +9,23 @@ public partial class State<T> : Node where T : Node
     /// WARNING: Fsm _OnReady fills this in - it will only be null in the constructor
     /// (i.e. when initializing other properties) or _OnReady().
     /// </summary>
-    public T? Target
+    public T Target
     {
-        get => _target ??= GetParent<Fsm<T>>().Target;
+        get => _target ??= GetParent<Fsm<T>>().Target!;
         set => _target = value;
     }
     private T? _target;
+
+    /// <summary>
+    /// WARNING: Fsm _OnReady fills this in - it will only be null in the constructor
+    /// (i.e. when initializing other properties) or _OnReady().
+    /// </summary>
+    public AnimationPlayer? AnimationPlayer
+    {
+        get => _animationPlayer ??= GetParent<Fsm<T>>().AnimationPlayer;
+        set => _animationPlayer = value;
+    }
+    private AnimationPlayer? _animationPlayer;
 
     public State<T>? Next { get; set; } = null;
 

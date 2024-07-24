@@ -27,9 +27,6 @@ public partial class PlayerJumpState : State<Player>
     public override void ProcessPhysics(double delta)
     {
         Target.Move();
-        Vector2 velocity = Target.Velocity;
-        velocity.Y += _gravity * (float)delta;
-        Target.Velocity = velocity;
         if (Target.IsOnFloor())
         {
             Next = OnLand;

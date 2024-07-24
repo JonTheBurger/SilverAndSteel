@@ -11,13 +11,13 @@ public partial class SkeletonDieState : State<Skeleton>
 
     public override void OnEnter(State<Skeleton> previous)
     {
-        Target.Animation?.Play(Animation);
+        AnimationPlayer?.Play(Animation);
         Target.Velocity = Target.Velocity.WithX(0);
     }
 
     public override void OnExit(State<Skeleton> next)
     {
-        Target?.Animation?.Stop();
+        AnimationPlayer?.Stop();
     }
 
     public override void OnAnimationFinished(StringName animation)

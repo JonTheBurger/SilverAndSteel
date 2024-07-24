@@ -1,3 +1,5 @@
+using System.Dynamic;
+
 using Godot;
 
 using static Game.Globals;
@@ -8,6 +10,9 @@ namespace Game;
 [Icon("res://assets/img/icons/actor.png")]
 public partial class Actor : CharacterBody2D
 {
+    [Export]
+    public float Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>();
+
     public Stats Stats => _stats!;
     public AnimationPlayer Animation => _animation!;
     public AudioStreamPlayer2D Audio => _audio!;
@@ -49,7 +54,7 @@ public partial class Actor : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
-        // TODO: Gravity?
+        Velocity = Velocity.WithY(Velocity.Y + (float)delta * Gravity);
         if (JustTurnedAround()) { Directional.Flip(); }
         MoveAndSlide();
     }

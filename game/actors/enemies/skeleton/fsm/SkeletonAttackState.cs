@@ -35,7 +35,6 @@ public partial class SkeletonAttackState : State<Skeleton>
         if (Target == null) { return; }
         Target.Animation?.Play(WindupAnimation);
         AttackDelayTimer.Start(10 / Target.Stats.Speed);
-        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     public override void OnExit(State<Skeleton> next)

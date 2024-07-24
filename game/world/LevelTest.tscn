@@ -23,7 +23,7 @@ position = Vector2(0, -4)
 remote_path = NodePath("../Player/PlayerCamera")
 
 [node name="Skeleton" parent="." instance=ExtResource("7_qaf6g")]
-position = Vector2(-113, 17)
+position = Vector2(-140, 1)
 
 [node name="Skeleton2" parent="." instance=ExtResource("7_qaf6g")]
 position = Vector2(113, 18)
