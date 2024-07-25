@@ -14,7 +14,7 @@ public partial class Skeleton : Actor
     public bool IsPlayerDetected => _isPlayerDetected;
 
     private Player? _player;
-    private SkeletonFsm? _fsm;
+    private SkeletonAliveHsm? _fsm;
     private Area2D? _aggressionRange;
     private Area2D? _detectionRadius;
     private bool _isPlayerInRange = false;
@@ -24,7 +24,7 @@ public partial class Skeleton : Actor
     {
         base._Ready();
 
-        _fsm = GetNode<SkeletonFsm>("Fsm");
+        _fsm = GetNode<SkeletonAliveHsm>("SkeletonAliveHsm");
         _fsm.Target = this;
         Animation.AnimationFinished += _fsm.OnAnimationFinished;
 
@@ -35,11 +35,14 @@ public partial class Skeleton : Actor
         AggressionRange.BodyExited += OnAggressionRangeExit;
         DetectionRadius.BodyEntered += OnDetectionRadiusEnter;
         DetectionRadius.BodyExited += OnDetectionRadiusExit;
+
+        _fsm.OnEnter(null);
     }
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
+        _fsm.ProcessPhysics(delta);
 
         if (_player != null)
         {

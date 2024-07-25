@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfd2f2vs3jh5p"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/hsm/SkeletonIdleHsm.cs" id="1_483ls"]
+
+[node name="SkeletonIdleHsm" type="Node"]
+script = ExtResource("1_483ls")

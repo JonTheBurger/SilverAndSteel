@@ -1,13 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=19 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tqvf1"]
-[ext_resource type="PackedScene" uid="uid://cjeimbi08neqy" path="res://game/actors/enemies/skeleton/fsm/SkeletonFsm.tscn" id="4_g21o6"]
-[ext_resource type="PackedScene" uid="uid://bbeqm4anwb2dt" path="res://game/actors/enemies/skeleton/fsm/SkeletonIdleState.tscn" id="5_tj0tb"]
-[ext_resource type="PackedScene" uid="uid://hrwhwc33jabp" path="res://game/actors/enemies/skeleton/fsm/SkeletonAttackState.tscn" id="6_dm7sm"]
-[ext_resource type="PackedScene" uid="uid://c1q81n1nehe88" path="res://game/actors/enemies/skeleton/fsm/SkeletonDieState.tscn" id="7_tb7a8"]
-[ext_resource type="PackedScene" uid="uid://b700ax424tnex" path="res://game/actors/enemies/skeleton/fsm/SkeletonWalkState.tscn" id="8_a2a72"]
+[ext_resource type="PackedScene" uid="uid://dgqrle54y0qq6" path="res://game/actors/enemies/skeleton/hsm/SkeletonAliveHsm.tscn" id="4_uv8ki"]
+[ext_resource type="PackedScene" uid="uid://cfd2f2vs3jh5p" path="res://game/actors/enemies/skeleton/hsm/SkeletonIdleHsm.tscn" id="5_omcgu"]
+[ext_resource type="PackedScene" uid="uid://d0vecfi22v5wk" path="res://game/actors/enemies/skeleton/hsm/SkeletonWalkHsm.tscn" id="6_42844"]
+[ext_resource type="PackedScene" uid="uid://bce6syp2gdxvj" path="res://game/actors/enemies/skeleton/hsm/SkeletonDieHsm.tscn" id="7_2ylwn"]
 
 [sub_resource type="Animation" id="Animation_stk5r"]
 length = 0.001
@@ -216,23 +215,15 @@ debug_color = Color(1, 1, 0, 0.117647)
 [node name="Hurtbox" parent="." index="4"]
 shape = SubResource("CapsuleShape2D_kq3gj")
 
-[node name="Fsm" parent="." index="5" node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("4_g21o6")]
-AnimationPlayer = NodePath("../Animation")
-Current = NodePath("IdleState")
+[node name="SkeletonAliveHsm" parent="." index="5" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
+OnDie = NodePath("../SkeletonDieHsm")
 LogTransitions = true
+Initial = NodePath("SkeletonIdleHsm")
 
-[node name="IdleState" parent="Fsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerDetected", "OnHpZero") instance=ExtResource("5_tj0tb")]
-OnPlayerInRange = NodePath("../AttackState")
-OnPlayerDetected = NodePath("../WalkState")
-OnHpZero = NodePath("../DieState")
+[node name="SkeletonIdleHsm" parent="SkeletonAliveHsm" index="0" node_paths=PackedStringArray("OnPlayerDetected") instance=ExtResource("5_omcgu")]
+OnPlayerDetected = NodePath("../SkeletonWalkHsm")
 
-[node name="AttackState" parent="Fsm" index="1" node_paths=PackedStringArray("OnAttackFinished", "OnHpZero") instance=ExtResource("6_dm7sm")]
-OnAttackFinished = NodePath("../IdleState")
-OnHpZero = NodePath("../DieState")
+[node name="SkeletonWalkHsm" parent="SkeletonAliveHsm" index="1" node_paths=PackedStringArray("OnPlayerUndetected") instance=ExtResource("6_42844")]
+OnPlayerUndetected = NodePath("../SkeletonIdleHsm")
 
-[node name="DieState" parent="Fsm" index="2" instance=ExtResource("7_tb7a8")]
-
-[node name="WalkState" parent="Fsm" index="3" node_paths=PackedStringArray("OnHpZero", "OnPlayerInRange", "OnPlayerUndetected") instance=ExtResource("8_a2a72")]
-OnHpZero = NodePath("../DieState")
-OnPlayerInRange = NodePath("../AttackState")
-OnPlayerUndetected = NodePath("../IdleState")
+[node name="SkeletonDieHsm" parent="." index="6" instance=ExtResource("7_2ylwn")]
