@@ -222,7 +222,6 @@ Initial = NodePath("SkeletonAliveHsm")
 
 [node name="SkeletonAliveHsm" parent="SkeletonHsm" index="0" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
 OnDie = NodePath("../SkeletonDieHsm")
-LogTransitions = true
 Initial = NodePath("SkeletonIdleHsm")
 
 [node name="SkeletonIdleHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerDetected") instance=ExtResource("5_omcgu")]

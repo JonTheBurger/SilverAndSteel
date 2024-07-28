@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://2yl4jmgb3d8s"]
+
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerFallHsm.cs" id="1_bwmy2"]
+
+[node name="PlayerFallHsm" type="Node"]
+script = ExtResource("1_bwmy2")
