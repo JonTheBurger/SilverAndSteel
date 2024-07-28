@@ -1,7 +1,7 @@
 ```mermaid
----
-title: PlayerFsm
----
+-----
+title: PlayerHsm
+-----
 stateDiagram
 
     [*] --> Idle

@@ -149,7 +149,6 @@ height = 28.0
 
 [node name="Player" groups=["players"] instance=ExtResource("1_tn8h8")]
 script = ExtResource("1_qyb0e")
-JumpVelocity = -150.0
 
 [node name="Animation" parent="." index="1"]
 libraries = {

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk5b1wutwq4vg"]
-
-[ext_resource type="Script" path="res://game/actors/player/fsm/PlayerIdleState.cs" id="1_jfxim"]
-
-[node name="PlayerIdleState" type="Node"]
-script = ExtResource("1_jfxim")

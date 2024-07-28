@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://hrwhwc33jabp"]
-
-[ext_resource type="Script" path="res://game/actors/enemies/skeleton/fsm/SkeletonAttackState.cs" id="1_8eu6y"]
-
-[node name="SkeletonAttackState" type="Node"]
-script = ExtResource("1_8eu6y")
