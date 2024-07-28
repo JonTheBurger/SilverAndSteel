@@ -4,29 +4,37 @@ namespace Game;
 
 public partial class Player : Actor
 {
-	[Export]
-	public float JumpVelocity { get; set; } = -150.0f;
+    private PlayerHsm? _fsm;
 
-	private PlayerFsm? _fsm;
+    public override void _Ready()
+    {
+        base._Ready();
 
-	public override void _Ready()
-	{
-		base._Ready();
+        var camera = GetNodeOrNull<PlayerCamera>("PlayerCamera");
+        if (camera != null)
+        {
+            Directional.DirectionChanged += camera.OnDirectionChanged;
+        }
 
-		_fsm = GetNode<PlayerFsm>("Fsm");
-		_fsm.Target = this;
-		Animation.AnimationFinished += _fsm.OnAnimationFinished;
+        _fsm = GetNode<PlayerHsm>("PlayerHsm");
+        _fsm.Start(this, Animation);
+    }
 
-		var camera = GetNodeOrNull<PlayerCamera>("PlayerCamera");
-		if (camera != null)
-		{
-			Directional.DirectionChanged += camera.OnDirectionChanged;
-		}
-	}
+    public override void _PhysicsProcess(double delta)
+    {
+        base._PhysicsProcess(delta);
+        _fsm.ProcessPhysics(delta);
+    }
 
-	public void Move()
-	{
-		Vector2 direction = Input.GetVector("left", "right", "up", "down");
-		Move(direction);
-	}
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+        _fsm.ProcessInput(@event);
+    }
+
+    public void Move()
+    {
+        Vector2 direction = Input.GetVector("left", "right", "up", "down");
+        Move(direction);
+    }
 }

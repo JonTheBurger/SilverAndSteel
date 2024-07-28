@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tn8h8"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
-[ext_resource type="PackedScene" uid="uid://v2j0cjj173jv" path="res://game/actors/player/fsm/PlayerFsm.tscn" id="3_sav00"]
-[ext_resource type="PackedScene" uid="uid://dk5b1wutwq4vg" path="res://game/actors/player/fsm/PlayerIdleState.tscn" id="4_j0r6w"]
-[ext_resource type="PackedScene" uid="uid://3phl63y1d7rq" path="res://game/actors/player/fsm/PlayerRunState.tscn" id="5_yjqty"]
-[ext_resource type="PackedScene" uid="uid://5y1j3tgv0yw2" path="res://game/actors/player/fsm/PlayerAttackState.tscn" id="6_8fr4t"]
 [ext_resource type="AudioStream" uid="uid://0gpc8ywiap4b" path="res://assets/sfx/SwordMiss01.mp3" id="6_pmygq"]
-[ext_resource type="PackedScene" uid="uid://chrmr35kjtvcn" path="res://game/actors/player/fsm/PlayerJumpState.tscn" id="7_10d35"]
+[ext_resource type="PackedScene" uid="uid://8r68mbafuk3p" path="res://game/actors/player/hsm/PlayerHsm.tscn" id="10_npbup"]
+[ext_resource type="PackedScene" uid="uid://bw638oxhkb606" path="res://game/actors/player/hsm/PlayerAttackHsm.tscn" id="11_srhj1"]
+[ext_resource type="PackedScene" uid="uid://og2bmmv3w61k" path="res://game/actors/player/hsm/PlayerIdleHsm.tscn" id="12_hk0li"]
+[ext_resource type="PackedScene" uid="uid://dq7h6m10l475y" path="res://game/actors/player/hsm/PlayerJumpHsm.tscn" id="13_pmo02"]
+[ext_resource type="PackedScene" uid="uid://cd5gkp038oa5t" path="res://game/actors/player/hsm/PlayerRunHsm.tscn" id="14_fr8gg"]
 
 [sub_resource type="Animation" id="Animation_2f1t5"]
 length = 0.001
@@ -169,25 +169,24 @@ shape = SubResource("RectangleShape2D_yxhp4")
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_muoh4")
 
-[node name="Fsm" parent="." index="5" node_paths=PackedStringArray("AnimationPlayer", "Current") instance=ExtResource("3_sav00")]
-AnimationPlayer = NodePath("../Animation")
-Current = NodePath("IdleState")
+[node name="PlayerHsm" parent="." index="5" node_paths=PackedStringArray("Initial") instance=ExtResource("10_npbup")]
+LogTransitions = true
+Initial = NodePath("PlayerIdleHsm")
 
-[node name="IdleState" parent="Fsm" index="0" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("4_j0r6w")]
-OnMove = NodePath("../RunState")
-OnAttack = NodePath("../AttackState")
-OnJump = NodePath("../JumpState")
-OnFall = NodePath("../JumpState")
+[node name="PlayerAttackHsm" parent="PlayerHsm" index="0" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("11_srhj1")]
+OnAttackComplete = NodePath("../PlayerIdleHsm")
 
-[node name="RunState" parent="Fsm" index="1" node_paths=PackedStringArray("OnStop", "OnJump", "OnAttack", "OnFall") instance=ExtResource("5_yjqty")]
-OnStop = NodePath("../IdleState")
-OnJump = NodePath("../JumpState")
-OnAttack = NodePath("../AttackState")
-OnFall = NodePath("../JumpState")
+[node name="PlayerIdleHsm" parent="PlayerHsm" index="1" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("12_hk0li")]
+OnMove = NodePath("../PlayerRunHsm")
+OnAttack = NodePath("../PlayerAttackHsm")
+OnJump = NodePath("../PlayerJumpHsm")
+OnFall = NodePath("../PlayerJumpHsm")
 
-[node name="AttackState" parent="Fsm" index="2" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("6_8fr4t")]
-OnAttackComplete = NodePath("../IdleState")
+[node name="PlayerJumpHsm" parent="PlayerHsm" index="2" node_paths=PackedStringArray("OnLand") instance=ExtResource("13_pmo02")]
+OnLand = NodePath("../PlayerIdleHsm")
 
-[node name="JumpState" parent="Fsm" index="3" node_paths=PackedStringArray("OnLand") instance=ExtResource("7_10d35")]
-OnLand = NodePath("../IdleState")
-Animation = &"jump_air"
+[node name="PlayerRunHsm" parent="PlayerHsm" index="3" node_paths=PackedStringArray("OnStop", "OnJump", "OnAttack", "OnFall") instance=ExtResource("14_fr8gg")]
+OnStop = NodePath("../PlayerIdleHsm")
+OnJump = NodePath("../PlayerJumpHsm")
+OnAttack = NodePath("../PlayerAttackHsm")
+OnFall = NodePath("../PlayerJumpHsm")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8r68mbafuk3p"]
+
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerHsm.cs" id="1_bvcam"]
+
+[node name="PlayerHsm" type="Node"]
+script = ExtResource("1_bvcam")

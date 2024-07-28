@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cd5gkp038oa5t"]
+
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerRunHsm.cs" id="1_l2bnw"]
+
+[node name="PlayerRunHsm" type="Node"]
+script = ExtResource("1_l2bnw")
