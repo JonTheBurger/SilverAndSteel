@@ -22,7 +22,7 @@ public partial class State<T> : Node where T : Node
     /// </summary>
     public AnimationPlayer? AnimationPlayer
     {
-        get => _animationPlayer ??= GetParent<Fsm<T>>().AnimationPlayer;
+        get => _animationPlayer ??= GetParentOrNull<Fsm<T>>()?.AnimationPlayer;
         set => _animationPlayer = value;
     }
     private AnimationPlayer? _animationPlayer;

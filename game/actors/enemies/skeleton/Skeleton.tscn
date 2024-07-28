@@ -1,12 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=21 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tqvf1"]
+[ext_resource type="PackedScene" uid="uid://c6ju754qrjk3b" path="res://game/actors/enemies/skeleton/hsm/SkeletonHsm.tscn" id="4_u34or"]
 [ext_resource type="PackedScene" uid="uid://dgqrle54y0qq6" path="res://game/actors/enemies/skeleton/hsm/SkeletonAliveHsm.tscn" id="4_uv8ki"]
 [ext_resource type="PackedScene" uid="uid://cfd2f2vs3jh5p" path="res://game/actors/enemies/skeleton/hsm/SkeletonIdleHsm.tscn" id="5_omcgu"]
 [ext_resource type="PackedScene" uid="uid://d0vecfi22v5wk" path="res://game/actors/enemies/skeleton/hsm/SkeletonWalkHsm.tscn" id="6_42844"]
 [ext_resource type="PackedScene" uid="uid://bce6syp2gdxvj" path="res://game/actors/enemies/skeleton/hsm/SkeletonDieHsm.tscn" id="7_2ylwn"]
+[ext_resource type="PackedScene" uid="uid://clvku8stiqtt2" path="res://game/actors/enemies/skeleton/hsm/SkeletonAttackHsm.tscn" id="8_rekg4"]
 
 [sub_resource type="Animation" id="Animation_stk5r"]
 length = 0.001
@@ -215,15 +217,23 @@ debug_color = Color(1, 1, 0, 0.117647)
 [node name="Hurtbox" parent="." index="4"]
 shape = SubResource("CapsuleShape2D_kq3gj")
 
-[node name="SkeletonAliveHsm" parent="." index="5" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
+[node name="SkeletonHsm" parent="." index="5" node_paths=PackedStringArray("Initial") instance=ExtResource("4_u34or")]
+Initial = NodePath("SkeletonAliveHsm")
+
+[node name="SkeletonAliveHsm" parent="SkeletonHsm" index="0" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
 OnDie = NodePath("../SkeletonDieHsm")
 LogTransitions = true
 Initial = NodePath("SkeletonIdleHsm")
 
-[node name="SkeletonIdleHsm" parent="SkeletonAliveHsm" index="0" node_paths=PackedStringArray("OnPlayerDetected") instance=ExtResource("5_omcgu")]
+[node name="SkeletonIdleHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerDetected") instance=ExtResource("5_omcgu")]
+OnPlayerInRange = NodePath("../SkeletonAttackHsm")
 OnPlayerDetected = NodePath("../SkeletonWalkHsm")
 
-[node name="SkeletonWalkHsm" parent="SkeletonAliveHsm" index="1" node_paths=PackedStringArray("OnPlayerUndetected") instance=ExtResource("6_42844")]
+[node name="SkeletonWalkHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="1" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerUndetected") instance=ExtResource("6_42844")]
+OnPlayerInRange = NodePath("../SkeletonAttackHsm")
 OnPlayerUndetected = NodePath("../SkeletonIdleHsm")
 
-[node name="SkeletonDieHsm" parent="." index="6" instance=ExtResource("7_2ylwn")]
+[node name="SkeletonAttackHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="2" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("8_rekg4")]
+OnAttackComplete = NodePath("../SkeletonIdleHsm")
+
+[node name="SkeletonDieHsm" parent="SkeletonHsm" index="1" instance=ExtResource("7_2ylwn")]

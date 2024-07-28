@@ -8,11 +8,9 @@ public partial class SkeletonAliveHsm : Hsm<Skeleton>
     [Export]
     public Hsm<Skeleton>? OnDie { get; set; }
 
-    public override void ProcessPhysics(double delta)
+    protected override void OnProcessPhysics(double delta)
     {
-        base.ProcessPhysics(delta);
-
-        if (Target.Stats.Hp <= 0)
+        if ((Target.Stats.Hp <= 0) && (Current != OnDie) && (Next != OnDie))
         {
             Next = OnDie;
         }

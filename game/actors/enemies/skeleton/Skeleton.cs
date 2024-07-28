@@ -2,7 +2,6 @@ using Godot;
 using static Godot.Mathf;
 
 using System.Linq;
-using System;
 
 namespace Game;
 
@@ -14,7 +13,7 @@ public partial class Skeleton : Actor
     public bool IsPlayerDetected => _isPlayerDetected;
 
     private Player? _player;
-    private SkeletonAliveHsm? _fsm;
+    private SkeletonHsm? _fsm;
     private Area2D? _aggressionRange;
     private Area2D? _detectionRadius;
     private bool _isPlayerInRange = false;
@@ -24,10 +23,6 @@ public partial class Skeleton : Actor
     {
         base._Ready();
 
-        _fsm = GetNode<SkeletonAliveHsm>("SkeletonAliveHsm");
-        _fsm.Target = this;
-        Animation.AnimationFinished += _fsm.OnAnimationFinished;
-
         _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
         _aggressionRange = GetNode<Area2D>("Directional/AggressionRange");
         _detectionRadius = GetNode<Area2D>("Directional/DetectionRadius");
@@ -36,7 +31,8 @@ public partial class Skeleton : Actor
         DetectionRadius.BodyEntered += OnDetectionRadiusEnter;
         DetectionRadius.BodyExited += OnDetectionRadiusExit;
 
-        _fsm.OnEnter(null);
+        _fsm = GetNode<SkeletonHsm>("SkeletonHsm");
+        _fsm.Start(this, Animation);
     }
 
     public override void _PhysicsProcess(double delta)

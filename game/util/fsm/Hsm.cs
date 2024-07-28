@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using Godot;
 
@@ -10,11 +11,33 @@ public partial class Hsm<T> : Node where T : Node
     [Export]
     bool LogTransitions { get; set; } = false;
 
-    public void HookUp(T target, AnimationPlayer player)
+    public void Start(T target, AnimationPlayer? animator)
+    {
+        Init(target, animator);
+        if (animator != null)
+        {
+            animator.AnimationFinished += AnimationFinished;
+        }
+        Enter();
+    }
+
+    public void Stop()
+    {
+        Current?.Stop();
+        Current = null;
+        Exit();
+    }
+
+    public void Init(T target, AnimationPlayer? animator)
     {
         Target = target;
-        AnimationPlayer = player;
-        player.AnimationFinished += OnAnimationFinished;
+        AnimationPlayer = animator;
+
+        var children = GetChildren().OfType<Hsm<T>>();
+        foreach (var child in children)
+        {
+            child.Init(target, animator);
+        }
     }
 
     /// <summary>
@@ -23,14 +46,15 @@ public partial class Hsm<T> : Node where T : Node
     /// </summary>
     public T Target
     {
-        get => _target ??= GetParent<Hsm<T>>().Target!;
+        // get => _target ??= GetParentOrNull<Hsm<T>>()?.Target!;
+        get => _target;
         set => _target = value;
     }
     private T? _target;
 
     public AnimationPlayer? AnimationPlayer
     {
-        // get => _animationPlayer ??= GetParent<Hsm<T>>().AnimationPlayer;
+        // get => _animationPlayer ??= GetParentOrNull<Hsm<T>>()?.AnimationPlayer;
         get => _animationPlayer;
         set => _animationPlayer = value;
     }
@@ -40,82 +64,76 @@ public partial class Hsm<T> : Node where T : Node
     public Hsm<T>? Initial { get; set; }
 
     private Hsm<T>? _previous;
-    private Hsm<T>? Current { get; set; }
-    public Hsm<T>? Next { get; set; } = null;
+    public Hsm<T>? Current { get; set; }
+    public Hsm<T>? Next { get; set; }
 
-    /// <summary>
-    /// Called when the state is about to become the current state.
-    /// </summary>
-    /// <param name="previous">Last active state.</param>
-    public virtual void OnEnter(Hsm<T> previous)
+    public void Enter()
     {
+        OnEnter();
         Current = Initial;
-        Current?.OnEnter(previous);
+        Current?.Enter();
     }
-
-    /// <summary>
-    /// Called when the state is about to become the pervious state.
-    /// </summary>
-    /// <param name="next">Next active state.</param>
-    public virtual void OnExit(Hsm<T> next)
+    public void Exit()
     {
-        Current?.OnExit(next);
+        Current?.Exit();
+        OnExit();
     }
-
-    /// <summary>
-    /// Called when an animation completes while this state is active.
-    /// </summary>
-    /// <param name="animation">Name of the completed animation.</param>
-    public virtual void OnAnimationFinished(StringName animation)
+    public void AnimationFinished(StringName animation)
     {
-        Current?.OnAnimationFinished(animation);
+        OnAnimationFinished(animation);
+        Current?.AnimationFinished(animation);
     }
-
-    /// <summary>
-    /// Called every graphics frame while this state is active.
-    /// </summary>
-    /// <param name="delta">Elapsed time since the previous frame in seconds.</param>
-    public virtual void Process(double delta)
+    public void ProcessInput(InputEvent input)
     {
-        Current?.Process(delta);
-    }
-
-    /// <summary>
-    /// Called every physics frame while this state is active.
-    /// </summary>
-    /// <param name="delta">
-    /// Elapsed time since the previous frame in seconds; should be constant
-    /// </param>
-    public virtual void ProcessPhysics(double delta)
-    {
-        Current?.ProcessPhysics(delta);
-        ProcessTransition(Current?.Next);
-    }
-
-    /// <summary>
-    /// Called when user input is detected and this state is active.
-    /// </summary>
-    /// <param name="input">User input.</param>
-    public virtual void ProcessInput(InputEvent input)
-    {
+        OnProcessInput(input);
         Current?.ProcessInput(input);
     }
-
-    // Checks if a transition is necessary, running the OnExit/OnEnter functions as needed
-    private void ProcessTransition(Hsm<T>? next)
+    public void Process(double delta)
     {
-        if (next != null)
+        OnProcess(delta);
+        Current?.Process(delta);
+    }
+    public void ProcessPhysics(double delta)
+    {
+        OnProcessPhysics(delta);
+        Current?.ProcessPhysics(delta);
+        ProcessTransition();
+    }
+    public void ProcessTransition()
+    {
+        if ((Current != null) && (Current.Next != null))
         {
-            if (LogTransitions) { GD.Print($"{Name}: {Current?.Name} -> {next.Name}"); }
-
-            Current?.OnExit(next);
-            next.Next = null;
-            next.OnEnter(Current);
+            if (LogTransitions) { GD.Print($"{Name}: {Current.Name} -> {Current.Next.Name}"); }
 
             _previous = Current;
+            Current.Exit();
+            Current = Current.Next;
             Current.Next = null;
-            Current = next;
+            Current.OnEnter();
         }
+    }
+
+
+    protected virtual void OnEnter()
+    {
+    }
+    protected virtual void OnExit()
+    {
+    }
+    protected virtual void OnAnimationFinished(StringName animation)
+    {
+    }
+    protected virtual void OnProcessInput(InputEvent input)
+    {
+    }
+    protected virtual void OnProcess(double delta)
+    {
+    }
+    protected virtual void OnProcessPhysics(double delta)
+    {
+    }
+    protected virtual void OnProcessTransition(Hsm<T>? next)
+    {
     }
 
     public override string[] _GetConfigurationWarnings()

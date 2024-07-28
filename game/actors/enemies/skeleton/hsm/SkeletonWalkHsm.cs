@@ -9,29 +9,32 @@ public partial class SkeletonWalkHsm : Hsm<Skeleton>
     public StringName Animation { get; set; } = "walk";
 
     [Export]
+    public Hsm<Skeleton>? OnPlayerInRange { get; set; }
+
+    [Export]
     public Hsm<Skeleton>? OnPlayerUndetected { get; set; }
 
-    public override void OnEnter(Hsm<Skeleton> previous)
+    protected override void OnEnter()
     {
-        base.OnEnter(previous);
-
         AnimationPlayer?.Play(Animation);
     }
 
-    public override void OnExit(Hsm<Skeleton> next)
+    protected override void OnExit()
     {
         AnimationPlayer?.Stop();
-
-        base.OnExit(next);
     }
 
-    public override void ProcessPhysics(double delta)
+    protected override void OnProcessPhysics(double delta)
     {
-        base.ProcessPhysics(delta);
-
         if (Target == null) { return; }
 
-        if (!Target.IsPlayerDetected)
+        Target.MoveTowardsPlayer();
+
+        if (Target.IsPlayerInRange)
+        {
+            Next = OnPlayerInRange;
+        }
+        else if (!Target.IsPlayerDetected)
         {
             Next = OnPlayerUndetected;
         }
