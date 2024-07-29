@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://duju4x8j8oyq2"]
+
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerAirAttackHsm.cs" id="1_4fr0d"]
+
+[node name="PlayerAirAttackHsm" type="Node"]
+script = ExtResource("1_4fr0d")

@@ -3,21 +3,21 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class PlayerJumpHsm : Hsm<Player>
+public partial class PlayerAirAttackHsm : Hsm<Player>
 {
     [Export]
+    public StringName Animation { get; set; } = "air_attack";
+
+    [Export]
+    public Hsm<Player>? OnAttackComplete { get; set; }
+
+    [Export]
     public Hsm<Player>? OnLand { get; set; }
-
-    [Export]
-    public Hsm<Player>? OnAttack { get; set; }
-
-    [Export]
-    public StringName Animation { get; set; } = "jump_air";
 
     protected override void OnEnter()
     {
         Target.Animation?.Play(Animation);
-        Target.Velocity = Target.Velocity.WithY(-150.0f);
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     protected override void OnExit()
@@ -34,11 +34,8 @@ public partial class PlayerJumpHsm : Hsm<Player>
         }
     }
 
-    protected override void OnProcessInput(InputEvent input)
+    protected override void OnAnimationFinished(StringName animation)
     {
-        if (Input.IsActionJustPressed(Actions.ATTACK))
-        {
-            Next = OnAttack;
-        }
+        Next = OnAttackComplete;
     }
 }
