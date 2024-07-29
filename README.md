@@ -35,8 +35,8 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- [] HSM
-- [] Set collision monitoring & physics layers
+- [] Stage Select
+- [] Save
 
 # Asset Credits
 

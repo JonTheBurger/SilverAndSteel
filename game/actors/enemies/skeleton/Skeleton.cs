@@ -53,6 +53,11 @@ public partial class Skeleton : Actor
         }
     }
 
+    public void Stop()
+    {
+        Velocity = Velocity.WithX(0);
+    }
+
     public void MoveTowardsPlayer()
     {
         if (_player == null) { return; }

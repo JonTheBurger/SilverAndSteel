@@ -178,6 +178,8 @@ radius = 7.0
 height = 32.0
 
 [node name="Skeleton" groups=["enemies"] instance=ExtResource("1_tqvf1")]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_qixor")
 
 [node name="Stats" parent="." index="0"]
@@ -196,11 +198,19 @@ texture = ExtResource("1_il2jw")
 hframes = 13
 vframes = 5
 
+[node name="AttackRange" parent="Directional" index="1"]
+collision_layer = 24
+collision_mask = 6
+monitorable = false
+
 [node name="Hitbox" parent="Directional/AttackRange" index="0"]
 position = Vector2(22, -8)
 shape = SubResource("RectangleShape2D_vw3b6")
 
 [node name="AggressionRange" type="Area2D" parent="Directional" index="2"]
+collision_layer = 16
+collision_mask = 2
+monitorable = false
 
 [node name="AggressionZone" type="CollisionShape2D" parent="Directional/AggressionRange" index="0"]
 position = Vector2(18, -8)
@@ -208,6 +218,9 @@ shape = SubResource("RectangleShape2D_swjmh")
 debug_color = Color(0.784314, 0.392157, 0, 0.196078)
 
 [node name="DetectionRadius" type="Area2D" parent="Directional" index="3"]
+collision_layer = 16
+collision_mask = 2
+monitorable = false
 
 [node name="DetectionZone" type="CollisionShape2D" parent="Directional/DetectionRadius" index="0"]
 position = Vector2(26, -8)

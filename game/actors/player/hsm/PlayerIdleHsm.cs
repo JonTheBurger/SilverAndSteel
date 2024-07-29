@@ -23,6 +23,7 @@ public partial class PlayerIdleHsm : Hsm<Player>
     protected override void OnEnter()
     {
         Target.Animation?.Play(Animation);
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     protected override void OnExit()

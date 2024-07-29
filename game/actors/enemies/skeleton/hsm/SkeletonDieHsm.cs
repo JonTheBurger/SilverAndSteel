@@ -11,8 +11,9 @@ public partial class SkeletonDieHsm : Hsm<Skeleton>
     protected override void OnEnter()
     {
         AnimationPlayer?.Play(Animation);
-        Target.Velocity = Target.Velocity.WithX(0);
+        Target.Hitbox.Disabled = true;
         Target.Gravity = 0;
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     protected override void OnExit()

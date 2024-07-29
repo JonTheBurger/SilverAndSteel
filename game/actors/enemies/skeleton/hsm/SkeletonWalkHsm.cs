@@ -22,6 +22,7 @@ public partial class SkeletonWalkHsm : Hsm<Skeleton>
     protected override void OnExit()
     {
         AnimationPlayer?.Stop();
+        Target.Stop();
     }
 
     protected override void OnProcessPhysics(double delta)
