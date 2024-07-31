@@ -35,6 +35,48 @@ completes, simply open in the godot editor!
 
 # Check List
 
+- More Composition?
+
+```
+Phantom
+|-- Collider (CollisionShape2D)
+|-- Animator (AnimationPlayer)
+|-- Audio (AudioStreamPlayer2D)
+|-- Directional (:Node2D)
+|   |-- Sprite
+|   |-- DetectionRadius (:Area2D)
+|       |-- CollisionShape2D...
+|   |-- Hitbox (:Area2D)
+|       |-- CollisionShape2D...
+|-- Hp
+|-- Beliefs
+|-- Hsm
+```
+
+```mermaid
+---
+title: Types
+---
+classDiagram
+  class Hp {
+    +Damage(int amount)
+  }
+  class Hitbox {
+    +OnBodyEnter()
+    +OnBodyExit()
+  }
+  class DetectionRadius {
+    +OnBodyEnter()
+    +OnBodyExit()
+  }
+  class Beliefs {
+    +bool IsPlayerInRange
+  }
+  Hitbox o-- Hp : OnBodyEnter => Damage
+  DetectionRadius o-- Beliefs : OnBodyEnter => IsPlayerInRange = true
+  DetectionRadius o-- Beliefs : OnBodyExit => IsPlayerInRange = false
+```
+
 # Asset Credits
 
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist

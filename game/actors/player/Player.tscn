@@ -382,7 +382,6 @@ position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_muoh4")
 
 [node name="PlayerHsm" parent="." index="5" node_paths=PackedStringArray("Initial") instance=ExtResource("10_npbup")]
-LogTransitions = true
 Initial = NodePath("PlayerIdleHsm")
 
 [node name="PlayerAttackHsm" parent="PlayerHsm" index="0" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("11_srhj1")]
