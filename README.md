@@ -35,9 +35,6 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- [] Stage Select
-- [] Save
-
 # Asset Credits
 
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
@@ -63,6 +60,8 @@ completes, simply open in the godot editor!
     - [protagonist](https://freeicons.io/icon/rpg-and-fantasy/armor-fantasy-helmet-knight-medieval-paladin-icon-455169#)
     - [sack](https://freeicons.io/icon/rpg-and-fantasy/bag-coin-game-gold-item-bag-pouch-icon-455166#)
     - [stats by Andrean Prabowo](https://www.flaticon.com/free-icons/bar-chart) (flaticon.com)
+- Fonts:
+    - [Knights Quest](https://www.1001freefonts.com/knights-quest.font)
 - https://luizmelo.itch.io/fire-worm
 - https://clembod.itch.io/bringer-of-death-free
 - https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack

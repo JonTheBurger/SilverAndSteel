@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dq5klh6qvw3sk"]
+[gd_scene load_steps=9 format=3 uid="uid://dq5klh6qvw3sk"]
 
 [ext_resource type="TileSet" uid="uid://ban2tauadeyj" path="res://game/world/OakHillsTileSet.tres" id="1_2hu42"]
 [ext_resource type="PackedScene" uid="uid://u4cpkxuelsvi" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://55br13uffhuv" path="res://game/ui/Hud.tscn" id="4_xhsig"]
 [ext_resource type="PackedScene" uid="uid://nb4ol8yhthry" path="res://game/ui/TextFloater.tscn" id="6_6cby0"]
 [ext_resource type="PackedScene" uid="uid://cibfii2mexhaf" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="7_qaf6g"]
+[ext_resource type="PackedScene" uid="uid://ctapt5tbpx27v" path="res://game/actors/enemies/worm/Worm.tscn" id="8_if4gn"]
 
 [node name="LevelTest" type="TileMap"]
 tile_set = ExtResource("1_2hu42")
@@ -29,10 +30,10 @@ position = Vector2(-140, 1)
 position = Vector2(113, 18)
 
 [node name="Player" parent="." instance=ExtResource("2_3t6rw")]
-position = Vector2(2, -14)
+position = Vector2(0, -8)
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
-position = Vector2(-2, 10)
+position = Vector2(0, 4)
 zoom = Vector2(4, 4)
 process_callback = 0
 position_smoothing_enabled = true
@@ -41,3 +42,7 @@ drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
 [node name="Hud" parent="Player/PlayerCamera" instance=ExtResource("4_xhsig")]
+visible = false
+
+[node name="Actor" parent="." instance=ExtResource("8_if4gn")]
+position = Vector2(333, 3)

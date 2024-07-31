@@ -19,6 +19,12 @@ config/icon="res://icon.svg"
 
 Globals="*res://game/util/Globals.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="SilverAndSteel"
@@ -57,6 +63,11 @@ settings/test/test_discovery=true
 
 enemies=""
 players=""
+
+[gui]
+
+theme/custom="res://game/ui/theme.tres"
+theme/custom_font="res://assets/fonts/Knights Quest.ttf"
 
 [input]
 
