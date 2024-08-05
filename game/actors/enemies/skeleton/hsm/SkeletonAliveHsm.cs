@@ -10,7 +10,7 @@ public partial class SkeletonAliveHsm : Hsm<Skeleton>
 
     protected override void OnProcessPhysics(double delta)
     {
-        if ((Target.Stats.Hp <= 0) && (Current != OnDie) && (Next != OnDie))
+        if (Target.Stats.Hp <= 0)
         {
             Next = OnDie;
         }

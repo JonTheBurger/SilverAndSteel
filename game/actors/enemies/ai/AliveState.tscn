@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b46gjdaouc2kg"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/ai/AliveState.cs" id="1_3dtbk"]
+
+[node name="AliveState" type="Node"]
+script = ExtResource("1_3dtbk")

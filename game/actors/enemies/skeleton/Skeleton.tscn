@@ -102,7 +102,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_8cqr7"]
@@ -179,7 +179,7 @@ height = 32.0
 
 [node name="Skeleton" groups=["enemies"] instance=ExtResource("1_tqvf1")]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 script = ExtResource("1_qixor")
 
 [node name="Stats" parent="." index="0"]
@@ -230,8 +230,9 @@ debug_color = Color(1, 1, 0, 0.117647)
 [node name="Hurtbox" parent="." index="4"]
 shape = SubResource("CapsuleShape2D_kq3gj")
 
-[node name="SkeletonHsm" parent="." index="5" node_paths=PackedStringArray("Initial") instance=ExtResource("4_u34or")]
+[node name="SkeletonHsm" parent="." index="5" node_paths=PackedStringArray("Initial", "Animator") instance=ExtResource("4_u34or")]
 Initial = NodePath("SkeletonAliveHsm")
+Animator = NodePath("../Animation")
 
 [node name="SkeletonAliveHsm" parent="SkeletonHsm" index="0" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
 OnDie = NodePath("../SkeletonDieHsm")

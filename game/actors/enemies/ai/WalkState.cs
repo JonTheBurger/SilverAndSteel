@@ -3,7 +3,7 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class SkeletonWalkHsm : Hsm<Skeleton>
+public partial class WalkState : Hsm<CharacterBody2D>
 {
     [Export]
     public StringName Animation { get; set; } = "walk";
@@ -22,22 +22,22 @@ public partial class SkeletonWalkHsm : Hsm<Skeleton>
     protected override void OnExit()
     {
         Animator?.Stop();
-        Target.Stop();
+        Target.Velocity = Target.Velocity.WithX(0);
     }
 
     protected override void OnProcessPhysics(double delta)
     {
         if (Target == null) { return; }
 
-        Target.MoveTowardsPlayer();
+        // Target.MoveTowardsPlayer();
 
-        if (Target.IsPlayerInRange)
-        {
-            Next = OnPlayerInRange;
-        }
-        else if (!Target.IsPlayerDetected)
-        {
-            Next = OnPlayerUndetected;
-        }
+        // if (Target.IsPlayerInRange)
+        // {
+        //     Next = OnPlayerInRange;
+        // }
+        // else if (!Target.IsPlayerDetected)
+        // {
+        //     Next = OnPlayerUndetected;
+        // }
     }
 }

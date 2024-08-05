@@ -1,3 +1,5 @@
+using System;
+
 using Godot;
 
 namespace Game;
@@ -16,4 +18,27 @@ public static class Groups
 {
     public static readonly StringName PLAYERS = "players";
     public static readonly StringName ENEMIES = "enemies";
+}
+
+enum CollisionLayerIndex
+{
+    None = 0,
+    Ground = 1,
+    Player = 2,
+    Enemies = 3,
+    Attacks = 4,
+    Sight = 5,
+    Collectables = 6,
+}
+
+[Flags]
+enum CollisionLayers
+{
+    None = 0,
+    Ground = 1 << 0,
+    Player = 1 << 1,
+    Enemies = 1 << 2,
+    Attacks = 1 << 3,
+    Sight = 1 << 4,
+    Collectables = 1 << 5,
 }

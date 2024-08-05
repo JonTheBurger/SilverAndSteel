@@ -9,15 +9,13 @@ public partial class Skeleton : Actor
 {
     public Area2D AggressionRange => _aggressionRange!;
     public Area2D DetectionRadius => _detectionRadius!;
-    public bool IsPlayerInRange => _isPlayerInRange;
-    public bool IsPlayerDetected => _isPlayerDetected;
+    public bool IsPlayerInRange { get; private set; } = false;
+    public bool IsPlayerDetected { get; private set; } = false;
 
     private Player? _player;
     private SkeletonHsm? _fsm;
     private Area2D? _aggressionRange;
     private Area2D? _detectionRadius;
-    private bool _isPlayerInRange = false;
-    private bool _isPlayerDetected = false;
 
     public override void _Ready()
     {
@@ -32,7 +30,7 @@ public partial class Skeleton : Actor
         DetectionRadius.BodyExited += OnDetectionRadiusExit;
 
         _fsm = GetNode<SkeletonHsm>("SkeletonHsm");
-        _fsm.Start(this, Animation);
+        _fsm.Start(this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -61,7 +59,7 @@ public partial class Skeleton : Actor
     public void MoveTowardsPlayer()
     {
         if (_player == null) { return; }
-        if (!_isPlayerDetected) { return;}
+        if (!IsPlayerDetected) { return;}
 
         var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
         var velocity = Velocity;
@@ -88,7 +86,7 @@ public partial class Skeleton : Actor
     {
         if (body == _player)
         {
-            _isPlayerDetected = true;
+            IsPlayerDetected = true;
         }
     }
 
@@ -96,17 +94,17 @@ public partial class Skeleton : Actor
     {
         if (body == _player)
         {
-            _isPlayerDetected = false;
+            IsPlayerDetected = false;
         }
     }
 
     private void OnAggressionRangeEnter(Node2D body)
     {
-        if (body == _player) { _isPlayerInRange = true; }
+        if (body == _player) { IsPlayerInRange = true; }
     }
 
     private void OnAggressionRangeExit(Node2D body)
     {
-        if (body == _player) { _isPlayerInRange = false; }
+        if (body == _player) { IsPlayerInRange = false; }
     }
 }

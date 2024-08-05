@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8n1wuubhp0y6"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/ai/StateMachine.cs" id="1_xqipf"]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource("1_xqipf")

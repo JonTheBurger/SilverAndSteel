@@ -3,7 +3,7 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
-public partial class SkeletonDieHsm : Hsm<Skeleton>
+public partial class DieState : Hsm<CharacterBody2D>
 {
     [Export]
     public StringName Animation { get; set; } = "die";

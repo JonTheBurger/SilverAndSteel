@@ -6,17 +6,34 @@ using Godot;
 namespace Game;
 
 [Icon("res://assets/img/icons/state.png")]
+[Tool]
 public partial class Hsm<T> : Node where T : Node
 {
     [Export]
+    public Hsm<T>? Initial { get; set; }
+
+    [Export]
+    public AnimationPlayer? Animator { get; set; }
+
+    [Export]
     bool LogTransitions { get; set; } = false;
 
-    public void Start(T target, AnimationPlayer? animator)
+    /// <summary>
+    /// WARNING: Hsm _OnReady fills this in - it will only be null in the constructor
+    /// (i.e. when initializing other properties) or _OnReady().
+    /// </summary>
+    public T Target { get; set; }
+
+    private Hsm<T>? _previous;
+    public Hsm<T>? Current { get; set; }
+    public Hsm<T>? Next { get; set; }
+
+    public void Start(T target)
     {
-        Init(target, animator);
-        if (animator != null)
+        Init(target, Animator);
+        if (Animator != null)
         {
-            animator.AnimationFinished += AnimationFinished;
+            Animator.AnimationFinished += AnimationFinished;
         }
         Enter();
     }
@@ -31,7 +48,8 @@ public partial class Hsm<T> : Node where T : Node
     public void Init(T target, AnimationPlayer? animator)
     {
         Target = target;
-        AnimationPlayer = animator;
+        Animator = animator;
+        OnInit();
 
         var children = GetChildren().OfType<Hsm<T>>();
         foreach (var child in children)
@@ -40,65 +58,44 @@ public partial class Hsm<T> : Node where T : Node
         }
     }
 
-    /// <summary>
-    /// WARNING: Hsm _OnReady fills this in - it will only be null in the constructor
-    /// (i.e. when initializing other properties) or _OnReady().
-    /// </summary>
-    public T Target
-    {
-        // get => _target ??= GetParentOrNull<Hsm<T>>()?.Target!;
-        get => _target;
-        set => _target = value;
-    }
-    private T? _target;
-
-    public AnimationPlayer? AnimationPlayer
-    {
-        // get => _animationPlayer ??= GetParentOrNull<Hsm<T>>()?.AnimationPlayer;
-        get => _animationPlayer;
-        set => _animationPlayer = value;
-    }
-    private AnimationPlayer? _animationPlayer;
-
-    [Export]
-    public Hsm<T>? Initial { get; set; }
-
-    private Hsm<T>? _previous;
-    public Hsm<T>? Current { get; set; }
-    public Hsm<T>? Next { get; set; }
-
     public void Enter()
     {
         OnEnter();
         Current = Initial;
         Current?.Enter();
     }
+
     public void Exit()
     {
         Current?.Exit();
         OnExit();
     }
+
     public void AnimationFinished(StringName animation)
     {
         OnAnimationFinished(animation);
         Current?.AnimationFinished(animation);
     }
+
     public void ProcessInput(InputEvent input)
     {
         OnProcessInput(input);
         Current?.ProcessInput(input);
     }
+
     public void Process(double delta)
     {
         OnProcess(delta);
         Current?.Process(delta);
     }
+
     public void ProcessPhysics(double delta)
     {
         OnProcessPhysics(delta);
         Current?.ProcessPhysics(delta);
         ProcessTransition();
     }
+
     public void ProcessTransition()
     {
         if ((Current != null) && (Current.Next != null))
@@ -113,32 +110,37 @@ public partial class Hsm<T> : Node where T : Node
         }
     }
 
+    protected virtual void OnInit()
+    {
+    }
 
     protected virtual void OnEnter()
     {
     }
+
     protected virtual void OnExit()
     {
     }
+
     protected virtual void OnAnimationFinished(StringName animation)
     {
     }
+
     protected virtual void OnProcessInput(InputEvent input)
     {
     }
+
     protected virtual void OnProcess(double delta)
     {
     }
+
     protected virtual void OnProcessPhysics(double delta)
-    {
-    }
-    protected virtual void OnProcessTransition(Hsm<T>? next)
     {
     }
 
     public override string[] _GetConfigurationWarnings()
     {
-        if (AnimationPlayer == null)
+        if (Animator == null)
         {
             return new string[] {
                 "No AnimationPlayer was set!" +

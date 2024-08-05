@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO.Enumeration;
+using System.Linq;
 
 using Game;
 
@@ -17,6 +18,12 @@ public static class Extensions
             self.AddChild(child);
         }
         return child;
+    }
+
+    public static void LoadNodeOrWarn<T>(this Node self, ref T? node, string? pattern = null) where T : Node, new()
+    {
+        node ??= self.FindChildBfs<T>(pattern).FirstOrDefault();
+        if (node == null) { GD.PushWarning($"Could not find node of type '{typeof(T).Name}' from {self.Name}"); }
     }
 
     public static IEnumerable<T> FindChildBfs<T>(this Node self, string? pattern = null, bool includeInternal = false) where T : Node

@@ -16,12 +16,12 @@ public partial class SkeletonIdleHsm : Hsm<Skeleton>
 
     protected override void OnEnter()
     {
-        AnimationPlayer?.Play(Animation);
+        Animator?.Play(Animation);
     }
 
     protected override void OnExit()
     {
-        AnimationPlayer?.Stop();
+        Animator?.Stop();
     }
 
     protected override void OnProcessPhysics(double delta)

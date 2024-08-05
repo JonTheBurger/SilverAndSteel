@@ -17,7 +17,7 @@ public partial class Player : Actor
         }
 
         _fsm = GetNode<PlayerHsm>("PlayerHsm");
-        _fsm.Start(this, Animation);
+        _fsm.Start(this);
     }
 
     public override void _PhysicsProcess(double delta)
