@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://bptsbfehreeqj"]
+[gd_scene load_steps=15 format=3 uid="uid://bptsbfehreeqj"]
 
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_uocur"]
 [ext_resource type="Script" path="res://game/actors/enemies/phantom/Phantom.cs" id="2_8powh"]
 [ext_resource type="Texture2D" uid="uid://dadsmabyiso8l" path="res://assets/img/actors/phantom.png" id="3_n6kg1"]
+[ext_resource type="PackedScene" uid="uid://c0wikl2j83c85" path="res://game/components/Beliefs.tscn" id="4_6d68d"]
 
 [sub_resource type="Animation" id="Animation_5akto"]
 length = 0.001
@@ -183,3 +184,5 @@ shape = SubResource("RectangleShape2D_jraac")
 [node name="Hurtbox" parent="." index="4"]
 position = Vector2(0, 1.75)
 shape = SubResource("RectangleShape2D_0h1ch")
+
+[node name="Beliefs" parent="." index="5" instance=ExtResource("4_6d68d")]

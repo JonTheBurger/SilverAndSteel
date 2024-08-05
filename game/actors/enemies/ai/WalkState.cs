@@ -9,10 +9,16 @@ public partial class WalkState : Hsm<CharacterBody2D>
     public StringName Animation { get; set; } = "walk";
 
     [Export]
-    public Hsm<Skeleton>? OnPlayerInRange { get; set; }
+    public Beliefs? Beliefs { get; set; }
 
     [Export]
-    public Hsm<Skeleton>? OnPlayerUndetected { get; set; }
+    public Stats? Stats { get; set; }
+
+    [Export]
+    public Hsm<CharacterBody2D>? OnPlayerInRange { get; set; }
+
+    [Export]
+    public Hsm<CharacterBody2D>? OnPlayerUndetected { get; set; }
 
     protected override void OnEnter()
     {
@@ -27,17 +33,20 @@ public partial class WalkState : Hsm<CharacterBody2D>
 
     protected override void OnProcessPhysics(double delta)
     {
-        if (Target == null) { return; }
+        if ((Target == null) || (Beliefs == null)) { return; }
 
-        // Target.MoveTowardsPlayer();
+        if (Beliefs.DetectedPlayer != null)
+        {
+            Target.SlideToward(Beliefs.DetectedPlayer, Stats?.Speed ?? 0);
+        }
 
-        // if (Target.IsPlayerInRange)
-        // {
-        //     Next = OnPlayerInRange;
-        // }
-        // else if (!Target.IsPlayerDetected)
-        // {
-        //     Next = OnPlayerUndetected;
-        // }
+        if ((Next == null) && Beliefs.IsPlayerInRange)
+        {
+            Next = OnPlayerInRange;
+        }
+        else if ((Next == null) && !Beliefs.IsPlayerDetected)
+        {
+            Next = OnPlayerUndetected;
+        }
     }
 }

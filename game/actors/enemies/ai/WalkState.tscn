@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://c0ydyjby07n80"]
+[gd_scene load_steps=2 format=3 uid="uid://c0ydyjby07n80"]
+
+[ext_resource type="Script" path="res://game/actors/enemies/ai/WalkState.cs" id="1_o6n1j"]
 
 [node name="WalkState" type="Node"]
+script = ExtResource("1_o6n1j")

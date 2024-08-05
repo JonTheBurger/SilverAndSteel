@@ -35,6 +35,14 @@ completes, simply open in the godot editor!
 
 # Check List
 
+- [ ] Finish WalkState (CharacterBody2D.MoveTowards?)
+- [ ] Generalized WalkTowardsPlayer()?
+- [ ] General EntityDetector? Beliefs?
+- [ ] Stats as a Resource?
+- [ ] List of Area2D->State?
+- [ ] Move appropriate actor classes to components
+- [ ] Does using a derived CharacterState fix [Tool] not allowing setting via editor?
+
 - More Composition?
 
 ```

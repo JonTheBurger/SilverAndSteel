@@ -90,6 +90,23 @@ public static class Extensions
     }
     #endregion
 
+    #region CharacterBody2D
+    public static void SlideToward(this CharacterBody2D self, CharacterBody2D body, float speed)
+    {
+        var direction = (body.GlobalPosition - self.GlobalPosition).Normalized();
+        var velocity = self.Velocity;
+        if (direction != Vector2.Zero)
+        {
+            velocity.X = direction.X * speed;
+        }
+        else
+        {
+            velocity.X = Mathf.MoveToward(self.Velocity.X, 0, speed);
+        }
+        self.Velocity = velocity;
+    }
+    #endregion
+
     #region Vector2
     public static Vector2 WithX(this Vector2 self, float x)
     {
