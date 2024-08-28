@@ -13,13 +13,15 @@ public partial class Actor : CharacterBody2D
     [Export]
     public float Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>();
 
+    [Export]
+    public PackedScene Magic { get; set; }
+
     public Stats Stats => _stats!;
     public AnimationPlayer Animation => _animation!;
     public AudioStreamPlayer2D Audio => _audio!;
     public Directional Directional => _directional!;
     public Sprite2D Sprite => _sprite!;
-    public Area2D AttackRange => _attackRange!;
-    public CollisionShape2D Hitbox => _hitbox!;
+    public Area2D Hitbox => _hitbox!;
     public CollisionShape2D Hurtbox => _hurtbox!;
 
     public override void _Ready()
@@ -31,11 +33,10 @@ public partial class Actor : CharacterBody2D
         _audio = GetNode<AudioStreamPlayer2D>("Audio");
         _directional = GetNode<Directional>("Directional");
         _sprite = GetNode<Sprite2D>("Directional/Sprite");
-        _attackRange = GetNode<Area2D>("Directional/AttackRange");
-        _hitbox = GetNode<CollisionShape2D>("Directional/AttackRange/Hitbox");
+        _hitbox = GetNode<Area2D>("Directional/Hitbox");
         _hurtbox = GetNode<CollisionShape2D>("Hurtbox");
 
-        AttackRange.BodyEntered += OnAttackHit;
+        Hitbox.BodyEntered += OnAttackHit;
     }
 
     public void Move(Vector2 direction)
@@ -95,9 +96,8 @@ public partial class Actor : CharacterBody2D
             if (_audio != null) { _audio.Dispose(); _audio = null; }
             if (_directional != null) { _directional.Dispose(); _directional = null; }
             if (_sprite != null) { _sprite.Dispose(); _sprite = null; }
-            if (_attackRange != null) { _attackRange.Dispose(); _attackRange = null; }
-            if (_hurtbox != null) { _hurtbox.Dispose(); _hurtbox = null; }
             if (_hitbox != null) { _hitbox.Dispose(); _hitbox = null; }
+            if (_hurtbox != null) { _hurtbox.Dispose(); _hurtbox = null; }
         }
     }
 
@@ -106,7 +106,6 @@ public partial class Actor : CharacterBody2D
     private AudioStreamPlayer2D? _audio;
     private Directional? _directional;
     private Sprite2D? _sprite;
-    private Area2D? _attackRange;
+    private Area2D? _hitbox;
     private CollisionShape2D? _hurtbox;
-    private CollisionShape2D? _hitbox;
 }

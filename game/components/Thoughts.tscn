@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0wikl2j83c85"]
+
+[ext_resource type="Script" path="res://game/components/Thoughts.cs" id="1_buwdu"]
+
+[node name="Thoughts" type="Node"]
+script = ExtResource("1_buwdu")

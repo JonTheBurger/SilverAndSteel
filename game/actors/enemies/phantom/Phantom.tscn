@@ -1,9 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://bptsbfehreeqj"]
+[gd_scene load_steps=23 format=3 uid="uid://bptsbfehreeqj"]
 
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_uocur"]
 [ext_resource type="Script" path="res://game/actors/enemies/phantom/Phantom.cs" id="2_8powh"]
 [ext_resource type="Texture2D" uid="uid://dadsmabyiso8l" path="res://assets/img/actors/phantom.png" id="3_n6kg1"]
-[ext_resource type="PackedScene" uid="uid://c0wikl2j83c85" path="res://game/components/Beliefs.tscn" id="4_6d68d"]
+[ext_resource type="PackedScene" uid="uid://c0wikl2j83c85" path="res://game/components/Thoughts.tscn" id="4_6d68d"]
+[ext_resource type="PackedScene" uid="uid://c8n1wuubhp0y6" path="res://game/actors/enemies/ai/StateMachine.tscn" id="5_qptqm"]
+[ext_resource type="PackedScene" uid="uid://b46gjdaouc2kg" path="res://game/actors/enemies/ai/AliveState.tscn" id="6_x8uvo"]
+[ext_resource type="PackedScene" uid="uid://ccvrei3wj3ket" path="res://game/actors/enemies/ai/IdleState.tscn" id="7_n8brj"]
+[ext_resource type="PackedScene" uid="uid://ctktt4dqfl1y1" path="res://game/actors/enemies/ai/MeleeAttackState.tscn" id="8_m4npx"]
+[ext_resource type="PackedScene" uid="uid://c0ydyjby07n80" path="res://game/actors/enemies/ai/WalkState.tscn" id="9_hym50"]
+[ext_resource type="PackedScene" uid="uid://dxlk16gbydket" path="res://game/actors/enemies/ai/DieState.tscn" id="10_1g65q"]
 
 [sub_resource type="Animation" id="Animation_5akto"]
 length = 0.001
@@ -22,7 +28,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -50,7 +56,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -157,19 +163,32 @@ _data = {
 "walk": SubResource("Animation_axoqg")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jraac"]
-size = Vector2(47.5, 39.75)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffgbf"]
+size = Vector2(52, 53)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ln0xk"]
+size = Vector2(103, 54)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gghlc"]
+size = Vector2(137, 54)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0h1ch"]
-size = Vector2(32, 53.5)
+size = Vector2(22, 53.5)
 
 [node name="Phantom" instance=ExtResource("1_uocur")]
 script = ExtResource("2_8powh")
 
-[node name="Animation" parent="." index="1"]
+[node name="Thoughts" parent="." index="1" node_paths=PackedStringArray("AttackRange", "DetectionRadius") instance=ExtResource("4_6d68d")]
+AttackRange = NodePath("../Directional/AttackRange")
+DetectionRadius = NodePath("../Directional/DetectionRadius")
+
+[node name="Animation" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_unm2p")
 }
+
+[node name="Directional" parent="." index="4"]
+scale = Vector2(-1, 1)
 
 [node name="Sprite" parent="Directional" index="0"]
 position = Vector2(-35, -17)
@@ -177,12 +196,56 @@ texture = ExtResource("3_n6kg1")
 hframes = 8
 vframes = 8
 
-[node name="Hitbox" parent="Directional/AttackRange" index="0"]
-position = Vector2(-72.25, -1.125)
-shape = SubResource("RectangleShape2D_jraac")
+[node name="CollisionShape2D" parent="Directional/Hitbox" index="0"]
+position = Vector2(-74, 1.5)
+shape = SubResource("RectangleShape2D_ffgbf")
 
-[node name="Hurtbox" parent="." index="4"]
-position = Vector2(0, 1.75)
+[node name="AttackRange" type="Area2D" parent="Directional" index="2"]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Directional/AttackRange" index="0"]
+position = Vector2(-46.5, 2)
+shape = SubResource("RectangleShape2D_ln0xk")
+debug_color = Color(0.784314, 0.392157, 0, 0.196078)
+
+[node name="DetectionRadius" type="Area2D" parent="Directional" index="3"]
+collision_layer = 16
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Directional/DetectionRadius" index="0"]
+position = Vector2(-49.5, 2)
+shape = SubResource("RectangleShape2D_gghlc")
+debug_color = Color(1, 1, 0, 0.196078)
+
+[node name="Hurtbox" parent="." index="5"]
+position = Vector2(1, 1.75)
 shape = SubResource("RectangleShape2D_0h1ch")
 
-[node name="Beliefs" parent="." index="5" instance=ExtResource("4_6d68d")]
+[node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("Initial", "Animator") instance=ExtResource("5_qptqm")]
+Initial = NodePath("AliveState")
+Animator = NodePath("../Animation")
+LogTransitions = true
+
+[node name="AliveState" parent="StateMachine" index="0" node_paths=PackedStringArray("Directional", "OnDie", "Initial") instance=ExtResource("6_x8uvo")]
+Directional = NodePath("../../Directional")
+OnDie = NodePath("../DieState")
+Initial = NodePath("IdleState")
+LogTransitions = true
+
+[node name="IdleState" parent="StateMachine/AliveState" index="0" node_paths=PackedStringArray("Thoughts", "OnPlayerInRange", "OnPlayerDetected") instance=ExtResource("7_n8brj")]
+Thoughts = NodePath("../../../Thoughts")
+OnPlayerInRange = NodePath("../MeleeAttackState")
+OnPlayerDetected = NodePath("../WalkState")
+
+[node name="MeleeAttackState" parent="StateMachine/AliveState" index="1" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("8_m4npx")]
+OnAttackComplete = NodePath("../IdleState")
+
+[node name="WalkState" parent="StateMachine/AliveState" index="2" node_paths=PackedStringArray("Thoughts", "Stats", "OnPlayerInRange", "OnPlayerUndetected") instance=ExtResource("9_hym50")]
+Thoughts = NodePath("../../../Thoughts")
+Stats = NodePath("../../../Stats")
+OnPlayerInRange = NodePath("../MeleeAttackState")
+OnPlayerUndetected = NodePath("../IdleState")
+
+[node name="DieState" parent="StateMachine" index="1" instance=ExtResource("10_1g65q")]

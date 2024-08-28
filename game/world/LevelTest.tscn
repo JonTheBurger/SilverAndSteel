@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://game/ui/PlayerCamera.cs" id="3_yj7oe"]
 [ext_resource type="PackedScene" uid="uid://55br13uffhuv" path="res://game/ui/Hud.tscn" id="4_xhsig"]
 [ext_resource type="PackedScene" uid="uid://nb4ol8yhthry" path="res://game/ui/TextFloater.tscn" id="6_6cby0"]
-[ext_resource type="PackedScene" uid="uid://cibfii2mexhaf" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="7_qaf6g"]
 [ext_resource type="PackedScene" uid="uid://ctapt5tbpx27v" path="res://game/actors/enemies/worm/Worm.tscn" id="8_if4gn"]
+[ext_resource type="PackedScene" uid="uid://bptsbfehreeqj" path="res://game/actors/enemies/phantom/Phantom.tscn" id="9_f0wef"]
 
 [node name="LevelTest" type="TileMap"]
 tile_set = ExtResource("1_2hu42")
@@ -22,12 +22,6 @@ stream = ExtResource("2_na1n6")
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
 position = Vector2(0, -4)
 remote_path = NodePath("../Player/PlayerCamera")
-
-[node name="Skeleton" parent="." instance=ExtResource("7_qaf6g")]
-position = Vector2(-140, 1)
-
-[node name="Skeleton2" parent="." instance=ExtResource("7_qaf6g")]
-position = Vector2(113, 18)
 
 [node name="Player" parent="." instance=ExtResource("2_3t6rw")]
 position = Vector2(0, -8)
@@ -46,3 +40,6 @@ visible = false
 
 [node name="Actor" parent="." instance=ExtResource("8_if4gn")]
 position = Vector2(333, 3)
+
+[node name="Phantom" parent="." instance=ExtResource("9_f0wef")]
+position = Vector2(175, -13)

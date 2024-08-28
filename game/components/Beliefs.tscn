@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0wikl2j83c85"]
-
-[ext_resource type="Script" path="res://game/components/Beliefs.cs" id="1_dtwyl"]
-
-[node name="Beliefs" type="Node2D"]
-script = ExtResource("1_dtwyl")

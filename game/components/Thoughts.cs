@@ -3,7 +3,8 @@ using Godot.Collections;
 
 namespace Game;
 
-public partial class Beliefs : Node2D
+[Icon("res://assets/img/icons/lightbulb.png")]
+public partial class Thoughts : Node
 {
     [Export]
     public Area2D? AttackRange { get; set; }

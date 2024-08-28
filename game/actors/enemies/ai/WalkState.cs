@@ -9,7 +9,10 @@ public partial class WalkState : Hsm<CharacterBody2D>
     public StringName Animation { get; set; } = "walk";
 
     [Export]
-    public Beliefs? Beliefs { get; set; }
+    public Thoughts? Thoughts { get; set; }
+
+    [Export]
+    public Directional? Directional { get; set; }
 
     [Export]
     public Stats? Stats { get; set; }
@@ -33,18 +36,18 @@ public partial class WalkState : Hsm<CharacterBody2D>
 
     protected override void OnProcessPhysics(double delta)
     {
-        if ((Target == null) || (Beliefs == null)) { return; }
+        if ((Target == null) || (Thoughts == null)) { return; }
 
-        if (Beliefs.DetectedPlayer != null)
+        if (Thoughts.DetectedPlayer != null)
         {
-            Target.SlideToward(Beliefs.DetectedPlayer, Stats?.Speed ?? 0);
+            Target.SlideToward(Thoughts.DetectedPlayer, Stats?.Speed ?? 0);
         }
 
-        if ((Next == null) && Beliefs.IsPlayerInRange)
+        if ((Next == null) && Thoughts.IsPlayerInRange)
         {
             Next = OnPlayerInRange;
         }
-        else if ((Next == null) && !Beliefs.IsPlayerDetected)
+        else if ((Next == null) && !Thoughts.IsPlayerDetected)
         {
             Next = OnPlayerUndetected;
         }

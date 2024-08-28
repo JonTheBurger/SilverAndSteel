@@ -90,6 +90,7 @@ classDiagram
 - [Pixel Hero](https://rvros.itch.io/animated-pixel-hero) for protagonist
 - [Oak Woods](https://brullov.itch.io/oak-woods) for tileset
 - [Skeleton](https://astrobob.itch.io/animated-pixel-art-skeleton) enemy
+- [Energy Shot Sprites by Luis Zuno (@ansimuz)](https://ansimuz.itch.io/)
 - Shaders:
   - [Shine by Jacob Vanluven](https://godotshaders.com/author/kingtoot/)
 - Sound Effects:
@@ -103,6 +104,7 @@ classDiagram
     - [flip](https://freeicons.io/photo-editor-7/edit-flip-image-mirror-icon-93598#)
     - [fsm/state by Grafixpoint](https://www.flaticon.com/free-icons/chrono)
     - [globe](https://freeicons.io/office-and-workstation-icons-5/globe-icon-18889#)
+    - [lightbulb by ColourByteDesigns](https://freeicons.io/general-arts-icons-3/light-bulb-energyidea-lightbulb-icon-icon-790899#)
     - [log](https://freeicons.io/rpg-and-fantasy/fantasy-game-magic-magician-parchment-spell-scroll-icon-455178)
     - [map](https://freeicons.io/icon/rpg-and-fantasy/adventure-adventure-map-fantasy-map-quest-icon-455176#)
     - [network](https://freeicons.io/team-management-icon-set-17/natwoarkingbusiness-communication-global-networking-world-icon-icon-790132)

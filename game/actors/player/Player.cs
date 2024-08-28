@@ -24,6 +24,13 @@ public partial class Player : Actor
     {
         base._PhysicsProcess(delta);
         _fsm.ProcessPhysics(delta);
+
+        if (Input.IsActionJustPressed(Actions.MAGIC))
+        {
+            var bolt = (Bolt)Magic.Instantiate();
+            bolt.Source = this;
+            GetParent().AddChild(bolt);
+        }
     }
 
     public override void _Input(InputEvent @event)

@@ -11,6 +11,7 @@ public static class Actions
     public static readonly StringName LEFT = "left";
     public static readonly StringName RIGHT = "right";
     public static readonly StringName ATTACK = "attack";
+    public static readonly StringName MAGIC = "magic";
     public static readonly StringName JUMP = "jump";
 }
 

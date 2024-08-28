@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://u4cpkxuelsvi"]
+[gd_scene load_steps=31 format=3 uid="uid://u4cpkxuelsvi"]
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tn8h8"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
+[ext_resource type="PackedScene" uid="uid://b2gxdp40wo3ta" path="res://game/abilities/bolt/Bolt.tscn" id="3_poc3o"]
 [ext_resource type="AudioStream" uid="uid://0gpc8ywiap4b" path="res://assets/sfx/SwordMiss01.mp3" id="6_pmygq"]
 [ext_resource type="PackedScene" uid="uid://8r68mbafuk3p" path="res://game/actors/player/hsm/PlayerHsm.tscn" id="10_npbup"]
 [ext_resource type="PackedScene" uid="uid://2yl4jmgb3d8s" path="res://game/actors/player/hsm/PlayerFallHsm.tscn" id="10_oactk"]
@@ -29,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -41,7 +42,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/AttackRange/Hitbox:position")
+tracks/2/path = NodePath("Directional/Hitbox/CollisionShape2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -69,7 +70,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -81,14 +82,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/AttackRange/Hitbox:position")
+tracks/2/path = NodePath("Directional/Hitbox/CollisionShape2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.133333, 0.233333),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2(17, -1.5), Vector2(16, -1.5), Vector2(17, -1.5)]
+"values": [Vector2(17, -1.5), Vector2(17, -1.5), Vector2(17, -1.5)]
 }
 tracks/3/type = "audio"
 tracks/3/imported = false
@@ -124,7 +125,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/AttackRange/Hitbox:disabled")
+tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -329,6 +330,22 @@ tracks/0/keys = {
 "values": [93, 94, 95]
 }
 
+[sub_resource type="Animation" id="Animation_lht2u"]
+resource_name = "new_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(3.72529e-09, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [87, 88, 89, 90, 91, 92, 93]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1fqmf"]
 _data = {
 "RESET": SubResource("Animation_2f1t5"),
@@ -342,13 +359,14 @@ _data = {
 "jump_fall": SubResource("Animation_d0ef7"),
 "jump_up": SubResource("Animation_6w6kt"),
 "land": SubResource("Animation_48fd3"),
+"magic_attack": SubResource("Animation_lht2u"),
 "run": SubResource("Animation_gmcm8"),
 "triple_attack": SubResource("Animation_we13n"),
 "win": SubResource("Animation_dbxkd")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxhp4"]
-size = Vector2(14, 23)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtv32"]
+size = Vector2(12, 27)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_muoh4"]
 radius = 6.0
@@ -358,6 +376,7 @@ height = 28.0
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_qyb0e")
+Magic = ExtResource("3_poc3o")
 
 [node name="Animation" parent="." index="1"]
 libraries = {
@@ -369,14 +388,9 @@ texture = ExtResource("2_i2au6")
 hframes = 7
 vframes = 16
 
-[node name="AttackRange" parent="Directional" index="1"]
-collision_layer = 8
-collision_mask = 4
-monitorable = false
-
-[node name="Hitbox" parent="Directional/AttackRange" index="0"]
+[node name="CollisionShape2D" parent="Directional/Hitbox" index="0"]
 position = Vector2(17, -1.5)
-shape = SubResource("RectangleShape2D_yxhp4")
+shape = SubResource("RectangleShape2D_wtv32")
 
 [node name="Hurtbox" parent="." index="4"]
 position = Vector2(0, 4)
