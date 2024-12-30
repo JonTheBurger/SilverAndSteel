@@ -175,7 +175,8 @@ size = Vector2(137, 54)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0h1ch"]
 size = Vector2(22, 53.5)
 
-[node name="Phantom" instance=ExtResource("1_uocur")]
+[node name="Phantom" groups=["enemies"] instance=ExtResource("1_uocur")]
+collision_layer = 4
 script = ExtResource("2_8powh")
 
 [node name="Thoughts" parent="." index="1" node_paths=PackedStringArray("AttackRange", "DetectionRadius") instance=ExtResource("4_6d68d")]
@@ -199,6 +200,7 @@ vframes = 8
 [node name="CollisionShape2D" parent="Directional/Hitbox" index="0"]
 position = Vector2(-74, 1.5)
 shape = SubResource("RectangleShape2D_ffgbf")
+disabled = true
 
 [node name="AttackRange" type="Area2D" parent="Directional" index="2"]
 collision_layer = 16
@@ -226,13 +228,11 @@ shape = SubResource("RectangleShape2D_0h1ch")
 [node name="StateMachine" parent="." index="6" node_paths=PackedStringArray("Initial", "Animator") instance=ExtResource("5_qptqm")]
 Initial = NodePath("AliveState")
 Animator = NodePath("../Animation")
-LogTransitions = true
 
 [node name="AliveState" parent="StateMachine" index="0" node_paths=PackedStringArray("Directional", "OnDie", "Initial") instance=ExtResource("6_x8uvo")]
 Directional = NodePath("../../Directional")
 OnDie = NodePath("../DieState")
 Initial = NodePath("IdleState")
-LogTransitions = true
 
 [node name="IdleState" parent="StateMachine/AliveState" index="0" node_paths=PackedStringArray("Thoughts", "OnPlayerInRange", "OnPlayerDetected") instance=ExtResource("7_n8brj")]
 Thoughts = NodePath("../../../Thoughts")

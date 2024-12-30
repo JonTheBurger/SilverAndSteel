@@ -269,6 +269,7 @@ size = Vector2(22, 28)
 size = Vector2(26, 9)
 
 [node name="Worm" groups=["enemies"] instance=ExtResource("1_ksfja")]
+collision_layer = 4
 script = ExtResource("2_c1nth")
 
 [node name="Animation" parent="." index="1"]
@@ -279,6 +280,9 @@ libraries = {
 [node name="Sprite" parent="Directional" index="0"]
 texture = ExtResource("2_id6xd")
 hframes = 9
+
+[node name="CollisionShape2D" parent="Directional/Hitbox" index="0"]
+disabled = true
 
 [node name="Hurtbox" parent="." index="4"]
 position = Vector2(9, -1)
