@@ -1,12 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://ctapt5tbpx27v"]
+[gd_scene load_steps=20 format=3 uid="uid://ctapt5tbpx27v"]
 
 [ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_ksfja"]
 [ext_resource type="Script" path="res://game/actors/enemies/worm/Worm.cs" id="2_c1nth"]
 [ext_resource type="Texture2D" uid="uid://bk8jp5dwud4om" path="res://assets/img/actors/worm/Idle.png" id="2_id6xd"]
+[ext_resource type="Script" path="res://game/actors/StatSheet.cs" id="3_5e20y"]
 [ext_resource type="Texture2D" uid="uid://rj1bh3cnyfja" path="res://assets/img/actors/worm/Walk.png" id="4_2xprl"]
 [ext_resource type="Texture2D" uid="uid://catwrvad3ckwg" path="res://assets/img/actors/worm/Attack.png" id="5_qybq7"]
 [ext_resource type="Texture2D" uid="uid://08rhh1dlmryn" path="res://assets/img/actors/worm/Death.png" id="6_ct428"]
 [ext_resource type="Texture2D" uid="uid://dntaxygc7t8id" path="res://assets/img/actors/worm/Hit.png" id="7_mwfem"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="9_odina"]
+
+[sub_resource type="Resource" id="Resource_sp6js"]
+resource_local_to_scene = true
+script = ExtResource("3_5e20y")
+Hp = 86
+MaxHp = 100
+Def = 0
+Str = 50
+Speed = 200.0
 
 [sub_resource type="Animation" id="Animation_udhgn"]
 length = 0.001
@@ -271,6 +282,7 @@ size = Vector2(26, 9)
 [node name="Worm" groups=["enemies"] instance=ExtResource("1_ksfja")]
 collision_layer = 4
 script = ExtResource("2_c1nth")
+StatSheet = SubResource("Resource_sp6js")
 
 [node name="Animation" parent="." index="1"]
 libraries = {
@@ -291,3 +303,8 @@ shape = SubResource("RectangleShape2D_hsffu")
 [node name="Hurtbox2" type="CollisionShape2D" parent="." index="5"]
 position = Vector2(-15, 8.5)
 shape = SubResource("RectangleShape2D_mv6og")
+
+[node name="BeehaveTree" type="Node" parent="." index="6" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("9_odina")
+blackboard = NodePath("@Node@19137")
+actor = NodePath("..")

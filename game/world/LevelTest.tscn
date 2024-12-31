@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dq5klh6qvw3sk"]
+[gd_scene load_steps=12 format=3 uid="uid://dq5klh6qvw3sk"]
 
 [ext_resource type="TileSet" uid="uid://ban2tauadeyj" path="res://game/world/OakHillsTileSet.tres" id="1_2hu42"]
 [ext_resource type="PackedScene" uid="uid://u4cpkxuelsvi" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
@@ -9,6 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://ctapt5tbpx27v" path="res://game/actors/enemies/worm/Worm.tscn" id="8_if4gn"]
 [ext_resource type="PackedScene" uid="uid://bptsbfehreeqj" path="res://game/actors/enemies/phantom/Phantom.tscn" id="9_f0wef"]
 [ext_resource type="PackedScene" uid="uid://cibfii2mexhaf" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="9_idejg"]
+[ext_resource type="Script" path="res://game/actors/StatSheet.cs" id="10_557o0"]
+
+[sub_resource type="Resource" id="Resource_708j6"]
+resource_local_to_scene = true
+script = ExtResource("10_557o0")
+Hp = 86
+MaxHp = 100
+Def = 0
+Str = 50
+Speed = 200.0
 
 [node name="LevelTest" type="TileMap"]
 tile_set = ExtResource("1_2hu42")
@@ -25,7 +35,7 @@ position = Vector2(0, -4)
 remote_path = NodePath("../Player/PlayerCamera")
 
 [node name="Player" parent="." instance=ExtResource("2_3t6rw")]
-position = Vector2(0, -8)
+position = Vector2(2, -5)
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position = Vector2(0, 4)
@@ -37,6 +47,7 @@ drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
 [node name="Hud" parent="Player/PlayerCamera" instance=ExtResource("4_xhsig")]
+visible = false
 
 [node name="Skeleton" parent="." instance=ExtResource("9_idejg")]
 position = Vector2(-142, -3)
@@ -46,3 +57,4 @@ position = Vector2(156, -12)
 
 [node name="Worm" parent="." instance=ExtResource("8_if4gn")]
 position = Vector2(-68, 18)
+StatSheet = SubResource("Resource_708j6")

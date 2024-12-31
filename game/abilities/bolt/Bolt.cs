@@ -24,7 +24,7 @@ public partial class Bolt : Node2D
     {
         var x = Position;
         x.X += (float)delta * Speed;
-        this.Position = x;
+        Position = x;
     }
 
     private void OnHit(Node2D node)

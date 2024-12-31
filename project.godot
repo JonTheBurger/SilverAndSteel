@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://game/util/Globals.tscn"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [display]
 
@@ -38,7 +40,7 @@ naming/scene_name_casing=1
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg")
 
 [file_customization]
 
@@ -127,7 +129,7 @@ magic={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="attacks"
 2d_physics/layer_5="sight"
-2d_physics/layer_6="collectables"
+2d_physics/layer_6="props"
 
 [physics]
 

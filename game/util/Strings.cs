@@ -29,7 +29,7 @@ enum CollisionLayerIndex
     Enemies = 3,
     Attacks = 4,
     Sight = 5,
-    Collectables = 6,
+    Props = 6,
 }
 
 [Flags]
@@ -41,5 +41,5 @@ enum CollisionLayers
     Enemies = 1 << 2,
     Attacks = 1 << 3,
     Sight = 1 << 4,
-    Collectables = 1 << 5,
+    Props = 1 << 5,
 }

@@ -10,6 +10,8 @@ public partial class Globals : Node
         s_globals = this;
     }
 
+    public static readonly object Sentinel = new();
+
     public static Globals Global => s_globals;
     private static Globals? s_globals;
 
