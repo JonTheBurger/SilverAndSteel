@@ -30,13 +30,15 @@ public partial class Skeleton : Actor
         DetectionRadius.BodyExited += OnDetectionRadiusExit;
 
         _fsm = GetNode<SkeletonHsm>("SkeletonHsm");
-        _fsm.Start(this);
+        // _fsm.Start(this);
+
+        GetNode("Blackboard").Call("set_value", "owner", this);
     }
 
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        _fsm.ProcessPhysics(delta);
+        // _fsm.ProcessPhysics(delta);
 
         if (_player != null)
         {

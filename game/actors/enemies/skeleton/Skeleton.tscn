@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=29 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
@@ -9,6 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://d0vecfi22v5wk" path="res://game/actors/enemies/skeleton/hsm/SkeletonWalkHsm.tscn" id="6_42844"]
 [ext_resource type="PackedScene" uid="uid://bce6syp2gdxvj" path="res://game/actors/enemies/skeleton/hsm/SkeletonDieHsm.tscn" id="7_2ylwn"]
 [ext_resource type="PackedScene" uid="uid://clvku8stiqtt2" path="res://game/actors/enemies/skeleton/hsm/SkeletonAttackHsm.tscn" id="8_rekg4"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_s1nss"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="11_42hsk"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="12_l71d0"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="12_yrm23"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="13_5josh"]
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/attack_action.gd" id="13_hdua3"]
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/follow_action.gd" id="15_kbdf8"]
+[ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/idle_action.gd" id="16_84igx"]
 
 [sub_resource type="Animation" id="Animation_stk5r"]
 length = 0.001
@@ -245,3 +253,40 @@ OnPlayerUndetected = NodePath("../SkeletonIdleHsm")
 OnAttackComplete = NodePath("../SkeletonIdleHsm")
 
 [node name="SkeletonDieHsm" parent="SkeletonHsm" index="1" instance=ExtResource("7_2ylwn")]
+
+[node name="SkeletonAi" type="Node" parent="." index="6" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("10_s1nss")
+actor_node_path = NodePath("..")
+blackboard = NodePath("../Blackboard")
+actor = NodePath("..")
+
+[node name="SelectorReactiveComposite" type="Node" parent="SkeletonAi" index="0"]
+script = ExtResource("11_42hsk")
+
+[node name="AttackSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="0"]
+script = ExtResource("12_yrm23")
+
+[node name="IsPlayerInRange" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence" index="0"]
+script = ExtResource("12_l71d0")
+left_operand = "owner.IsPlayerInRange"
+right_operand = "true"
+
+[node name="AttackAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence" index="1"]
+script = ExtResource("13_hdua3")
+
+[node name="FollowSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="1"]
+script = ExtResource("12_yrm23")
+
+[node name="IsPlayerDetected" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence" index="0"]
+script = ExtResource("12_l71d0")
+left_operand = "owner.IsPlayerDetected"
+right_operand = "true"
+
+[node name="FollowAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence" index="1"]
+script = ExtResource("15_kbdf8")
+
+[node name="IdleAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="2"]
+script = ExtResource("16_84igx")
+
+[node name="Blackboard" type="Node" parent="." index="7"]
+script = ExtResource("13_5josh")
