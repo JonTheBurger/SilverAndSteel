@@ -1,14 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=24 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
-[ext_resource type="PackedScene" uid="uid://bu4irbswh77cy" path="res://game/actors/Actor.tscn" id="1_tqvf1"]
-[ext_resource type="PackedScene" uid="uid://c6ju754qrjk3b" path="res://game/actors/enemies/skeleton/hsm/SkeletonHsm.tscn" id="4_u34or"]
-[ext_resource type="PackedScene" uid="uid://dgqrle54y0qq6" path="res://game/actors/enemies/skeleton/hsm/SkeletonAliveHsm.tscn" id="4_uv8ki"]
-[ext_resource type="PackedScene" uid="uid://cfd2f2vs3jh5p" path="res://game/actors/enemies/skeleton/hsm/SkeletonIdleHsm.tscn" id="5_omcgu"]
-[ext_resource type="PackedScene" uid="uid://d0vecfi22v5wk" path="res://game/actors/enemies/skeleton/hsm/SkeletonWalkHsm.tscn" id="6_42844"]
-[ext_resource type="PackedScene" uid="uid://bce6syp2gdxvj" path="res://game/actors/enemies/skeleton/hsm/SkeletonDieHsm.tscn" id="7_2ylwn"]
-[ext_resource type="PackedScene" uid="uid://clvku8stiqtt2" path="res://game/actors/enemies/skeleton/hsm/SkeletonAttackHsm.tscn" id="8_rekg4"]
+[ext_resource type="Script" path="res://game/components/Stats.cs" id="2_ydv5d"]
+[ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="3_lj05y"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_s1nss"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="11_42hsk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="12_l71d0"]
@@ -23,7 +18,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -35,7 +30,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -51,7 +46,7 @@ length = 1.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -63,7 +58,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Directional/Hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -75,7 +70,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Directional/Hitbox/CollisionShape2D:position")
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -91,7 +86,7 @@ length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -109,7 +104,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [false]
 }
 
@@ -119,7 +114,7 @@ length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -136,7 +131,7 @@ loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -153,7 +148,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Directional/Sprite:frame")
+tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -173,6 +168,10 @@ _data = {
 "walk": SubResource("Animation_qlbne")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kq3gj"]
+radius = 7.0
+height = 32.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fgwhn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_swjmh"]
@@ -181,112 +180,99 @@ size = Vector2(22, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3l4c5"]
 size = Vector2(100, 49)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kq3gj"]
-radius = 7.0
-height = 32.0
-
-[node name="Skeleton" groups=["enemies"] instance=ExtResource("1_tqvf1")]
+[node name="Skeleton" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
+collision_mask = 15
 script = ExtResource("1_qixor")
 
-[node name="Stats" parent="." index="0"]
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_ydv5d")
 Hp = 50
 MaxHp = 50
 Str = 15
 Speed = 20.0
 
-[node name="Animation" parent="." index="1"]
+[node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_tkyrk")
 }
 
-[node name="Sprite" parent="Directional" index="0"]
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kq3gj")
+
+[node name="Directional" parent="." node_paths=PackedStringArray("Nodes") instance=ExtResource("3_lj05y")]
+Nodes = [NodePath("../Sprite"), NodePath("../Hitbox"), NodePath("../AggressionRange"), NodePath("../DetectionRadius")]
+
+[node name="Sprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_il2jw")
 hframes = 13
 vframes = 5
 
-[node name="CollisionShape2D" parent="Directional/Hitbox" index="0"]
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 14
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(22, -8)
 shape = SubResource("RectangleShape2D_fgwhn")
 disabled = true
+debug_color = Color(1, 0, 0, 0.196078)
 
-[node name="AggressionRange" type="Area2D" parent="Directional" index="2"]
+[node name="AggressionRange" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 2
 monitorable = false
 
-[node name="AggressionZone" type="CollisionShape2D" parent="Directional/AggressionRange" index="0"]
+[node name="AggressionZone" type="CollisionShape2D" parent="AggressionRange"]
 position = Vector2(18, -8)
 shape = SubResource("RectangleShape2D_swjmh")
 debug_color = Color(0.784314, 0.392157, 0, 0.196078)
 
-[node name="DetectionRadius" type="Area2D" parent="Directional" index="3"]
+[node name="DetectionRadius" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 2
 monitorable = false
 
-[node name="DetectionZone" type="CollisionShape2D" parent="Directional/DetectionRadius" index="0"]
+[node name="DetectionZone" type="CollisionShape2D" parent="DetectionRadius"]
 position = Vector2(26, -8)
 shape = SubResource("RectangleShape2D_3l4c5")
 debug_color = Color(1, 1, 0, 0.117647)
 
-[node name="Hurtbox" parent="." index="4"]
-shape = SubResource("CapsuleShape2D_kq3gj")
-
-[node name="SkeletonHsm" parent="." index="5" node_paths=PackedStringArray("Initial", "Animator") instance=ExtResource("4_u34or")]
-Initial = NodePath("SkeletonAliveHsm")
-Animator = NodePath("../Animation")
-
-[node name="SkeletonAliveHsm" parent="SkeletonHsm" index="0" node_paths=PackedStringArray("OnDie", "Initial") instance=ExtResource("4_uv8ki")]
-OnDie = NodePath("../SkeletonDieHsm")
-Initial = NodePath("SkeletonIdleHsm")
-
-[node name="SkeletonIdleHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="0" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerDetected") instance=ExtResource("5_omcgu")]
-OnPlayerInRange = NodePath("../SkeletonAttackHsm")
-OnPlayerDetected = NodePath("../SkeletonWalkHsm")
-
-[node name="SkeletonWalkHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="1" node_paths=PackedStringArray("OnPlayerInRange", "OnPlayerUndetected") instance=ExtResource("6_42844")]
-OnPlayerInRange = NodePath("../SkeletonAttackHsm")
-OnPlayerUndetected = NodePath("../SkeletonIdleHsm")
-
-[node name="SkeletonAttackHsm" parent="SkeletonHsm/SkeletonAliveHsm" index="2" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("8_rekg4")]
-OnAttackComplete = NodePath("../SkeletonIdleHsm")
-
-[node name="SkeletonDieHsm" parent="SkeletonHsm" index="1" instance=ExtResource("7_2ylwn")]
-
-[node name="SkeletonAi" type="Node" parent="." index="6" node_paths=PackedStringArray("blackboard", "actor")]
+[node name="SkeletonAi" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_s1nss")
 actor_node_path = NodePath("..")
 blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 
-[node name="SelectorReactiveComposite" type="Node" parent="SkeletonAi" index="0"]
+[node name="SelectorReactiveComposite" type="Node" parent="SkeletonAi"]
 script = ExtResource("11_42hsk")
 
-[node name="AttackSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="0"]
+[node name="AttackSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite"]
 script = ExtResource("12_yrm23")
 
-[node name="IsPlayerInRange" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence" index="0"]
+[node name="IsPlayerInRange" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence"]
 script = ExtResource("12_l71d0")
 left_operand = "owner.IsPlayerInRange"
 right_operand = "true"
 
-[node name="AttackAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence" index="1"]
+[node name="AttackAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence"]
 script = ExtResource("13_hdua3")
 
-[node name="FollowSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="1"]
+[node name="FollowSequence" type="Node" parent="SkeletonAi/SelectorReactiveComposite"]
 script = ExtResource("12_yrm23")
 
-[node name="IsPlayerDetected" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence" index="0"]
+[node name="IsPlayerDetected" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence"]
 script = ExtResource("12_l71d0")
 left_operand = "owner.IsPlayerDetected"
 right_operand = "true"
 
-[node name="FollowAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence" index="1"]
+[node name="FollowAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence"]
 script = ExtResource("15_kbdf8")
 
-[node name="IdleAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite" index="2"]
+[node name="IdleAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite"]
 script = ExtResource("16_84igx")
 
-[node name="Blackboard" type="Node" parent="." index="7"]
+[node name="Blackboard" type="Node" parent="."]
 script = ExtResource("13_5josh")

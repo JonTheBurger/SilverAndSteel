@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://game/components/Thoughts.cs" id="1_buwdu"]
 
-[node name="Thoughts" type="Node"]
+[node name="Senses" type="Node"]
 script = ExtResource("1_buwdu")

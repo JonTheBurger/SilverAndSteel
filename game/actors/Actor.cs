@@ -30,8 +30,8 @@ public partial class Actor : CharacterBody2D
         _animation = GetNode<AnimationPlayer>("Animation");
         _audio = GetNode<AudioStreamPlayer2D>("Audio");
         _directional = GetNode<Directional>("Directional");
-        _sprite = GetNode<Sprite2D>("Directional/Sprite");
-        _hitbox = GetNode<Area2D>("Directional/Hitbox");
+        _sprite = GetNode<Sprite2D>("Sprite");
+        _hitbox = GetNode<Area2D>("Hitbox");
         _hurtbox = GetNode<CollisionShape2D>("Hurtbox");
 
         Hitbox.BodyEntered += OnAttackHit;

@@ -28,6 +28,11 @@ public partial class Hsm<T> : Node where T : Node
     public Hsm<T>? Current { get; set; }
     public Hsm<T>? Next { get; set; }
 
+    public Hsm()
+    {
+        // SetPhysicsProcess(false);
+    }
+
     public void Start(T target)
     {
         Init(target, Animator);
@@ -63,10 +68,12 @@ public partial class Hsm<T> : Node where T : Node
         OnEnter();
         Current = Initial;
         Current?.Enter();
+        // SetPhysicsProcess(true);
     }
 
     public void Exit()
     {
+        // SetPhysicsProcess(false);
         Current?.Exit();
         OnExit();
     }
@@ -89,7 +96,7 @@ public partial class Hsm<T> : Node where T : Node
         Current?.Process(delta);
     }
 
-    // TODO: Why is this not just _PhysicsProcess() again?
+    // TODO: Change to just _PhysicsProcess?
     public void ProcessPhysics(double delta)
     {
         OnProcessPhysics(delta);

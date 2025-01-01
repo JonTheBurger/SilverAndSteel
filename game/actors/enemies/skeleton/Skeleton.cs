@@ -13,7 +13,6 @@ public partial class Skeleton : Actor
     public bool IsPlayerDetected { get; private set; } = false;
 
     private Player? _player;
-    private SkeletonHsm? _fsm;
     private Area2D? _aggressionRange;
     private Area2D? _detectionRadius;
 
@@ -22,15 +21,12 @@ public partial class Skeleton : Actor
         base._Ready();
 
         _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
-        _aggressionRange = GetNode<Area2D>("Directional/AggressionRange");
-        _detectionRadius = GetNode<Area2D>("Directional/DetectionRadius");
+        _aggressionRange = GetNode<Area2D>("AggressionRange");
+        _detectionRadius = GetNode<Area2D>("DetectionRadius");
         AggressionRange.BodyEntered += OnAggressionRangeEnter;
         AggressionRange.BodyExited += OnAggressionRangeExit;
         DetectionRadius.BodyEntered += OnDetectionRadiusEnter;
         DetectionRadius.BodyExited += OnDetectionRadiusExit;
-
-        _fsm = GetNode<SkeletonHsm>("SkeletonHsm");
-        // _fsm.Start(this);
 
         GetNode("Blackboard").Call("set_value", "owner", this);
     }

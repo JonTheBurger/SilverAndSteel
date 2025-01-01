@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bu4irbswh77cy"]
 
 [ext_resource type="Script" path="res://game/actors/Actor.cs" id="1_7itvb"]
-[ext_resource type="Script" path="res://game/actors/Stats.cs" id="1_yjf3s"]
-[ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/actors/Directional.tscn" id="3_6e34t"]
+[ext_resource type="Script" path="res://game/components/Stats.cs" id="1_yjf3s"]
+[ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="3_6e34t"]
 
 [node name="Actor" type="CharacterBody2D"]
 collision_layer = 6
@@ -16,15 +16,16 @@ script = ExtResource("1_yjf3s")
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
-[node name="Directional" parent="." instance=ExtResource("3_6e34t")]
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
 
-[node name="Sprite" type="Sprite2D" parent="Directional"]
+[node name="Directional" parent="." node_paths=PackedStringArray("Nodes") instance=ExtResource("3_6e34t")]
+Nodes = [NodePath("../Sprite"), NodePath("../Hitbox")]
 
-[node name="Hitbox" type="Area2D" parent="Directional"]
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 14
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Directional/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 debug_color = Color(1, 0, 0, 0.196078)
-
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
