@@ -35,20 +35,19 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- [.] Stats as a Resource?
-- [ ] Use Directional Array to flip
-- [ ] Beehave https://docs.godotengine.org/en/stable/tutorials/scripting/cross_language_scripting.html#calling-c-methods-from-gdscript
-- [ ] Rename Thoughts -> Senses
-
-- [ ] Finish WalkState (CharacterBody2D.MoveTowards?)
-- [ ] Generalized WalkTowardsPlayer()?
-- [ ] General EntityDetector? Beliefs?
-- [ ] List of Area2D->State?
-- [ ] Move appropriate actor classes to components
-- [ ] Does using a derived CharacterState fix [Tool] not allowing setting via editor?
-
-- More Composition?
+- Make `HSM` just use `_PhysicsProcess`, `SetPhysicsProcess(false);`
+  - `HSM` Auto-lookup Initial
+  - `CastingState`: Player Ability Animation when cast
+- Coins + score
+- Start Screen
+- `AudioBus`?
 - `[OnReady]`? (https://github.com/godotengine/godot-proposals/issues/2425#issuecomment-1373034221) (https://github.com/dkaszews/GetNodeAutoProp) (https://github.com/FlooferLand/GodotGetNode)
+- **more** Abilities, Enemies
+  - `IAbility`?
+- Handle fall off cliff
+- Avoid fall off cliff AI
+* Rename `owner` to `actor` in AI
+* Extract AI, death logic, into Enemy
 
 ```
 Phantom

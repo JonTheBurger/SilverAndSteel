@@ -5,7 +5,7 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
     actor.Directional.CanTurn = false
     actor.Animation.play("attack")
 
-func after_run(actor: Node, blackboard: Blackboard) -> void:
+func after_run(actor: Node, _blackboard: Blackboard) -> void:
     actor.Directional.CanTurn = true
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:

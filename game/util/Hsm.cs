@@ -96,7 +96,6 @@ public partial class Hsm<T> : Node where T : Node
         Current?.Process(delta);
     }
 
-    // TODO: Change to just _PhysicsProcess?
     public void ProcessPhysics(double delta)
     {
         OnProcessPhysics(delta);
