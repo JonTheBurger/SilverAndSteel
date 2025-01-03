@@ -1,25 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://bu4irbswh77cy"]
+[gd_scene load_steps=5 format=3 uid="uid://bu4irbswh77cy"]
 
 [ext_resource type="Script" path="res://game/actors/Actor.cs" id="1_7itvb"]
 [ext_resource type="Script" path="res://game/components/Stats.cs" id="1_yjf3s"]
 [ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="3_6e34t"]
 
+[sub_resource type="Resource" id="Resource_cbpg1"]
+resource_local_to_scene = true
+script = ExtResource("1_yjf3s")
+Health = 100
+MaxHealth = 100
+Defense = 0
+Strength = 50
+Speed = 200.0
+
 [node name="Actor" type="CharacterBody2D"]
+position = Vector2(0, 9.93505e+08)
 collision_layer = 6
 collision_mask = 15
+velocity = Vector2(0, 987509)
 script = ExtResource("1_7itvb")
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("1_yjf3s")
+Stats = SubResource("Resource_cbpg1")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-
 [node name="Directional" parent="." node_paths=PackedStringArray("Nodes") instance=ExtResource("3_6e34t")]
-Nodes = [NodePath("../Sprite"), NodePath("../Hitbox")]
+Nodes = [NodePath("../Sprite"), NodePath("../Hitbox"), NodePath("../HurtBox")]
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
 
 [node name="Sprite" type="Sprite2D" parent="."]
 

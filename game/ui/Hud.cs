@@ -35,7 +35,7 @@ public partial class Hud : CanvasLayer
         Global.EventBus.HealthChanged += (actor, diff) => {
             if (actor is Player player)
             {
-                SetHealth(player.Stats.Hp, player.Stats.MaxHp);
+                SetHealth(player.Stats.Health, player.Stats.MaxHealth);
             }
         };
     }

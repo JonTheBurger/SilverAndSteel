@@ -1,8 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://ctapt5tbpx27v"]
+[gd_scene load_steps=18 format=3 uid="uid://ctapt5tbpx27v"]
 
 [ext_resource type="Script" path="res://game/actors/enemies/worm/Worm.cs" id="2_c1nth"]
 [ext_resource type="Texture2D" uid="uid://bk8jp5dwud4om" path="res://assets/img/actors/worm/Idle.png" id="2_id6xd"]
-[ext_resource type="Script" path="res://game/components/Stats.cs" id="3_82won"]
 [ext_resource type="Texture2D" uid="uid://rj1bh3cnyfja" path="res://assets/img/actors/worm/Walk.png" id="4_2xprl"]
 [ext_resource type="Texture2D" uid="uid://catwrvad3ckwg" path="res://assets/img/actors/worm/Attack.png" id="5_qybq7"]
 [ext_resource type="Texture2D" uid="uid://08rhh1dlmryn" path="res://assets/img/actors/worm/Death.png" id="6_ct428"]
@@ -277,9 +276,6 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource("2_c1nth")
 StatSheet = SubResource("Resource_sp6js")
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("3_82won")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {

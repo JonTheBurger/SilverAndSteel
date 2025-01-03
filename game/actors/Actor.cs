@@ -1,38 +1,40 @@
 using Godot;
 
-using static Game.Globals;
+using System;
 
 namespace Game;
 
 [GlobalClass]
 [Icon("res://assets/img/icons/actor.png")]
+[Tool]
 public partial class Actor : CharacterBody2D
 {
+#nullable disable
+    [Export]
+    public Stats Stats { get; set; }  // See _GetConfigurationWarnings
+
+    public AnimationPlayer Animation { get; private set; }
+    public AudioStreamPlayer2D Audio { get; private set; }
+    public Directional Directional { get; private set; }
+    public Sprite2D Sprite { get; private set; }
+    public Area2D Hitbox { get; private set; }
+#nullable enable
+
     [Export]
     public float Gravity { get; set; } = ProjectSettings.GetSetting("physics/2d/default_gravity").As<float>();
 
     [Export]
-    public PackedScene Magic { get; set; }
-
-    public Stats Stats => _stats!;
-    public AnimationPlayer Animation => _animation!;
-    public AudioStreamPlayer2D Audio => _audio!;
-    public Directional Directional => _directional!;
-    public Sprite2D Sprite => _sprite!;
-    public Area2D Hitbox => _hitbox!;
-    public CollisionShape2D Hurtbox => _hurtbox!;
+    public PackedScene[] Abilities { get; set; } = Array.Empty<PackedScene>();
 
     public override void _Ready()
     {
         base._Ready();
 
-        _stats = GetNode<Stats>("Stats");
-        _animation = GetNode<AnimationPlayer>("Animation");
-        _audio = GetNode<AudioStreamPlayer2D>("Audio");
-        _directional = GetNode<Directional>("Directional");
-        _sprite = GetNode<Sprite2D>("Sprite");
-        _hitbox = GetNode<Area2D>("Hitbox");
-        _hurtbox = GetNode<CollisionShape2D>("Hurtbox");
+        Animation = GetNode<AnimationPlayer>("Animation");
+        Audio = GetNode<AudioStreamPlayer2D>("Audio");
+        Directional = GetNode<Directional>("Directional");
+        Sprite = GetNode<Sprite2D>("Sprite");
+        Hitbox = GetNode<Area2D>("Hitbox");
 
         Hitbox.BodyEntered += OnAttackHit;
     }
@@ -53,6 +55,8 @@ public partial class Actor : CharacterBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+        base._PhysicsProcess(delta);
+
         Velocity = Velocity.WithY(Velocity.Y + (float)delta * Gravity);
         if (JustTurnedAround()) { Directional.Flip(); }
         MoveAndSlide();
@@ -63,47 +67,22 @@ public partial class Actor : CharacterBody2D
         if (node == this) { return; }
         if (node is Actor actor)
         {
-            int change = actor.Stats.ApplyDamage(Stats);
-            Global.EventBus.OnHpChanged(actor, change);
+            actor.Stats.ApplyDamage(Stats.Strength, actor);
         }
     }
 
     private bool JustTurnedAround()
     {
-        bool turnedAround = false;
-
-        if ((Velocity.X > 0) && (Directional.Facing == Direction.Left))
-        {
-            turnedAround = true;
-        }
-        else if ((Velocity.X < 0) && (Directional.Facing == Direction.Right))
-        {
-            turnedAround = true;
-        }
-
-        return turnedAround;
+        return ((Velocity.X > 0) && (Directional.Facing == Direction.Left)) ||
+               ((Velocity.X < 0) && (Directional.Facing == Direction.Right));
     }
 
-    protected override void Dispose(bool disposing)
+    public override string[] _GetConfigurationWarnings()
     {
-        base.Dispose(disposing);
-        if (disposing)
+        if (Stats is null)
         {
-            if (_stats != null) { _stats.Dispose(); _stats = null; }
-            if (_animation != null) { _animation.Dispose(); _animation = null; }
-            if (_audio != null) { _audio.Dispose(); _audio = null; }
-            if (_directional != null) { _directional.Dispose(); _directional = null; }
-            if (_sprite != null) { _sprite.Dispose(); _sprite = null; }
-            if (_hitbox != null) { _hitbox.Dispose(); _hitbox = null; }
-            if (_hurtbox != null) { _hurtbox.Dispose(); _hurtbox = null; }
+            return new string[] { "Stats must be provided for Actors. Please create a Stats resource for it!" };
         }
+        return Array.Empty<string>();
     }
-
-    private Stats? _stats;
-    private AnimationPlayer? _animation;
-    private AudioStreamPlayer2D? _audio;
-    private Directional? _directional;
-    private Sprite2D? _sprite;
-    private Area2D? _hitbox;
-    private CollisionShape2D? _hurtbox;
 }

@@ -9,6 +9,7 @@ public enum Direction
     Left = -1,
 };
 
+[GlobalClass]
 [Icon("res://assets/img/icons/flip.png")]
 public partial class Directional : Node2D
 {

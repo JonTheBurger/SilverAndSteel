@@ -48,6 +48,20 @@ public static class Extensions
         }
     }
 
+    public static IEnumerable<T> FindChildrenOf<T>(this Node self, string? pattern = null, bool includeInternal = false) where T : Node
+    {
+        int count = self.GetChildCount(includeInternal);
+        for (int i = 0; i < count; ++i)
+        {
+            Node child = self.GetChild(i);
+            T? match = MatchesPatternOrNull<T>(child, pattern);
+            if (match != null)
+            {
+                yield return match;
+            }
+        }
+    }
+
     private static T? MatchesPatternOrNull<T>(Node node, string? pattern = null) where T : Node
     {
         if (node is T match && ((pattern == null) || FileSystemName.MatchesSimpleExpression(pattern, node.GetPath().ToString())))

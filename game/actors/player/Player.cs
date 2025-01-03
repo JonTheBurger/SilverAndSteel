@@ -27,14 +27,8 @@ public partial class Player : Actor
 
         if (Input.IsActionJustPressed(Actions.MAGIC))
         {
-            var bolt = (Bolt)Magic.Instantiate();
-            bolt.Source = this;
-            bolt.GlobalPosition = GlobalPosition;
-            if (Directional.Facing == Direction.Left)
-            {
-                bolt.Scale = bolt.Scale.WithXFlipped();
-            }
-            GetParent().AddChild(bolt);
+            var bolt = (Bolt)Abilities[0].Instantiate();
+            bolt.CastFrom(this);
         }
     }
 

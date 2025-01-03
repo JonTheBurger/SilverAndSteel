@@ -1,8 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://u4cpkxuelsvi"]
+[gd_scene load_steps=33 format=3 uid="uid://u4cpkxuelsvi"]
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
+[ext_resource type="Script" path="res://game/components/Stats.cs" id="2_fjanj"]
 [ext_resource type="Texture2D" uid="uid://ok6g0gbc2571" path="res://assets/img/actors/adventurer.png" id="2_i2au6"]
-[ext_resource type="Script" path="res://game/components/Stats.cs" id="3_4sjfc"]
 [ext_resource type="PackedScene" uid="uid://b2gxdp40wo3ta" path="res://game/abilities/bolt/Bolt.tscn" id="3_poc3o"]
 [ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="5_xlfhe"]
 [ext_resource type="AudioStream" uid="uid://0gpc8ywiap4b" path="res://assets/sfx/SwordMiss01.mp3" id="6_pmygq"]
@@ -13,6 +13,15 @@
 [ext_resource type="PackedScene" uid="uid://og2bmmv3w61k" path="res://game/actors/player/hsm/PlayerIdleHsm.tscn" id="12_hk0li"]
 [ext_resource type="PackedScene" uid="uid://dq7h6m10l475y" path="res://game/actors/player/hsm/PlayerJumpHsm.tscn" id="13_pmo02"]
 [ext_resource type="PackedScene" uid="uid://cd5gkp038oa5t" path="res://game/actors/player/hsm/PlayerRunHsm.tscn" id="14_fr8gg"]
+
+[sub_resource type="Resource" id="Resource_n7e0k"]
+resource_local_to_scene = true
+script = ExtResource("2_fjanj")
+Health = 100
+MaxHealth = 100
+Defense = 0
+Strength = 50
+Speed = 200.0
 
 [sub_resource type="Animation" id="Animation_2f1t5"]
 length = 0.001
@@ -377,10 +386,8 @@ size = Vector2(12, 27)
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_qyb0e")
-Magic = ExtResource("3_poc3o")
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("3_4sjfc")
+Stats = SubResource("Resource_n7e0k")
+Abilities = [ExtResource("3_poc3o")]
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -389,10 +396,6 @@ libraries = {
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
 
-[node name="Hurtbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
-shape = SubResource("CapsuleShape2D_muoh4")
-
 [node name="Directional" parent="." node_paths=PackedStringArray("Nodes") instance=ExtResource("5_xlfhe")]
 Nodes = [NodePath("../Sprite"), NodePath("../Hitbox")]
 
@@ -400,6 +403,10 @@ Nodes = [NodePath("../Sprite"), NodePath("../Hitbox")]
 texture = ExtResource("2_i2au6")
 hframes = 7
 vframes = 16
+
+[node name="Hurtbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_muoh4")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 8

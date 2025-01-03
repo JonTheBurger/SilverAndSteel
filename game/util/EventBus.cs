@@ -22,7 +22,7 @@ public partial class EventBus : Node
 
     [Signal]  // TODO: Use Actor when implemented
     public delegate void HealthChangedEventHandler(CharacterBody2D actor, int diff);
-    public void OnHpChanged(CharacterBody2D actor, int diff)
+    public void OnHpChanged(Node2D actor, int diff)
     {
         if ((Log & Kinds.HpChanged) != 0)
         {

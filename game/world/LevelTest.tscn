@@ -1,12 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://dq5klh6qvw3sk"]
+[gd_scene load_steps=11 format=3 uid="uid://dq5klh6qvw3sk"]
 
 [ext_resource type="TileSet" uid="uid://ban2tauadeyj" path="res://game/world/OakHillsTileSet.tres" id="1_2hu42"]
 [ext_resource type="PackedScene" uid="uid://u4cpkxuelsvi" path="res://game/actors/player/Player.tscn" id="2_3t6rw"]
 [ext_resource type="AudioStream" uid="uid://1evlps4eb5ri" path="res://assets/music/TaigaDash.ogg" id="2_na1n6"]
 [ext_resource type="Script" path="res://game/ui/PlayerCamera.cs" id="3_yj7oe"]
 [ext_resource type="PackedScene" uid="uid://55br13uffhuv" path="res://game/ui/Hud.tscn" id="4_xhsig"]
+[ext_resource type="Script" path="res://game/components/Stats.cs" id="5_ampp7"]
 [ext_resource type="PackedScene" uid="uid://nb4ol8yhthry" path="res://game/ui/TextFloater.tscn" id="6_6cby0"]
 [ext_resource type="PackedScene" uid="uid://cibfii2mexhaf" path="res://game/actors/enemies/skeleton/Skeleton.tscn" id="9_idejg"]
+
+[sub_resource type="Resource" id="Resource_o08f8"]
+resource_local_to_scene = true
+script = ExtResource("5_ampp7")
+Health = 100
+MaxHealth = 100
+Defense = 0
+Strength = 50
+Speed = 200.0
+
+[sub_resource type="Resource" id="Resource_kk6j4"]
+resource_local_to_scene = true
+script = ExtResource("5_ampp7")
+Health = 50
+MaxHealth = 50
+Defense = 0
+Strength = 15
+Speed = 20.0
 
 [node name="LevelTest" type="TileMap"]
 tile_set = ExtResource("1_2hu42")
@@ -24,6 +43,7 @@ remote_path = NodePath("../Player/PlayerCamera")
 
 [node name="Player" parent="." instance=ExtResource("2_3t6rw")]
 position = Vector2(2, -5)
+Stats = SubResource("Resource_o08f8")
 
 [node name="PlayerCamera" type="Camera2D" parent="Player"]
 position = Vector2(-2, 1)
@@ -35,7 +55,7 @@ drag_horizontal_offset = 0.5
 script = ExtResource("3_yj7oe")
 
 [node name="Hud" parent="Player/PlayerCamera" instance=ExtResource("4_xhsig")]
-visible = false
 
 [node name="Skeleton" parent="." instance=ExtResource("9_idejg")]
-position = Vector2(-142, -3)
+position = Vector2(-140, -1)
+Stats = SubResource("Resource_kk6j4")

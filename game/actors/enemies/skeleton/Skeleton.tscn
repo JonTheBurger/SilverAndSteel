@@ -1,9 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://cibfii2mexhaf"]
+[gd_scene load_steps=26 format=3 uid="uid://cibfii2mexhaf"]
 
 [ext_resource type="Texture2D" uid="uid://bwjeybqiqj738" path="res://assets/img/actors/skeleton.png" id="1_il2jw"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/Skeleton.cs" id="1_qixor"]
-[ext_resource type="Script" path="res://game/components/Stats.cs" id="2_ydv5d"]
+[ext_resource type="Script" path="res://game/components/Stats.cs" id="2_rbrll"]
 [ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="3_lj05y"]
+[ext_resource type="Script" path="res://game/components/Senses.cs" id="3_qxreb"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_s1nss"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="11_42hsk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/blackboard_compare.gd" id="12_l71d0"]
@@ -12,6 +13,15 @@
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/attack_action.gd" id="13_hdua3"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/follow_action.gd" id="15_kbdf8"]
 [ext_resource type="Script" path="res://game/actors/enemies/skeleton/ai/idle_action.gd" id="16_84igx"]
+
+[sub_resource type="Resource" id="Resource_3r463"]
+resource_local_to_scene = true
+script = ExtResource("2_rbrll")
+Health = 50
+MaxHealth = 50
+Defense = 0
+Strength = 15
+Speed = 20.0
 
 [sub_resource type="Animation" id="Animation_stk5r"]
 length = 0.001
@@ -184,13 +194,7 @@ size = Vector2(100, 49)
 collision_layer = 4
 collision_mask = 15
 script = ExtResource("1_qixor")
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("2_ydv5d")
-Hp = 50
-MaxHp = 50
-Str = 15
-Speed = 20.0
+Stats = SubResource("Resource_3r463")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
@@ -201,6 +205,11 @@ libraries = {
 
 [node name="Hurtbox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kq3gj")
+
+[node name="Senses" type="Node2D" parent="." node_paths=PackedStringArray("DetectionRadius", "AttackRange")]
+script = ExtResource("3_qxreb")
+DetectionRadius = NodePath("../DetectionRadius")
+AttackRange = NodePath("../AggressionRange")
 
 [node name="Directional" parent="." node_paths=PackedStringArray("Nodes") instance=ExtResource("3_lj05y")]
 Nodes = [NodePath("../Sprite"), NodePath("../Hitbox"), NodePath("../AggressionRange"), NodePath("../DetectionRadius")]
@@ -254,7 +263,7 @@ script = ExtResource("12_yrm23")
 
 [node name="IsPlayerInRange" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence"]
 script = ExtResource("12_l71d0")
-left_operand = "owner.IsPlayerInRange"
+left_operand = "owner.Senses.IsPlayerInRange"
 right_operand = "true"
 
 [node name="AttackAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/AttackSequence"]
@@ -265,7 +274,7 @@ script = ExtResource("12_yrm23")
 
 [node name="IsPlayerDetected" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence"]
 script = ExtResource("12_l71d0")
-left_operand = "owner.IsPlayerDetected"
+left_operand = "owner.Senses.IsPlayerDetected"
 right_operand = "true"
 
 [node name="FollowAction" type="Node" parent="SkeletonAi/SelectorReactiveComposite/FollowSequence"]

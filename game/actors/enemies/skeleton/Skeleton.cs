@@ -1,32 +1,10 @@
-using Godot;
-using static Godot.Mathf;
-
-using System.Linq;
-
 namespace Game;
 
-public partial class Skeleton : Actor
+public partial class Skeleton : Enemy
 {
-    public Area2D AggressionRange => _aggressionRange!;
-    public Area2D DetectionRadius => _detectionRadius!;
-    public bool IsPlayerInRange { get; private set; } = false;
-    public bool IsPlayerDetected { get; private set; } = false;
-
-    private Player? _player;
-    private Area2D? _aggressionRange;
-    private Area2D? _detectionRadius;
-
     public override void _Ready()
     {
         base._Ready();
-
-        _player = GetTree().GetNodesInGroup(Groups.PLAYERS).OfType<Player>().FirstOrDefault();
-        _aggressionRange = GetNode<Area2D>("AggressionRange");
-        _detectionRadius = GetNode<Area2D>("DetectionRadius");
-        AggressionRange.BodyEntered += OnAggressionRangeEnter;
-        AggressionRange.BodyExited += OnAggressionRangeExit;
-        DetectionRadius.BodyEntered += OnDetectionRadiusEnter;
-        DetectionRadius.BodyExited += OnDetectionRadiusExit;
 
         GetNode("Blackboard").Call("set_value", "owner", this);
     }
@@ -34,75 +12,21 @@ public partial class Skeleton : Actor
     public override void _PhysicsProcess(double delta)
     {
         base._PhysicsProcess(delta);
-        // _fsm.ProcessPhysics(delta);
 
-        if (_player != null)
+        if (Player != null && !Directional.IsFacing(Player))
         {
-            if ((_player.GlobalPosition.X < GlobalPosition.X) && (Directional.Facing == Direction.Right))
-            {
-                Directional.Flip();
-            }
-            else if ((_player.GlobalPosition.X > GlobalPosition.X) && (Directional.Facing == Direction.Left))
-            {
-                Directional.Flip();
-            }
+            Directional.Flip();
         }
-    }
 
-    public void Stop()
-    {
-        Velocity = Velocity.WithX(0);
-    }
-
-    public void MoveTowardsPlayer()
-    {
-        if (_player == null) { return; }
-        if (!IsPlayerDetected) { return;}
-
-        var direction = (_player.GlobalPosition - GlobalPosition).Normalized();
-        var velocity = Velocity;
-        if (direction != Vector2.Zero)
+        if (Stats.Health <= 0 && !IsDying)
         {
-            velocity.X = direction.X * Stats.Speed;
+            IsDying = true;
+            // Disable AI
+            GetNode("SkeletonAi").Set("enabled", false);
+            // Disable hitbox
+            Hitbox.Monitoring = false;
+            // Die
+            Animation.Play("die");
         }
-        else
-        {
-            velocity.X = MoveToward(Velocity.X, 0, Stats.Speed);
-        }
-        Velocity = velocity;
-    }
-
-    public void OnHpChanged(int hp)
-    {
-        if (Stats.Hp <= 0)
-        {
-            QueueFree();
-        }
-    }
-
-    private void OnDetectionRadiusEnter(Node2D body)
-    {
-        if (body == _player)
-        {
-            IsPlayerDetected = true;
-        }
-    }
-
-    private void OnDetectionRadiusExit(Node2D body)
-    {
-        if (body == _player)
-        {
-            IsPlayerDetected = false;
-        }
-    }
-
-    private void OnAggressionRangeEnter(Node2D body)
-    {
-        if (body == _player) { IsPlayerInRange = true; }
-    }
-
-    private void OnAggressionRangeExit(Node2D body)
-    {
-        if (body == _player) { IsPlayerInRange = false; }
     }
 }
