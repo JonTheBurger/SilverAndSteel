@@ -2,6 +2,7 @@ using Godot;
 
 namespace Game;
 
+[GlobalClass]
 [Icon("res://assets/img/icons/state.png")]
 public partial class PlayerJumpHsm : Hsm<Player>
 {
@@ -10,6 +11,9 @@ public partial class PlayerJumpHsm : Hsm<Player>
 
     [Export]
     public Hsm<Player>? OnAttack { get; set; }
+
+    [Export]
+    public Hsm<Player>? OnCast { get; set; }
 
     [Export]
     public StringName Animation { get; set; } = "jump_air";
@@ -39,6 +43,10 @@ public partial class PlayerJumpHsm : Hsm<Player>
         if (Input.IsActionJustPressed(Actions.ATTACK))
         {
             Next = OnAttack;
+        }
+        else if (Input.IsActionJustPressed(Actions.MAGIC))
+        {
+            Next = OnCast;
         }
     }
 }

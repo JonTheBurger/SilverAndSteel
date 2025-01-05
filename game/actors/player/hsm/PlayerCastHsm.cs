@@ -4,13 +4,13 @@ namespace Game;
 
 [GlobalClass]
 [Icon("res://assets/img/icons/state.png")]
-public partial class PlayerAirAttackHsm : Hsm<Player>
+public partial class PlayerCastHsm : Hsm<Player>
 {
     [Export]
-    public StringName Animation { get; set; } = "air_attack";
+    public StringName Animation { get; set; } = "magic_attack";
 
     [Export]
-    public Hsm<Player>? OnAttackComplete { get; set; }
+    public Hsm<Player>? OnFall { get; set; }
 
     [Export]
     public Hsm<Player>? OnLand { get; set; }
@@ -18,7 +18,7 @@ public partial class PlayerAirAttackHsm : Hsm<Player>
     protected override void OnEnter()
     {
         Target.Animation?.Play(Animation);
-        Target.Velocity = Target.Velocity.WithX(0);
+        ((Bolt)Target.Abilities[0].Instantiate()).CastFrom(Target);
     }
 
     protected override void OnExit()
@@ -29,14 +29,17 @@ public partial class PlayerAirAttackHsm : Hsm<Player>
     protected override void OnProcessPhysics(double delta)
     {
         Target.Move();
-        if (Target.IsOnFloor())
-        {
-            Next = OnLand;
-        }
     }
 
     protected override void OnAnimationFinished(StringName animation)
     {
-        Next = OnAttackComplete;
+        if (Target.IsOnFloor())
+        {
+            Next = OnLand;
+        }
+        else
+        {
+            Next = OnFall;
+        }
     }
 }

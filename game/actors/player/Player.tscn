@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://u4cpkxuelsvi"]
+[gd_scene load_steps=34 format=3 uid="uid://u4cpkxuelsvi"]
 
 [ext_resource type="Script" path="res://game/actors/player/Player.cs" id="1_qyb0e"]
 [ext_resource type="Script" path="res://game/components/Stats.cs" id="2_fjanj"]
@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://b2gxdp40wo3ta" path="res://game/abilities/bolt/Bolt.tscn" id="3_poc3o"]
 [ext_resource type="PackedScene" uid="uid://r03ktdfagjwk" path="res://game/components/Directional.tscn" id="5_xlfhe"]
 [ext_resource type="AudioStream" uid="uid://0gpc8ywiap4b" path="res://assets/sfx/SwordMiss01.mp3" id="6_pmygq"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerIdleHsm.cs" id="8_ro7ry"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerAirAttackHsm.cs" id="9_b86gd"]
 [ext_resource type="PackedScene" uid="uid://8r68mbafuk3p" path="res://game/actors/player/hsm/PlayerHsm.tscn" id="10_npbup"]
-[ext_resource type="PackedScene" uid="uid://2yl4jmgb3d8s" path="res://game/actors/player/hsm/PlayerFallHsm.tscn" id="10_oactk"]
-[ext_resource type="PackedScene" uid="uid://duju4x8j8oyq2" path="res://game/actors/player/hsm/PlayerAirAttackHsm.tscn" id="11_mus2s"]
-[ext_resource type="PackedScene" uid="uid://bw638oxhkb606" path="res://game/actors/player/hsm/PlayerAttackHsm.tscn" id="11_srhj1"]
-[ext_resource type="PackedScene" uid="uid://og2bmmv3w61k" path="res://game/actors/player/hsm/PlayerIdleHsm.tscn" id="12_hk0li"]
-[ext_resource type="PackedScene" uid="uid://dq7h6m10l475y" path="res://game/actors/player/hsm/PlayerJumpHsm.tscn" id="13_pmo02"]
-[ext_resource type="PackedScene" uid="uid://cd5gkp038oa5t" path="res://game/actors/player/hsm/PlayerRunHsm.tscn" id="14_fr8gg"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerAttackHsm.cs" id="10_vxo58"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerFallHsm.cs" id="12_xwy48"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerJumpHsm.cs" id="13_l4gqy"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerCastHsm.cs" id="14_4lapo"]
+[ext_resource type="Script" path="res://game/actors/player/hsm/PlayerRunHsm.cs" id="14_ksbq7"]
 
 [sub_resource type="Resource" id="Resource_n7e0k"]
 resource_local_to_scene = true
@@ -422,28 +423,42 @@ debug_color = Color(1, 0, 0, 0.196078)
 Initial = NodePath("PlayerIdleHsm")
 Animator = NodePath("../Animation")
 
-[node name="PlayerAttackHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnAttackComplete") instance=ExtResource("11_srhj1")]
-OnAttackComplete = NodePath("../PlayerIdleHsm")
-
-[node name="PlayerIdleHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnJump", "OnFall") instance=ExtResource("12_hk0li")]
+[node name="PlayerIdleHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnMove", "OnAttack", "OnCast", "OnJump", "OnFall")]
+script = ExtResource("8_ro7ry")
 OnMove = NodePath("../PlayerRunHsm")
 OnAttack = NodePath("../PlayerAttackHsm")
+OnCast = NodePath("../PlayerCastHsm")
 OnJump = NodePath("../PlayerJumpHsm")
 OnFall = NodePath("../PlayerFallHsm")
 
-[node name="PlayerJumpHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnLand", "OnAttack") instance=ExtResource("13_pmo02")]
+[node name="PlayerAirAttackHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnAttackComplete", "OnLand")]
+script = ExtResource("9_b86gd")
+OnAttackComplete = NodePath("../PlayerFallHsm")
+OnLand = NodePath("../PlayerIdleHsm")
+
+[node name="PlayerAttackHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnAttackComplete")]
+script = ExtResource("10_vxo58")
+OnAttackComplete = NodePath("../PlayerIdleHsm")
+
+[node name="PlayerCastHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnFall", "OnLand")]
+script = ExtResource("14_4lapo")
+OnFall = NodePath("../PlayerFallHsm")
+OnLand = NodePath("../PlayerIdleHsm")
+
+[node name="PlayerFallHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnLand")]
+script = ExtResource("12_xwy48")
+OnLand = NodePath("../PlayerIdleHsm")
+
+[node name="PlayerJumpHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnLand", "OnAttack", "OnCast")]
+script = ExtResource("13_l4gqy")
 OnLand = NodePath("../PlayerIdleHsm")
 OnAttack = NodePath("../PlayerAirAttackHsm")
+OnCast = NodePath("../PlayerCastHsm")
 
-[node name="PlayerRunHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnStop", "OnJump", "OnAttack", "OnFall") instance=ExtResource("14_fr8gg")]
+[node name="PlayerRunHsm" type="Node" parent="PlayerHsm" node_paths=PackedStringArray("OnStop", "OnJump", "OnAttack", "OnCast", "OnFall")]
+script = ExtResource("14_ksbq7")
 OnStop = NodePath("../PlayerIdleHsm")
 OnJump = NodePath("../PlayerJumpHsm")
 OnAttack = NodePath("../PlayerAttackHsm")
+OnCast = NodePath("../PlayerCastHsm")
 OnFall = NodePath("../PlayerFallHsm")
-
-[node name="PlayerFallHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnLand") instance=ExtResource("10_oactk")]
-OnLand = NodePath("../PlayerIdleHsm")
-
-[node name="PlayerAirAttackHsm" parent="PlayerHsm" node_paths=PackedStringArray("OnAttackComplete", "OnLand") instance=ExtResource("11_mus2s")]
-OnAttackComplete = NodePath("../PlayerFallHsm")
-OnLand = NodePath("../PlayerIdleHsm")

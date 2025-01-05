@@ -66,12 +66,10 @@ Nodes = [NodePath("../AnimatedSprite2D"), NodePath("../Area2D")]
 scale = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_817qj")
 animation = &"attack"
-frame_progress = 0.49897
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 7
-monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(14, 0)

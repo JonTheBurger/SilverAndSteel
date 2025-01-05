@@ -35,18 +35,17 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- `HSM` Auto-lookup Initial
-  - `CastingState`: Player Ability Animation when cast
 - Coins + score
 - Start Screen
 - `AudioBus`?
 - `[OnReady]`? (https://github.com/godotengine/godot-proposals/issues/2425#issuecomment-1373034221) (https://github.com/dkaszews/GetNodeAutoProp) (https://github.com/FlooferLand/GodotGetNode)
 - **more** Abilities, Enemies
   - `IAbility`?
+- Cutscene?
 - Handle fall off cliff
 - Avoid fall off cliff AI
-* Rename `owner` to `actor` in AI
 * Extract AI, death logic, into Enemy
+* `HSM` Auto-lookup Initial
 
 ```
 Phantom
