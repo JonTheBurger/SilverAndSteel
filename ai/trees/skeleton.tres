@@ -1,0 +1,52 @@
+[gd_resource type="BehaviorTree" load_steps=16 format=3 uid="uid://b4tcob3ku73p4"]
+
+[ext_resource type="Script" path="res://ai/tasks/check_agent_nested_property.gd" id="1_7iqft"]
+[ext_resource type="Script" path="res://ai/tasks/attack_action.gd" id="1_iyh6r"]
+[ext_resource type="Script" path="res://ai/tasks/follow_action.gd" id="2_kwpgd"]
+[ext_resource type="Script" path="res://ai/tasks/idle_action.gd" id="3_8min8"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_5dvtd"]
+
+[sub_resource type="BBVariant" id="BBVariant_uedxd"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCondition" id="BTCondition_eyfo5"]
+script = ExtResource("1_7iqft")
+fields = Array[StringName]([&"Senses", &"IsPlayerInRange"])
+check_type = 0
+value = SubResource("BBVariant_uedxd")
+
+[sub_resource type="BTAction" id="BTAction_mp2kq"]
+script = ExtResource("1_iyh6r")
+
+[sub_resource type="BTSequence" id="BTSequence_eeos0"]
+custom_name = "Attack Sequence"
+children = [SubResource("BTCondition_eyfo5"), SubResource("BTAction_mp2kq")]
+
+[sub_resource type="BBVariant" id="BBVariant_ykhck"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_e5dsi"]
+property = &"IsPlayerDetected"
+value = SubResource("BBVariant_ykhck")
+
+[sub_resource type="BTAction" id="BTAction_8hrih"]
+script = ExtResource("2_kwpgd")
+
+[sub_resource type="BTSequence" id="BTSequence_yne7r"]
+custom_name = "Follow Sequence"
+children = [SubResource("BTCheckAgentProperty_e5dsi"), SubResource("BTAction_8hrih")]
+
+[sub_resource type="BTAction" id="BTAction_5ajg7"]
+script = ExtResource("3_8min8")
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_4if86"]
+children = [SubResource("BTSequence_eeos0"), SubResource("BTSequence_yne7r"), SubResource("BTAction_5ajg7")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_5dvtd")
+root_task = SubResource("BTDynamicSelector_4if86")

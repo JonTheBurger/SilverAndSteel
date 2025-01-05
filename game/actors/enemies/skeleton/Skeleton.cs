@@ -6,7 +6,7 @@ public partial class Skeleton : Enemy
     {
         base._Ready();
 
-        GetNode("Blackboard").Call("set_value", "owner", this);
+        // GetNode("Blackboard").Call("set_value", "owner", this);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -22,7 +22,7 @@ public partial class Skeleton : Enemy
         {
             IsDying = true;
             // Disable AI
-            GetNode("SkeletonAi").Set("enabled", false);
+            // GetNode("SkeletonAi").Set("enabled", false);
             // Disable hitbox
             Hitbox.Monitoring = false;
             // Die

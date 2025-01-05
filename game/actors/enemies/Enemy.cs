@@ -9,6 +9,8 @@ public partial class Enemy : Actor
     public Player? Player { get; private set; }
     public Senses? Senses { get; private set; }
     public bool IsDying { get; set; } = false;
+    public bool IsPlayerDetected => Senses?.IsPlayerDetected ?? false;
+    public bool IsPlayerInRange => Senses?.IsPlayerInRange ?? false;
 
     public override void _Ready()
     {

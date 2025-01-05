@@ -6,7 +6,6 @@ namespace Game;
 
 [GlobalClass]
 [Icon("res://assets/img/icons/actor.png")]
-[Tool]
 public partial class Actor : CharacterBody2D
 {
 #nullable disable

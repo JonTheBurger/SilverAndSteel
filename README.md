@@ -35,8 +35,7 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- Make `HSM` just use `_PhysicsProcess`, `SetPhysicsProcess(false);`
-  - `HSM` Auto-lookup Initial
+- `HSM` Auto-lookup Initial
   - `CastingState`: Player Ability Animation when cast
 - Coins + score
 - Start Screen
