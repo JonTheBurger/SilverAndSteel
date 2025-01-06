@@ -20,8 +20,9 @@ public partial class Hud : CanvasLayer
     /// </summary>
     private float _shaderParamMax = 1.0f;
 
-    public HBoxContainer HpBoxContainer => _hpBoxContainer ??= GetNode<HBoxContainer>("HpBoxContainer");
+    public HBoxContainer HpBoxContainer => _hpBoxContainer ??= GetNode<HBoxContainer>("MarginContainer/VBoxContainer/HpBoxContainer");
     private HBoxContainer? _hpBoxContainer;
+    public Label ScoreLabel { get; private set; }
 
     /// <summary>
     /// HP is represented as a series of discrete images, which we will call "hearts".
@@ -30,6 +31,8 @@ public partial class Hud : CanvasLayer
 
     public override void _Ready()
     {
+        ScoreLabel = GetNode<Label>("MarginContainer/VBoxContainer/HBoxContainer/ScoreLabel");
+
         _hearts.AddRange(HpBoxContainer.GetChildren().OfType<TextureRect>());
         _shaderParamMax = ((_hearts[0].Material as ShaderMaterial)?.GetShaderParameter(ShaderParameter).As<float>()) ?? _shaderParamMax;
         Global.EventBus.HealthChanged += (actor, diff) => {
@@ -38,6 +41,7 @@ public partial class Hud : CanvasLayer
                 SetHealth(player.Stats.Health, player.Stats.MaxHealth);
             }
         };
+        Global.EventBus.ScoreChanged += (player) => ScoreLabel.Text = player.Score.ToString();
     }
 
     public void SetHealth(int current, int max)

@@ -41,12 +41,12 @@ public partial class Stats : Resource
     [Export]
     public float Speed { get; set; } = 200.0f;
 
-    public int ApplyDamage(int damage, Node2D node)
+    public int ApplyDamage(int damage, Actor actor)
     {
         // Clamp to max of 0 - damage shouldn't heal if Defense is high
         int delta = -Max(damage - Defense, 0);
         Health += delta;
-        Global.EventBus.OnHpChanged(node, delta);
+        Global.EventBus.OnHpChanged(actor, delta);
         return delta;
     }
 }

@@ -6,6 +6,9 @@ public partial class Player : Actor
 {
     private PlayerHsm? _fsm;
 
+    [Export]
+    public int Score { get; set; } = 0;
+
     public override void _Ready()
     {
         base._Ready();

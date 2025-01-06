@@ -45,6 +45,7 @@ folder_colors={
 "res://game/": "pink",
 "res://game/actors/": "blue",
 "res://game/components/": "orange",
+"res://game/props/": "red",
 "res://game/ui/": "green",
 "res://game/util/": "purple",
 "res://game/world/": "yellow",

@@ -66,15 +66,18 @@ shader_parameter/saturation = 2.0
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_v21g1")
 
-[node name="HpBoxContainer" type="HBoxContainer" parent="."]
-material = SubResource("ShaderMaterial_3845m")
-anchors_preset = -1
-anchor_right = 0.5
-anchor_bottom = 0.258
-offset_bottom = -113.184
-grow_horizontal = 2
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 960.0
+offset_bottom = 189.0
 
-[node name="Hp0" type="TextureRect" parent="HpBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HpBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_3845m")
+layout_mode = 2
+
+[node name="Hp0" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_emgii")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -82,7 +85,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp1" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp1" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_ycsww")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -90,7 +93,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp2" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp2" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_a1fji")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -98,7 +101,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp3" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp3" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_f77em")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -106,7 +109,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp4" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp4" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_yt6sb")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -114,7 +117,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp5" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp5" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_lht61")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -122,7 +125,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp6" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp6" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_5258y")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -130,7 +133,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp7" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp7" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_eywd2")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -138,7 +141,7 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp8" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp8" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_dmj0w")
 layout_mode = 2
 size_flags_horizontal = 3
@@ -146,10 +149,24 @@ texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
 
-[node name="Hp9" type="TextureRect" parent="HpBoxContainer"]
+[node name="Hp9" type="TextureRect" parent="MarginContainer/VBoxContainer/HpBoxContainer"]
 material = SubResource("ShaderMaterial_1uwk3")
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("1_504kr")
 expand_mode = 4
 stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScoreHeader" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 62
+text = "Score:"
+
+[node name="ScoreLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 62
+text = "0
+"

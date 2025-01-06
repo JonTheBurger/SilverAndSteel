@@ -35,57 +35,16 @@ completes, simply open in the godot editor!
 
 # Check List
 
-- Coins + score
 - Start Screen
 - `AudioBus`?
-- `[OnReady]`? (https://github.com/godotengine/godot-proposals/issues/2425#issuecomment-1373034221) (https://github.com/dkaszews/GetNodeAutoProp) (https://github.com/FlooferLand/GodotGetNode)
 - **more** Abilities, Enemies
   - `IAbility`?
 - Cutscene?
+- `[OnReady]`? (https://github.com/godotengine/godot-proposals/issues/2425#issuecomment-1373034221) (https://github.com/dkaszews/GetNodeAutoProp) (https://github.com/FlooferLand/GodotGetNode)
 - Handle fall off cliff
 - Avoid fall off cliff AI
 * Extract AI, death logic, into Enemy
 * `HSM` Auto-lookup Initial
-
-```
-Phantom
-|-- Collider (CollisionShape2D)
-|-- Animator (AnimationPlayer)
-|-- Audio (AudioStreamPlayer2D)
-|-- Directional (:Node2D)
-|   |-- Sprite
-|   |-- DetectionRadius (:Area2D)
-|       |-- CollisionShape2D...
-|   |-- Hitbox (:Area2D)
-|       |-- CollisionShape2D...
-|-- Hp
-|-- Beliefs
-|-- Hsm
-```
-
-```mermaid
----
-title: Types
----
-classDiagram
-  class Hp {
-    +Damage(int amount)
-  }
-  class Hitbox {
-    +OnBodyEnter()
-    +OnBodyExit()
-  }
-  class DetectionRadius {
-    +OnBodyEnter()
-    +OnBodyExit()
-  }
-  class Beliefs {
-    +bool IsPlayerInRange
-  }
-  Hitbox o-- Hp : OnBodyEnter => Damage
-  DetectionRadius o-- Beliefs : OnBodyEnter => IsPlayerInRange = true
-  DetectionRadius o-- Beliefs : OnBodyExit => IsPlayerInRange = false
-```
 
 # Asset Credits
 
